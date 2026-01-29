@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
-import { Menu, X, Phone, Wind, MessageCircle, Calendar, Home, User } from 'lucide-react';
+import { Menu, X, Phone, Wind, Calendar, Home, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 interface NavigationProps {
@@ -182,7 +182,7 @@ export default function Navigation({ onNavigate }: NavigationProps) {
 
           {/* Menu Items */}
           <div className="flex-1 py-6 px-6 flex flex-col gap-2">
-            {navItems.map((item, index) => (
+            {navItems.map((item) => (
               <button
                 key={item.id}
                 onClick={() => handleNavClick(item.id)}

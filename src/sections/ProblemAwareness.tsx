@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { AlertTriangle, TrendingUp, Users, ExternalLink } from 'lucide-react';
+import { TrendingUp, Users, ExternalLink } from 'lucide-react';
 import LiveAQI from '@/components/LiveAQI';
 
 gsap.registerPlugin(ScrollTrigger);

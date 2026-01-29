@@ -142,7 +142,7 @@ export default function Services() {
             const Icon = service.icon;
             // Alternate between subtle blue and teal accents for professional variety without chaos
             const isAlternate = index % 2 === 1;
-            const accentColor = isAlternate ? 'var(--healing-green)' : 'var(--medical-blue)';
+
             const accentBg = isAlternate ? 'bg-healing-green/10' : 'bg-medical-blue/5';
             const accentText = isAlternate ? 'text-healing-green' : 'text-medical-blue';
 
