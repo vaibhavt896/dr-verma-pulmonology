@@ -1,0 +1,195 @@
+import { Wind, Phone, Mail, MapPin, Facebook, Instagram, Star, MessageCircle, Shield, Award } from 'lucide-react';
+
+interface FooterProps {
+  onNavigate: (sectionId: string) => void;
+}
+
+const quickLinks = [
+  { label: 'Home', id: 'home' },
+  { label: 'About Dr. Verma', id: 'about' },
+  { label: 'Our Services', id: 'services' },
+  { label: 'Patient Reviews', id: 'testimonials' },
+  { label: 'Clinic Location', id: 'clinic' },
+  { label: 'Contact Us', id: 'contact' },
+];
+
+const services = [
+  'Asthma Treatment',
+  'COPD Management',
+  'Allergy Testing',
+  'Sleep Disorders',
+  'Lung Cancer Screening',
+  'Pulmonary Function Tests',
+];
+
+export default function Footer({ onNavigate }: FooterProps) {
+  const handleNavClick = (id: string) => {
+    onNavigate(id);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  return (
+    <footer className="bg-medical-blue text-white">
+      {/* Main Footer */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-16">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+          {/* Brand Column */}
+          <div className="lg:col-span-1">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-12 h-12 bg-gradient-to-br from-healing-green to-[#00B4D8] rounded-xl flex items-center justify-center">
+                <Wind className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <h3 className="font-bold text-lg">Dr. A.K. Verma</h3>
+                <p className="text-white/60 text-sm">Pulmonologist</p>
+              </div>
+            </div>
+            <p className="text-white/70 leading-relaxed mb-6">
+              Kanpur's most trusted lung specialist with 15+ years of experience.
+              4.9★ rating from 479+ patients.
+            </p>
+
+            {/* Rating Badge */}
+            <div className="flex items-center gap-2 bg-white/10 rounded-xl px-4 py-3 mb-6">
+              <div className="flex">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                ))}
+              </div>
+              <span className="text-sm font-semibold">4.9 (479+ Reviews)</span>
+            </div>
+
+            {/* Social Links */}
+            <div className="flex gap-3">
+              <a
+                href="#"
+                aria-label="Facebook"
+                className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-healing-green transition-colors"
+              >
+                <Facebook className="w-5 h-5" />
+              </a>
+              <a
+                href="#"
+                aria-label="Instagram"
+                className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-healing-green transition-colors"
+              >
+                <Instagram className="w-5 h-5" />
+              </a>
+            </div>
+          </div>
+
+          {/* Quick Links */}
+          <div>
+            <h4 className="font-semibold text-lg mb-6">Quick Links</h4>
+            <ul className="space-y-3">
+              {quickLinks.map((link, index) => (
+                <li key={index}>
+                  <button
+                    onClick={() => handleNavClick(link.id)}
+                    className="text-white/70 hover:text-healing-green transition-colors"
+                  >
+                    {link.label}
+                  </button>
+                </li>
+              ))}
+            </ul>
+
+            {/* Book Appointment Button */}
+            <a
+              href="https://wa.me/917041055430"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-6 inline-flex items-center gap-2 bg-[#25D366] text-white px-5 py-3 rounded-full font-semibold text-sm hover:bg-[#1fb855] transition-all"
+            >
+              <MessageCircle className="w-4 h-4" />
+              Book on WhatsApp
+            </a>
+          </div>
+
+          {/* Services */}
+          <div>
+            <h4 className="font-semibold text-lg mb-6">Our Services</h4>
+            <ul className="space-y-3">
+              {services.map((service, index) => (
+                <li key={index}>
+                  <span className="text-white/70">{service}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Contact Info */}
+          <div>
+            <h4 className="font-semibold text-lg mb-6">Contact Us</h4>
+            <ul className="space-y-4">
+              <li className="flex items-start gap-3">
+                <MapPin className="w-5 h-5 text-healing-green flex-shrink-0 mt-0.5" />
+                <span className="text-white/70 text-sm">
+                  111A/34, Opposite Vikas Diagnostic<br />
+                  Near Motijheel Chauraha<br />
+                  Ashok Nagar, Kanpur - 208012
+                </span>
+              </li>
+              <li className="flex items-center gap-3">
+                <Phone className="w-5 h-5 text-healing-green flex-shrink-0" />
+                <a
+                  href="tel:+917041055430"
+                  className="text-white/70 hover:text-healing-green transition-colors"
+                >
+                  +91-7041055430
+                </a>
+              </li>
+              <li className="flex items-center gap-3">
+                <Mail className="w-5 h-5 text-healing-green flex-shrink-0" />
+                <a
+                  href="mailto:drakverma.clinic@gmail.com"
+                  className="text-white/70 hover:text-healing-green transition-colors text-sm"
+                >
+                  drakverma.clinic@gmail.com
+                </a>
+              </li>
+            </ul>
+
+            {/* Working Hours */}
+            <div className="mt-6 p-4 bg-white/5 rounded-xl">
+              <h5 className="font-medium mb-2 text-sm">Working Hours</h5>
+              <p className="text-white/70 text-sm">Mon - Sat: 9:00 AM - 7:00 PM</p>
+              <p className="text-white/50 text-sm">Sunday: Closed</p>
+            </div>
+
+            {/* Trust Badges */}
+            <div className="mt-6 flex flex-wrap gap-3">
+              <div className="flex items-center gap-2 bg-white/10 rounded-lg px-3 py-2">
+                <Shield className="w-4 h-4 text-healing-green" />
+                <span className="text-xs font-medium">MCI Registered</span>
+              </div>
+              <div className="flex items-center gap-2 bg-white/10 rounded-lg px-3 py-2">
+                <Award className="w-4 h-4 text-yellow-400" />
+                <span className="text-xs font-medium">Justdial Verified</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Bottom Bar */}
+      <div className="border-t border-white/10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <p className="text-white/50 text-sm text-center md:text-left">
+              © {new Date().getFullYear()} Dr. A.K. Verma Pulmonology Clinic. All rights reserved.
+            </p>
+            <div className="flex gap-6 text-sm">
+              <button className="text-white/50 hover:text-white transition-colors">
+                Privacy Policy
+              </button>
+              <button className="text-white/50 hover:text-white transition-colors">
+                Terms of Service
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}
