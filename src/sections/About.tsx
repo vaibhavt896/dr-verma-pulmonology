@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Award, Star, Users, ThumbsUp } from 'lucide-react';
+import { Award, Star, Users, ThumbsUp, Check } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -156,8 +156,7 @@ export default function About() {
             </span>
 
             <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold text-[#0A2540] mb-6 leading-tight">
-              Helping Kanpur Families{' '}
-              <span className="gradient-text">Breathe Better</span>
+              Restoring Your Health & <span className="gradient-text">Peace of Mind</span>
             </h2>
 
             {/* Single Powerful Quote */}
@@ -217,6 +216,65 @@ export default function About() {
               </div>
             );
           })}
+        </div>
+
+        {/* Clinic & Features Section - Merged from Clinic.tsx */}
+        <div className="mt-24 sm:mt-32 border-t border-gray-200 pt-16">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+            {/* Clinic Image */}
+            <div className="relative rounded-3xl overflow-hidden shadow-2xl h-[300px] sm:h-[400px]">
+              <img
+                src="/clinic-interior.jpg"
+                alt="Dr. A.K. Verma Clinic - Ashok Nagar, Kanpur"
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-medical-blue/90 via-medical-blue/20 to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 p-8 sm:p-10 text-white">
+                <h3 className="text-2xl sm:text-3xl font-bold mb-2">State-of-the-Art Facility</h3>
+                <p className="text-white/80">Equipped with advanced diagnostic tools for comprehensive care.</p>
+              </div>
+            </div>
+
+            {/* Facilities List */}
+            <div>
+              <span className="inline-block text-healing-green text-xs sm:text-sm font-semibold uppercase tracking-wider mb-3 sm:mb-4">
+                Why Choose Us
+              </span>
+              <h3 className="text-3xl sm:text-4xl font-bold text-[#0A2540] mb-6">
+                Complete Respiratory Care <br />
+                <span className="text-healing-green">Under One Roof</span>
+              </h3>
+
+              <div className="grid sm:grid-cols-2 gap-4">
+                {[
+                  'Pulmonary Function Test (PFT)',
+                  'Allergy Testing & Immunotherapy',
+                  'Digital X-Ray & ECG',
+                  'In-House Pharmacy',
+                  'Sleep Study Facilities',
+                  'Nebulization Therapy'
+                ].map((feature, idx) => (
+                  <div key={idx} className="flex items-center gap-3 p-3 bg-white rounded-xl shadow-sm border border-gray-100/50">
+                    <div className="w-8 h-8 rounded-full bg-healing-green/10 flex items-center justify-center flex-shrink-0">
+                      <Check className="w-4 h-4 text-healing-green" />
+                    </div>
+                    <span className="text-sm font-medium text-[#0A2540]">{feature}</span>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-8 pt-8 border-t border-gray-100 flex flex-col sm:flex-row gap-6">
+                <div>
+                  <div className="text-xs text-gray-500 uppercase tracking-wide mb-1">Location</div>
+                  <div className="font-semibold text-[#0A2540]">Ashok Nagar, Kanpur</div>
+                </div>
+                <div>
+                  <div className="text-xs text-gray-500 uppercase tracking-wide mb-1">Timing</div>
+                  <div className="font-semibold text-[#0A2540]">9:00 AM - 7:00 PM</div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

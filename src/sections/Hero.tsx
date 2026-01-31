@@ -191,7 +191,7 @@ export default function Hero({ onBookAppointment }: HeroProps) {
               </h1>
 
               {/* Subheadline - Storytelling */}
-              <p className="text-lg sm:text-xl text-[#4A5568] mb-10 leading-relaxed max-w-lg font-light backdrop-blur-sm bg-white/30 rounded-lg p-2 -ml-2">
+              <p className="text-lg sm:text-xl text-[#4A5568] mb-10 leading-relaxed max-w-lg font-light backdrop-blur-sm bg-white/30 rounded-lg p-2 sm:-ml-2">
                 Most respiratory struggles are silent. We help you find your voice and your breath again with <span className="font-semibold text-medical-blue">world-class pulmonology care</span>, right here in Ashok Nagar.
               </p>
 
@@ -203,7 +203,7 @@ export default function Hero({ onBookAppointment }: HeroProps) {
                   onMouseMove={handleMagneticMove}
                   onMouseLeave={handleMagneticLeave}
                   size="lg"
-                  className="group relative overflow-hidden bg-medical-blue hover:bg-[#0B1120] text-white rounded-2xl px-10 py-8 text-lg font-medium shadow-[0_20px_50px_rgba(2,6,23,0.15)] transition-all hover:shadow-[0_20px_50px_rgba(2,6,23,0.3)] will-change-transform"
+                  className="group relative overflow-hidden bg-medical-blue hover:bg-[#0B1120] text-white rounded-2xl px-6 sm:px-10 py-8 text-lg font-medium shadow-[0_20px_50px_rgba(2,6,23,0.15)] transition-all hover:shadow-[0_20px_50px_rgba(2,6,23,0.3)] will-change-transform"
                 >
                   <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
                   <span className="relative flex items-center gap-2">
@@ -216,7 +216,7 @@ export default function Hero({ onBookAppointment }: HeroProps) {
                   <Button
                     size="lg"
                     variant="outline"
-                    className="w-full sm:w-auto border border-medical-blue/10 bg-white/50 backdrop-blur-sm text-medical-blue hover:bg-white hover:text-medical-blue rounded-2xl px-10 py-8 text-lg font-medium transition-all hover:-translate-y-1 shadow-sm"
+                    className="w-full sm:w-auto border border-medical-blue/10 bg-white/50 backdrop-blur-sm text-medical-blue hover:bg-white hover:text-medical-blue rounded-2xl px-6 sm:px-10 py-8 text-lg font-medium transition-all hover:-translate-y-1 shadow-sm"
                   >
                     <Phone className="w-5 h-5 mr-2" />
                     +91-7041055430
@@ -262,56 +262,43 @@ export default function Hero({ onBookAppointment }: HeroProps) {
           </div>
 
           {/* Right Column - Immersive Image (Depth Layer: 2) */}
-          <div ref={imageRef} className="block relative z-0 mt-8 lg:mt-0">
+          <div ref={imageRef} className="absolute inset-0 z-0 h-full w-full lg:relative lg:h-auto lg:w-auto lg:block lg:mt-0 pointer-events-none lg:pointer-events-auto">
             {/* The "Blob" Morph Background - Behind Everything */}
             <div className="hero-blob absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[140%] h-[140%] bg-gradient-to-tr from-[#E0F2FE] via-[#F1F5F9] to-transparent rounded-full blur-[80px] opacity-70 animate-pulse-slow pointer-events-none" />
 
-            <div className="relative">
-              {/* Main Doctor Image - Cutout Style */}
-              {/* Using a mask to blend the left edge if it's not transparent, creating the 'bleed' effect */}
-              <div className="relative rounded-[3rem] overflow-visible">
-                {/* Note: In a real 'Cutout' scenario, we'd use a transparent PNG. Since we might have a JPG, 
-                     we'll use a gradient mask to blend it softly into the background for that 'immersive' feel. */}
-                <div className="relative rounded-[2.5rem] sm:rounded-[3rem] overflow-hidden shadow-[0_40px_100px_rgba(0,0,0,0.1)] border text-white/50 border-white/60 backdrop-blur-sm mx-auto max-w-[90%] lg:max-w-none">
-                  <img
-                    src="/dr-verma.jpg"
-                    alt="Dr. A.K. Verma"
-                    className="w-full h-auto object-cover relative z-10 scale-105"
-                    style={{
-                      aspectRatio: '3/4',
-                      maskImage: 'linear-gradient(to right, transparent 0%, black 15%, black 100%)',
-                      WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 15%, black 100%)'
-                    }}
-                  />
+            <div className="relative w-full h-full lg:h-auto">
+              {/* Main Doctor Image - Natural */}
+              <div className="relative w-full h-full lg:mx-auto lg:max-w-none">
+                <img
+                  src="/dr-verma-new.png"
+                  alt="Dr. A.K. Verma"
+                  className="w-full h-full object-cover object-[40%_center] opacity-50 lg:opacity-100 lg:h-auto lg:object-contain lg:object-center relative z-10"
+                />
 
-                  {/* Cinematic Overlay Gradient */}
-                  <div className="absolute bottom-0 inset-x-0 h-2/3 bg-gradient-to-t from-[#0A2540]/90 via-[#0A2540]/20 to-transparent z-20" />
-
-                  {/* Floating Info Cards - Glassmorphism */}
-                  <div className="absolute bottom-6 left-6 right-6 lg:bottom-8 lg:left-8 lg:right-8 z-30 flex justify-between items-end">
-                    <div className="hero-stat bg-white/10 backdrop-blur-xl border border-white/20 p-4 lg:p-5 rounded-2xl text-white shadow-2xl">
-                      <p className="text-[10px] lg:text-xs opacity-80 mb-1 uppercase tracking-wider">Specialization</p>
-                      <p className="font-display text-xl lg:text-2xl">Pulmonology</p>
-                    </div>
-                    <div className="hero-stat bg-healing-green text-white p-4 lg:p-5 rounded-[20px] lg:rounded-[24px] rounded-br-[12px] shadow-lg shadow-healing-green/40 hover:scale-105 transition-transform duration-300 cursor-default">
-                      <Wind className="w-6 h-6 lg:w-8 lg:h-8 mb-2 text-white" />
-                      <div className="h-1 w-6 lg:w-8 bg-white/30 rounded-full mb-2" />
-                      <p className="text-[10px] lg:text-xs font-bold uppercase tracking-wide">Breathe Easy</p>
-                    </div>
+                {/* Floating Info Cards - Glassmorphism - Hidden on mobile */}
+                <div className="hidden lg:flex absolute bottom-6 left-6 right-6 lg:bottom-8 lg:left-8 lg:right-8 z-30 justify-between items-end">
+                  <div className="hero-stat bg-white/10 backdrop-blur-xl border border-white/20 p-3 lg:p-4 rounded-xl text-medical-blue shadow-2xl">
+                    <p className="text-[9px] lg:text-[10px] opacity-80 mb-1 uppercase tracking-wider">Specialization</p>
+                    <p className="font-display text-lg lg:text-xl">Pulmonology</p>
+                  </div>
+                  <div className="hero-stat bg-healing-green text-white p-3 lg:p-4 rounded-[16px] lg:rounded-[20px] rounded-br-[10px] shadow-lg shadow-healing-green/40 hover:scale-105 transition-transform duration-300 cursor-default">
+                    <Wind className="w-5 h-5 lg:w-6 lg:h-6 mb-2 text-white" />
+                    <div className="h-0.5 w-5 lg:w-6 bg-white/30 rounded-full mb-2" />
+                    <p className="text-[9px] lg:text-[10px] font-bold uppercase tracking-wide">Breathe Easy</p>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* Parallax Floating Elements (Foreground) */}
-            <div className="absolute top-[10%] -right-4 lg:top-[15%] lg:-right-8 hero-stat z-40 hidden sm:block">
-              <div className="bg-white/90 backdrop-blur-md p-4 rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.15)] flex items-center gap-4 animate-float border border-white/50">
-                <div className="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center">
-                  <Users className="w-6 h-6 text-blue-600" />
+            <div className="absolute top-[10%] -right-4 lg:top-[15%] lg:-right-8 hero-stat z-40 hidden lg:block">
+              <div className="bg-white/90 backdrop-blur-md p-3 rounded-xl shadow-[0_20px_60px_rgba(0,0,0,0.15)] flex items-center gap-3 animate-float border border-white/50">
+                <div className="w-10 h-10 bg-blue-50 rounded-full flex items-center justify-center">
+                  <Users className="w-5 h-5 text-blue-600" />
                 </div>
                 <div>
-                  <p className="text-xs text-gray-500 font-medium uppercase tracking-wider">Happy Patients</p>
-                  <p className="font-bold text-medical-blue text-xl">10,000+</p>
+                  <p className="text-[10px] text-gray-500 font-medium uppercase tracking-wider">Happy Patients</p>
+                  <p className="font-bold text-medical-blue text-lg">10,000+</p>
                 </div>
               </div>
             </div>

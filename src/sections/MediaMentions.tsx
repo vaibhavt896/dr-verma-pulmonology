@@ -153,34 +153,6 @@ export default function MediaMentions() {
                     ))}
                 </div>
 
-                {/* Trust Banner */}
-                <div className="mt-16 bg-gradient-to-r from-medical-blue to-[#1a3a5c] rounded-3xl p-8 lg:p-12 text-center text-white">
-                    <h3 className="text-2xl lg:text-3xl font-bold mb-4">
-                        Trusted by Thousands of Patients in Kanpur
-                    </h3>
-                    <p className="text-white/80 max-w-2xl mx-auto mb-8">
-                        With over 15 years of experience and featured coverage in leading healthcare publications,
-                        Dr. A.K. Verma has established himself as Kanpur's most trusted pulmonologist.
-                    </p>
-                    <div className="flex flex-wrap justify-center gap-8">
-                        <div className="text-center">
-                            <div className="text-4xl font-bold text-healing-green">15+</div>
-                            <div className="text-sm text-white/70">Years Experience</div>
-                        </div>
-                        <div className="text-center">
-                            <div className="text-4xl font-bold text-healing-green">10K+</div>
-                            <div className="text-sm text-white/70">Patients Treated</div>
-                        </div>
-                        <div className="text-center">
-                            <div className="text-4xl font-bold text-healing-green">4.9★</div>
-                            <div className="text-sm text-white/70">Google Rating</div>
-                        </div>
-                        <div className="text-center">
-                            <div className="text-4xl font-bold text-healing-green">479+</div>
-                            <div className="text-sm text-white/70">Reviews</div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     );

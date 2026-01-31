@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { Menu, X, Phone, Wind, Calendar, Home, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -18,6 +19,7 @@ const navItems = [
 export default function Navigation({ onNavigate }: NavigationProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   // Refs for GSAP animations
   const mobileMenuRef = useRef<HTMLDivElement>(null);
@@ -75,7 +77,11 @@ export default function Navigation({ onNavigate }: NavigationProps) {
   }, [isMobileMenuOpen]);
 
   const handleNavClick = (id: string) => {
-    onNavigate(id);
+    if (id === 'assessment') {
+      navigate('/assessment');
+    } else {
+      onNavigate(id);
+    }
     setIsMobileMenuOpen(false);
   };
 
@@ -129,7 +135,7 @@ export default function Navigation({ onNavigate }: NavigationProps) {
 
 
               <Button
-                onClick={() => handleNavClick('breathing-assessment')}
+                onClick={() => handleNavClick('assessment')}
                 variant="ghost"
                 className={`hidden md:flex rounded-full bg-white text-medical-blue border-2 border-slate-100 shadow-[0_4px_12px_rgba(0,0,0,0.1)] hover:shadow-[0_8px_16px_rgba(0,0,0,0.15)] hover:-translate-y-0.5 active:scale-95 hover:border-medical-blue/20 transition-all duration-300 ${isScrolled ? 'px-4 py-2 h-9 text-xs font-bold' : 'px-6 h-11 text-sm font-bold'}`}
               >
@@ -191,6 +197,12 @@ export default function Navigation({ onNavigate }: NavigationProps) {
                 {item.label}
               </button>
             ))}
+            <button
+              onClick={() => handleNavClick('assessment')}
+              className="mobile-nav-item text-left text-lg font-medium text-medical-blue py-4 px-4 rounded-xl hover:bg-soft-grey hover:pl-6 transition-all duration-300 border-b border-gray-50 last:border-0"
+            >
+              Lung Check
+            </button>
           </div>
 
           {/* Menu Footer */}

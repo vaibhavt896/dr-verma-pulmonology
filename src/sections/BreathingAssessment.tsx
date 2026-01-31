@@ -269,9 +269,9 @@ export default function BreathingAssessment({ onComplete, onBookAppointment }: B
                     );
                     setIsAnimating(false);
                 } else {
-                    // Start AI Analysis Simulation
+                    // Start Calculation
                     setIsAnalyzing(true);
-                    setCurrentStep(6); // Move to analysis/results
+                    setCurrentStep(6); // Move to results
 
                     setTimeout(() => {
                         setIsAnalyzing(false);
@@ -282,7 +282,7 @@ export default function BreathingAssessment({ onComplete, onBookAppointment }: B
                             { scale: 1.05, opacity: 0 },
                             { scale: 1, opacity: 1, duration: 0.3, ease: 'back.out(1.5)' }
                         );
-                    }, 2500); // 2.5s analysis delay
+                    }, 800); // Short delay for UX calculates feel
                 }
             },
         });
@@ -369,14 +369,14 @@ export default function BreathingAssessment({ onComplete, onBookAppointment }: B
                 {/* Header */}
                 <div className="text-center mb-8 sm:mb-12">
                     <div className="breathing-title inline-flex items-center gap-2 bg-gradient-to-r from-healing-green/20 to-healing-green/10 rounded-full px-4 sm:px-5 py-2 sm:py-2.5 mb-4 sm:mb-6 border border-healing-green/20">
-                        <Sparkles className="w-4 h-4 text-healing-green" />
-                        <span className="text-xs sm:text-sm font-semibold text-medical-blue">AI-Powered Health Screening</span>
+                        <Activity className="w-4 h-4 text-healing-green" />
+                        <span className="text-xs sm:text-sm font-semibold text-medical-blue">Respiratory Health Check</span>
                     </div>
                     <h2 className="breathing-title text-2xl sm:text-3xl lg:text-5xl font-bold text-medical-blue mb-3 sm:mb-4 px-2">
-                        Breathing Health Check
+                        Breathing Assessment
                     </h2>
                     <p className="breathing-title text-base sm:text-lg text-[#4A5568] max-w-2xl mx-auto px-4">
-                        2-minute test based on tools used by pulmonologists worldwide
+                        A quick screening tool to evaluate your respiratory health status
                     </p>
                 </div>
 
@@ -536,16 +536,14 @@ export default function BreathingAssessment({ onComplete, onBookAppointment }: B
                             </div>
                         )}
 
-                        {/* Analyzing Screen - AI Simulation */}
+                        {/* Processing Screen */}
                         {currentStep === 6 && isAnalyzing && (
                             <div className="p-8 sm:p-12 text-center min-h-[400px] flex flex-col items-center justify-center">
-                                <div className="relative w-24 h-24 mb-6">
-                                    <div className="absolute inset-0 border-4 border-healing-green/20 rounded-full animate-ping" />
+                                <div className="relative w-16 h-16 mb-6">
+                                    <div className="absolute inset-0 border-4 border-healing-green/20 rounded-full" />
                                     <div className="absolute inset-0 border-4 border-t-healing-green rounded-full animate-spin" />
-                                    <Sparkles className="absolute inset-0 m-auto w-8 h-8 text-healing-green animate-pulse" />
                                 </div>
-                                <h3 className="text-xl font-bold text-medical-blue mb-2">Analyzing Your Breath Pattern...</h3>
-                                <p className="text-[#4A5568] animate-pulse">Comparing with 10,000+ clinical profiles</p>
+                                <h3 className="text-xl font-bold text-medical-blue mb-2">Calculating Score...</h3>
                             </div>
                         )}
 
@@ -614,29 +612,23 @@ export default function BreathingAssessment({ onComplete, onBookAppointment }: B
                                     <p className="text-sm sm:text-base text-[#4A5568] max-w-md mx-auto">{riskLevel.description}</p>
                                 </div>
 
-                                {/* AI Confidence Score */}
+                                {/* Assessment Reliability */}
                                 <div className="bg-gradient-to-r from-medical-blue/5 to-healing-green/5 rounded-xl sm:rounded-2xl p-4 sm:p-5 mb-4 sm:mb-6 border border-healing-green/20">
                                     <div className="flex items-center justify-between mb-3">
                                         <div className="flex items-center gap-2">
-                                            <Sparkles className="w-4 h-4 text-healing-green" />
-                                            <span className="text-xs sm:text-sm font-semibold text-medical-blue">AI Pattern Analysis</span>
+                                            <Activity className="w-4 h-4 text-healing-green" />
+                                            <span className="text-xs sm:text-sm font-semibold text-medical-blue">Clinical Assessment Model</span>
                                         </div>
-                                        <span className="text-xs bg-healing-green/10 text-healing-green px-2 py-0.5 rounded-full font-medium">
-                                            {totalScore <= 5 ? '94%' : totalScore <= 10 ? '91%' : totalScore <= 15 ? '89%' : '87%'} Confidence
-                                        </span>
                                     </div>
                                     <p className="text-xs text-[#4A5568] mb-3">
-                                        Based on analysis of {totalScore <= 10 ? '10,000+' : '15,000+'} similar patient profiles from clinical studies.
+                                        This score is calculated using standard respiratory health protocols including the mMRC Dyspnea Scale and CAT (COPD Assessment Test) principles.
                                     </p>
                                     <div className="flex flex-wrap gap-2">
                                         <span className="text-[10px] sm:text-xs bg-white/80 px-2 py-1 rounded-full text-[#4A5568] border border-gray-100">
-                                            📊 CAT Score Model
+                                            📊 Evidence-Based
                                         </span>
                                         <span className="text-[10px] sm:text-xs bg-white/80 px-2 py-1 rounded-full text-[#4A5568] border border-gray-100">
-                                            🩺 mMRC Dyspnea Scale
-                                        </span>
-                                        <span className="text-[10px] sm:text-xs bg-white/80 px-2 py-1 rounded-full text-[#4A5568] border border-gray-100">
-                                            ✓ WHO Guidelines
+                                            🩺 Standardized Scoring
                                         </span>
                                     </div>
                                 </div>
@@ -706,7 +698,7 @@ export default function BreathingAssessment({ onComplete, onBookAppointment }: B
                                         <span className="text-xs font-semibold uppercase tracking-wider">HIPAA Compliant & Secure</span>
                                     </div>
                                     <p className="text-xs text-[#4A5568] text-center leading-relaxed">
-                                        <strong>⚕️ Medical Disclaimer:</strong> This AI-powered assessment follows GOLD guidelines but does not replace professional medical diagnosis. Please consult Dr. A.K. Verma for accurate diagnosis. In case of emergency, visit the nearest hospital.
+                                        <strong>⚕️ Medical Disclaimer:</strong> This assessment is based on GOLD guidelines but does not replace professional medical diagnosis. Please consult Dr. A.K. Verma for accurate diagnosis. In case of emergency, visit the nearest hospital.
                                     </p>
                                 </div>
                             </div>
