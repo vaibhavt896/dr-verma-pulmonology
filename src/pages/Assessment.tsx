@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import Navigation from '../sections/Navigation';
 import Footer from '../sections/Footer';
 import BreathingAssessment from '../sections/BreathingAssessment';
