@@ -83,13 +83,13 @@ export default function Clinic() {
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-16">
-          <span className="clinic-title inline-block text-[#00D4AA] text-sm font-semibold uppercase tracking-wider mb-4">
+          <span className="clinic-title inline-block text-healing-green text-sm font-semibold uppercase tracking-wider mb-4">
             Visit Our Clinic
           </span>
-          <h2 className="clinic-title text-4xl lg:text-5xl font-bold text-[#0A2540] mb-6">
+          <h2 className="clinic-title text-4xl lg:text-5xl font-bold text-medical-blue mb-6">
             Modern Facility, Complete Care
           </h2>
-          <p className="clinic-title text-lg text-[#4A5568] max-w-2xl mx-auto">
+          <p className="clinic-title text-lg text-slate-600 max-w-2xl mx-auto">
             Our Ashok Nagar clinic is equipped with the latest diagnostic tools and
             treatment facilities for comprehensive respiratory care.
           </p>
@@ -101,7 +101,7 @@ export default function Clinic() {
             {/* Clinic Image */}
             <div className="clinic-image relative rounded-3xl overflow-hidden shadow-2xl">
               <img
-                src="/clinic-interior.jpg"
+                src="/clinic-interior.webp"
                 alt="Dr. A.K. Verma Clinic - Ashok Nagar, Kanpur"
                 className="w-full h-80 object-cover"
               />
@@ -137,7 +137,7 @@ export default function Clinic() {
                 <MapPin className="w-5 h-5 text-healing-green" />
                 Clinic Address
               </h3>
-              <p className="text-[#4A5568] leading-relaxed mb-4">
+              <p className="text-slate-600 leading-relaxed mb-4">
                 <strong className="text-medical-blue">111A/34, Dr. A.K. Verma Clinic</strong><br />
                 Opposite Vikas Diagnostic<br />
                 Near Motijheel Chauraha<br />
@@ -162,12 +162,12 @@ export default function Clinic() {
               </h3>
               <div className="space-y-2">
                 <div className="flex justify-between">
-                  <span className="text-[#4A5568]">Monday - Saturday</span>
+                  <span className="text-slate-600">Monday - Saturday</span>
                   <span className="font-semibold text-medical-blue">9:00 AM - 7:00 PM</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-[#4A5568]">Sunday</span>
-                  <span className="font-semibold text-[#FF6B6B]">Closed</span>
+                  <span className="text-slate-600">Sunday</span>
+                  <span className="font-semibold text-care-coral">Closed</span>
                 </div>
               </div>
               <div className="mt-4 p-3 bg-healing-green/10 rounded-xl">
@@ -189,14 +189,14 @@ export default function Clinic() {
               >
                 +91-7041055430
               </a>
-              <p className="text-sm text-[#4A5568] mt-2">
+              <p className="text-sm text-slate-600 mt-2">
                 Call or WhatsApp for appointments
               </p>
             </div>
 
             {/* Facilities */}
             <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
-              <h3 className="text-xl font-bold text-[#0A2540] mb-4">
+              <h3 className="text-xl font-bold text-medical-blue mb-4">
                 In-House Facilities
               </h3>
               <div className="facilities-list grid grid-cols-2 gap-3">
@@ -205,7 +205,7 @@ export default function Clinic() {
                   return (
                     <div
                       key={index}
-                      className="facility-item flex items-center gap-2 text-sm text-[#4A5568]"
+                      className="facility-item flex items-center gap-2 text-sm text-slate-600"
                     >
                       <Icon className="w-4 h-4 text-healing-green" />
                       {facility.label}

@@ -116,7 +116,7 @@ Phone: ${formData.phone || '[Please share]'}
   return (
     <div
       ref={sectionRef}
-      className="relative py-16 sm:py-24 lg:py-32 bg-gradient-to-b from-[#F6F9FC] to-white overflow-hidden"
+      className="relative py-16 sm:py-24 lg:py-32 bg-gradient-to-b from-soft-grey to-white overflow-hidden"
     >
       {/* Background */}
       <div className="absolute inset-0">
@@ -133,7 +133,7 @@ Phone: ${formData.phone || '[Please share]'}
           <h2 className="contact-title text-2xl sm:text-4xl lg:text-5xl font-bold text-medical-blue mb-4">
             Ready to Breathe Easier?
           </h2>
-          <p className="contact-title text-base sm:text-lg text-[#4A5568] max-w-xl mx-auto">
+          <p className="contact-title text-base sm:text-lg text-slate-600 max-w-xl mx-auto">
             Same-day appointments often available. Just tap WhatsApp or call.
           </p>
         </div>
@@ -171,8 +171,8 @@ Phone: ${formData.phone || '[Please share]'}
                 >
                   <Icon className="w-6 h-6 sm:w-7 sm:h-7" style={{ color: info.color }} />
                 </div>
-                <div className="text-xs sm:text-sm text-[#4A5568] mb-1">{info.title}</div>
-                <div className="font-semibold text-sm sm:text-base text-[#0A2540]">{info.content}</div>
+                <div className="text-xs sm:text-sm text-slate-600 mb-1">{info.title}</div>
+                <div className="font-semibold text-sm sm:text-base text-medical-blue">{info.content}</div>
               </div>
             );
 
@@ -197,10 +197,10 @@ Phone: ${formData.phone || '[Please share]'}
             onSubmit={handleSubmit}
             className="bg-white rounded-3xl p-6 sm:p-8 shadow-xl border border-gray-100"
           >
-            <h3 className="text-xl sm:text-2xl font-bold text-[#0A2540] mb-2 text-center">
+            <h3 className="text-xl sm:text-2xl font-bold text-medical-blue mb-2 text-center">
               Request a Callback
             </h3>
-            <p className="text-sm text-[#4A5568] mb-6 text-center">
+            <p className="text-sm text-slate-600 mb-6 text-center">
               We'll call you within 30 minutes
             </p>
 
@@ -210,12 +210,12 @@ Phone: ${formData.phone || '[Please share]'}
                   <CheckCircle className="w-8 h-8 text-healing-green" />
                 </div>
                 <h4 className="text-xl font-bold text-medical-blue mb-2">Request Received!</h4>
-                <p className="text-[#4A5568] text-sm">We'll call you shortly at {formData.phone}</p>
+                <p className="text-slate-600 text-sm">We'll call you shortly at {formData.phone}</p>
               </div>
             ) : (
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-[#4A5568] mb-2">
+                  <label className="block text-sm font-medium text-slate-600 mb-2">
                     <User className="w-4 h-4 inline mr-2" />
                     Your Name
                   </label>
@@ -230,7 +230,7 @@ Phone: ${formData.phone || '[Please share]'}
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-[#4A5568] mb-2">
+                  <label className="block text-sm font-medium text-slate-600 mb-2">
                     <Phone className="w-4 h-4 inline mr-2" />
                     Phone Number
                   </label>
@@ -248,7 +248,7 @@ Phone: ${formData.phone || '[Please share]'}
                 <Button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full py-4 rounded-xl text-lg font-semibold bg-healing-green hover:bg-[#00B894] text-white transition-all active:scale-[0.98]"
+                  className="w-full py-4 rounded-xl text-lg font-semibold bg-healing-green hover:bg-healing-green-dim text-white transition-all active:scale-[0.98]"
                 >
                   {isSubmitting ? (
                     <span className="flex items-center justify-center gap-2">

@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { TrendingUp, Users, ExternalLink } from 'lucide-react';
+import { TrendingUp, Users, ExternalLink, AlertTriangle, Wind, Phone } from 'lucide-react';
 import LiveAQI from '@/components/LiveAQI';
+import { MOTION, prefersReducedMotion } from '@/lib/motion';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -86,20 +87,22 @@ export default function ProblemAwareness() {
 
   // GSAP animations for other elements
   useEffect(() => {
+    if (prefersReducedMotion()) return;
+
     const ctx = gsap.context(() => {
       gsap.fromTo('.problem-title',
-        { opacity: 0, y: 40 },
-        { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out', scrollTrigger: { trigger: sectionRef.current, start: 'top 70%' } }
+        { opacity: 0, y: MOTION.rise },
+        { opacity: 1, y: 0, duration: MOTION.dur.base, ease: MOTION.ease, scrollTrigger: { trigger: sectionRef.current, start: 'top 75%' } }
       );
 
       gsap.fromTo('.problem-content',
-        { opacity: 0, y: 30 },
-        { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out', scrollTrigger: { trigger: sectionRef.current, start: 'top 60%' } }
+        { opacity: 0, y: MOTION.rise },
+        { opacity: 1, y: 0, duration: MOTION.dur.base, ease: MOTION.ease, scrollTrigger: { trigger: sectionRef.current, start: 'top 65%' } }
       );
 
       gsap.fromTo('.stat-card',
-        { opacity: 0, y: 40, scale: 0.95 },
-        { opacity: 1, y: 0, scale: 1, duration: 0.6, stagger: 0.15, ease: 'power3.out', scrollTrigger: { trigger: '.stats-container', start: 'top 75%' } }
+        { opacity: 0, y: MOTION.rise },
+        { opacity: 1, y: 0, duration: MOTION.dur.base, stagger: MOTION.stagger, ease: MOTION.ease, scrollTrigger: { trigger: '.stats-container', start: 'top 75%' } }
       );
     }, sectionRef);
 
@@ -109,20 +112,20 @@ export default function ProblemAwareness() {
   return (
     <div
       ref={sectionRef}
-      className="relative py-24 lg:py-32 bg-soft-grey overflow-hidden"
+      className="relative py-14 sm:py-24 lg:py-32 bg-soft-grey overflow-hidden"
     >
       {/* Background Elements */}
-      <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-[#FF6B6B]/5 to-transparent" />
+      <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-care-coral/5 to-transparent" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header - Professional & Educational */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-10 sm:mb-16">
           <div className="problem-title flex items-center gap-2 bg-blue-50 border border-blue-100 px-4 py-2 rounded-full mb-6 w-fit mx-auto">
             <TrendingUp className="w-4 h-4 text-medical-blue" />
             <span className="text-sm font-semibold text-medical-blue">Kanpur Health Awareness Initiative</span>
           </div>
 
-          <h2 className="problem-title text-4xl lg:text-5xl font-bold text-medical-blue mb-6 tracking-tight">
+          <h2 className="problem-title text-3xl sm:text-4xl lg:text-5xl font-bold text-medical-blue mb-6 tracking-tight">
             Is Local Air Quality Impacting <br className="hidden sm:block" />
             <span className="text-healing-green">Your Respiratory Health?</span>
           </h2>
@@ -137,7 +140,7 @@ export default function ProblemAwareness() {
             <div className="inline-flex flex-col sm:flex-row items-center gap-4 bg-white rounded-2xl p-4 shadow-sm border border-slate-100 mb-10">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center">
-                  <span className="text-xl">⚠️</span>
+                  <AlertTriangle className="w-5 h-5 text-orange-600" />
                 </div>
                 <div className="text-left">
                   <p className="text-xs text-slate-500 font-semibold uppercase tracking-wider">Daily Risk Factor</p>
@@ -174,13 +177,7 @@ export default function ProblemAwareness() {
             return (
               <div
                 key={index}
-                className="stat-card group relative overflow-hidden rounded-[2.5rem] p-8 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_50px_rgba(0,0,0,0.12)]"
-                style={{
-                  background: 'rgba(255, 255, 255, 0.9)', // More solid for separation
-                  backdropFilter: 'blur(20px)',
-                  border: '1px solid rgba(255, 255, 255, 1)',
-                  boxShadow: '0 4px 20px -5px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(0,0,0,0.02)' // Visible default shadow + subtle dark ring
-                }}
+                className="stat-card group relative overflow-hidden rounded-3xl p-6 sm:p-8 bg-white border border-slate-200 shadow-card transition-all duration-300 ease-smooth hover:-translate-y-1 hover:shadow-card-hover"
               >
                 {/* Premium Hover Gradient Glow - Stronger */}
                 <div
@@ -243,47 +240,34 @@ export default function ProblemAwareness() {
         </div>
 
         {/* Patient Story + CTA */}
-        <div className="problem-content bg-gradient-to-r from-[#0A2540] to-[#1a3a5c] rounded-3xl p-8 lg:p-12 text-white relative overflow-hidden">
+        <div className="problem-content bg-gradient-to-r from-medical-blue to-navy-soft rounded-3xl p-8 lg:p-12 text-white relative overflow-hidden">
           {/* Decorative Elements */}
           <div className="absolute top-0 right-0 w-64 h-64 bg-healing-green/10 rounded-full blur-3xl" />
-          <div className="absolute bottom-0 left-0 w-48 h-48 bg-[#FF6B6B]/10 rounded-full blur-3xl" />
+          <div className="absolute bottom-0 left-0 w-48 h-48 bg-care-coral/10 rounded-full blur-3xl" />
 
           <div className="relative z-10">
-            {/* Mini Patient Story */}
-            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 mb-8 max-w-2xl mx-auto border border-white/20">
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-healing-green rounded-full flex items-center justify-center text-white font-bold flex-shrink-0">
-                  SD
-                </div>
-                <div>
-                  <p className="text-white/90 italic mb-2">
-                    "मेरे बेटे को रात में खांसी आती थी। मुझे लगा बस सर्दी है। Dr. Verma ने बताया कि pollution से asthma हो गया था। अब 3 महीने से कोई attack नहीं आया।"
-                  </p>
-                  <p className="text-white/60 text-sm">— Sunita Devi, Kidwai Nagar</p>
-                </div>
-              </div>
-            </div>
-
             <h3 className="text-2xl lg:text-3xl font-bold mb-4 text-center">
-              Don't Wait Until It Gets Worse
+              Early Evaluation Makes Treatment Easier
             </h3>
             <p className="text-white/80 text-lg mb-8 max-w-2xl mx-auto text-center">
-              Persistent cough, wheezing, or breathlessness? These could be early warning signs.
-              <span className="text-healing-green font-semibold"> Early diagnosis prevents 90% of complications.</span>
+              A cough, wheeze or breathlessness lasting more than three weeks deserves proper evaluation.
+              <span className="text-teal-300 font-semibold"> The earlier the diagnosis, the simpler and more effective the treatment.</span>
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
                 href="#breathing-assessment"
-                className="inline-flex items-center justify-center bg-healing-green hover:bg-[#00B894] text-white rounded-full px-8 py-4 font-semibold transition-all hover:-translate-y-1 shadow-lg"
+                className="inline-flex items-center justify-center gap-2 bg-healing-green hover:bg-healing-green-dim text-white rounded-full px-8 py-4 font-semibold transition-all duration-300 ease-smooth hover:-translate-y-0.5 shadow-cta"
               >
-                🫁 Take Free Breathing Assessment
+                <Wind className="w-5 h-5" />
+                Take Free Breathing Assessment
               </a>
               <a
                 href="tel:+917041055430"
-                className="inline-flex items-center justify-center bg-white/10 hover:bg-white/20 text-white rounded-full px-8 py-4 font-semibold transition-all border border-white/30"
+                className="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white rounded-full px-8 py-4 font-semibold transition-all duration-300 ease-smooth border border-white/30"
               >
-                📞 Call Dr. Verma Now
+                <Phone className="w-5 h-5" />
+                Call the Clinic
               </a>
             </div>
           </div>

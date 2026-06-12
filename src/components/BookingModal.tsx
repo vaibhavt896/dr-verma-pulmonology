@@ -92,7 +92,7 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
             {/* Modal */}
             <div className="relative bg-white rounded-3xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden">
                 {/* Header */}
-                <div className="bg-gradient-to-r from-medical-blue to-[#1a3a5c] p-6 text-white">
+                <div className="bg-gradient-to-r from-medical-blue to-navy-soft p-6 text-white">
                     <div className="flex items-center justify-between">
                         <div>
                             <h2 className="text-2xl font-bold">Book Appointment</h2>
@@ -131,12 +131,12 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
                                 <CheckCircle className="w-10 h-10 text-healing-green" />
                             </div>
                             <h3 className="text-2xl font-bold text-medical-blue mb-2">Appointment Confirmed!</h3>
-                            <p className="text-[#4A5568] mb-6">
+                            <p className="text-slate-600 mb-6">
                                 Your appointment has been scheduled for<br />
                                 <strong>{selectedDate && formatDate(selectedDate)}</strong> at <strong>{selectedTime}</strong>
                             </p>
                             <div className="bg-soft-grey rounded-2xl p-6 max-w-sm mx-auto">
-                                <p className="text-sm text-[#4A5568] mb-4">
+                                <p className="text-sm text-slate-600 mb-4">
                                     A confirmation has been sent to your phone. Please arrive 10 minutes early.
                                 </p>
                                 <a
@@ -149,7 +149,7 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
                             </div>
                             <Button
                                 onClick={onClose}
-                                className="mt-8 bg-medical-blue hover:bg-[#1a3a5c] text-white px-8 py-3 rounded-full"
+                                className="mt-8 bg-medical-blue hover:bg-navy-soft text-white px-8 py-3 rounded-full"
                             >
                                 Done
                             </Button>
@@ -173,12 +173,12 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
                                                 <div className="flex items-center justify-between">
                                                     <div>
                                                         <div className="font-semibold text-medical-blue">{type.label}</div>
-                                                        <div className="text-sm text-[#4A5568] flex items-center gap-2 mt-1">
+                                                        <div className="text-sm text-slate-600 flex items-center gap-2 mt-1">
                                                             <Clock className="w-4 h-4" />
                                                             {type.duration}
                                                         </div>
                                                     </div>
-                                                    <div className="text-sm font-medium text-[#4A5568]">{type.description}</div>
+                                                    <div className="text-sm font-medium text-slate-600">{type.description}</div>
                                                 </div>
                                             </button>
                                         ))}
@@ -189,31 +189,31 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
                             {/* Step 2: Select Date & Time */}
                             {step === 2 && (
                                 <div>
-                                    <h3 className="text-lg font-semibold text-[#0A2540] mb-4">Select Date & Time</h3>
+                                    <h3 className="text-lg font-semibold text-medical-blue mb-4">Select Date & Time</h3>
 
                                     {/* Calendar */}
-                                    <div className="bg-[#F6F9FC] rounded-2xl p-4 mb-6">
+                                    <div className="bg-soft-grey rounded-2xl p-4 mb-6">
                                         <div className="flex items-center justify-between mb-4">
                                             <button
                                                 onClick={() => setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1))}
                                                 className="p-2 hover:bg-white rounded-lg transition-colors"
                                             >
-                                                <ChevronLeft className="w-5 h-5 text-[#4A5568]" />
+                                                <ChevronLeft className="w-5 h-5 text-slate-600" />
                                             </button>
-                                            <span className="font-semibold text-[#0A2540]">
+                                            <span className="font-semibold text-medical-blue">
                                                 {monthNames[currentMonth.getMonth()]} {currentMonth.getFullYear()}
                                             </span>
                                             <button
                                                 onClick={() => setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1))}
                                                 className="p-2 hover:bg-white rounded-lg transition-colors"
                                             >
-                                                <ChevronRight className="w-5 h-5 text-[#4A5568]" />
+                                                <ChevronRight className="w-5 h-5 text-slate-600" />
                                             </button>
                                         </div>
 
                                         <div className="grid grid-cols-7 gap-1 text-center">
                                             {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
-                                                <div key={day} className="text-xs font-medium text-[#4A5568] py-2">{day}</div>
+                                                <div key={day} className="text-xs font-medium text-slate-600 py-2">{day}</div>
                                             ))}
                                             {Array.from({ length: firstDay }).map((_, i) => (
                                                 <div key={`empty-${i}`} />
@@ -247,7 +247,7 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
                                     {/* Time Slots */}
                                     {selectedDate && (
                                         <div>
-                                            <h4 className="text-sm font-semibold text-[#0A2540] mb-3">Available Time Slots</h4>
+                                            <h4 className="text-sm font-semibold text-medical-blue mb-3">Available Time Slots</h4>
                                             <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
                                                 {timeSlots.map((time) => (
                                                     <button
@@ -255,7 +255,7 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
                                                         onClick={() => setSelectedTime(time)}
                                                         className={`p-3 text-sm rounded-xl border-2 transition-all ${selectedTime === time
                                                             ? 'border-healing-green bg-healing-green/5 text-healing-green font-semibold'
-                                                            : 'border-gray-200 text-[#4A5568] hover:border-gray-300'
+                                                            : 'border-gray-200 text-slate-600 hover:border-gray-300'
                                                             }`}
                                                     >
                                                         {time}
@@ -280,14 +280,14 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
                                                 <div className="font-semibold text-medical-blue">
                                                     {selectedDate && formatDate(selectedDate)}
                                                 </div>
-                                                <div className="text-sm text-[#4A5568]">{selectedTime} • {consultationTypes.find(t => t.id === selectedType)?.label}</div>
+                                                <div className="text-sm text-slate-600">{selectedTime} • {consultationTypes.find(t => t.id === selectedType)?.label}</div>
                                             </div>
                                         </div>
                                     </div>
 
                                     <div className="space-y-4">
                                         <div>
-                                            <label className="block text-sm font-medium text-[#4A5568] mb-2">
+                                            <label className="block text-sm font-medium text-slate-600 mb-2">
                                                 <User className="w-4 h-4 inline mr-2" />
                                                 Full Name *
                                             </label>
@@ -301,7 +301,7 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
                                         </div>
 
                                         <div>
-                                            <label className="block text-sm font-medium text-[#4A5568] mb-2">
+                                            <label className="block text-sm font-medium text-slate-600 mb-2">
                                                 <Phone className="w-4 h-4 inline mr-2" />
                                                 Phone Number *
                                             </label>
@@ -315,7 +315,7 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
                                         </div>
 
                                         <div>
-                                            <label className="block text-sm font-medium text-[#4A5568] mb-2">
+                                            <label className="block text-sm font-medium text-slate-600 mb-2">
                                                 <MessageSquare className="w-4 h-4 inline mr-2" />
                                                 Describe Your Symptoms (Optional)
                                             </label>
@@ -361,7 +361,7 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
                                     (step === 3 && (!formData.name || !formData.phone)) ||
                                     isSubmitting
                                 }
-                                className="bg-healing-green hover:bg-[#00B894] text-white px-8 py-3 rounded-full font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="bg-healing-green hover:bg-healing-green-dim text-white px-8 py-3 rounded-full font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
                             >
                                 {isSubmitting ? (
                                     <span className="flex items-center gap-2">

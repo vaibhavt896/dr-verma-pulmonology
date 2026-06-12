@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { MessageCircle, X, Send, Phone, ChevronRight } from 'lucide-react';
+import { MessageCircle, X, Send, ChevronRight } from 'lucide-react';
 
 interface ContextMessage {
     score?: number;
@@ -15,7 +15,7 @@ interface WhatsAppButtonProps {
 // Condition-specific messages based on real patient concerns
 const symptomBasedMessages = [
     {
-        category: '🫁 Breathing Issues',
+        category: 'Breathing Issues',
         messages: [
             'I have persistent cough for more than 3 weeks',
             'I feel breathless while climbing stairs',
@@ -23,7 +23,7 @@ const symptomBasedMessages = [
         ],
     },
     {
-        category: '🏥 Specific Conditions',
+        category: 'Specific Conditions',
         messages: [
             'I was diagnosed with COPD and need follow-up',
             'I need consultation for asthma management',
@@ -31,7 +31,7 @@ const symptomBasedMessages = [
         ],
     },
     {
-        category: '📋 General',
+        category: 'General',
         messages: [
             'I want to book a consultation appointment',
             'What are your clinic timings?',
@@ -90,20 +90,22 @@ export default function WhatsAppButton({ contextMessage }: WhatsAppButtonProps) 
     const [isOpen, setIsOpen] = useState(false);
     const [isVisible, setIsVisible] = useState(false);
     const [message, setMessage] = useState('');
-    const [showTooltip, setShowTooltip] = useState(true);
+    const [showTooltip, setShowTooltip] = useState(false);
 
     const phoneNumber = '917041055430';
 
     useEffect(() => {
-        // Show button after 2 seconds
-        const timer = setTimeout(() => setIsVisible(true), 2000);
+        // Let the visitor read the hero before any chrome appears
+        const timer = setTimeout(() => setIsVisible(true), 4000);
 
-        // Hide tooltip after 5 seconds
-        const tooltipTimer = setTimeout(() => setShowTooltip(false), 7000);
+        // Tooltip appears once, briefly, well after page load
+        const tooltipShowTimer = setTimeout(() => setShowTooltip(true), 12000);
+        const tooltipHideTimer = setTimeout(() => setShowTooltip(false), 20000);
 
         return () => {
             clearTimeout(timer);
-            clearTimeout(tooltipTimer);
+            clearTimeout(tooltipShowTimer);
+            clearTimeout(tooltipHideTimer);
         };
     }, []);
 
@@ -137,22 +139,23 @@ Please let me know the next available appointment slot.
 
     return (
         <>
-            {/* Chat Widget */}
+            {/* Chat Widget — clears the mobile bottom nav, normal offset on desktop */}
             {isOpen && (
-                <div className="fixed bottom-24 right-4 z-50 w-[340px] sm:w-96 animate-in slide-in-from-bottom-4 fade-in duration-300">
+                <div className="fixed bottom-[160px] md:bottom-24 right-4 z-50 w-[340px] sm:w-96 animate-in slide-in-from-bottom-4 fade-in duration-300">
                     <div className="bg-white rounded-2xl shadow-2xl overflow-hidden border border-gray-100">
                         {/* Header */}
                         <div className="bg-[#25D366] p-4 text-white">
                             <div className="flex items-center justify-between">
                                 <div className="flex items-center gap-3">
-                                    <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-white/30 bg-white">
+                                    <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-white/30 bg-white shadow-sm">
                                         <img
-                                            src="/images/dr-verma-professional.jpg"
+                                            src="/images/dr-verma-avatar.webp"
                                             alt="Dr. A.K. Verma"
+                                            width={192}
+                                            height={192}
                                             className="w-full h-full object-cover object-top"
-                                            onError={(e) => {
-                                                e.currentTarget.src = '/doctor-portrait.jpg';
-                                            }}
+                                            loading="lazy"
+                                            decoding="async"
                                         />
                                     </div>
                                     <div>
@@ -233,45 +236,28 @@ Please let me know the next available appointment slot.
                 </div>
             )}
 
-            {/* Floating Buttons */}
-            <div className="fixed bottom-4 right-4 z-50 flex flex-col items-end gap-3">
-                {/* Tooltip */}
+            {/* Floating Button — raised above the mobile bottom nav so it never covers it */}
+            <div className="fixed bottom-[88px] md:bottom-4 right-3 md:right-4 z-50 flex flex-col items-end gap-3">
+                {/* Tooltip — desktop only; on mobile it overlapped content */}
                 {showTooltip && !isOpen && (
-                    <div className="bg-white rounded-xl shadow-lg px-4 py-3 text-sm text-gray-700 animate-bounce max-w-[200px]">
-                        <p className="font-medium">Need help? 💬</p>
+                    <div className="hidden md:block bg-white rounded-xl shadow-card px-4 py-3 text-sm text-gray-700 max-w-[200px] animate-in fade-in slide-in-from-bottom-2 duration-500">
+                        <p className="font-medium">Need help?</p>
                         <p className="text-xs text-gray-500 mt-1">Chat with Dr. Verma's clinic on WhatsApp</p>
-                        <div className="absolute -bottom-2 right-6 w-4 h-4 bg-white rotate-45 shadow-lg" />
                     </div>
                 )}
 
-                {/* Button Container */}
-                <div className="flex flex-col gap-3">
-                    {/* Call Button - Mobile Only */}
-                    <a
-                        href="tel:+917041055430"
-                        className="md:hidden w-14 h-14 rounded-full bg-[#0A2540] text-white flex items-center justify-center shadow-lg hover:shadow-xl transition-all hover:scale-110 active:scale-95"
-                    >
-                        <Phone className="w-6 h-6" />
-                    </a>
-
-                    {/* WhatsApp Button */}
-                    <button
-                        onClick={() => setIsOpen(!isOpen)}
-                        className={`w-14 h-14 rounded-full bg-[#25D366] text-white flex items-center justify-center shadow-lg hover:shadow-xl transition-all hover:scale-110 active:scale-95 relative`}
-                    >
-                        {isOpen ? (
-                            <X className="w-6 h-6" />
-                        ) : (
-                            <>
-                                <MessageCircle className="w-6 h-6" />
-                                {/* Notification Dot */}
-                                <span className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full flex items-center justify-center text-[10px] font-bold">
-                                    1
-                                </span>
-                            </>
-                        )}
-                    </button>
-                </div>
+                {/* WhatsApp Button */}
+                <button
+                    onClick={() => setIsOpen(!isOpen)}
+                    aria-label={isOpen ? 'Close WhatsApp chat' : 'Open WhatsApp chat'}
+                    className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-[#25D366] text-white flex items-center justify-center shadow-lg hover:shadow-xl transition-all hover:scale-110 active:scale-95"
+                >
+                    {isOpen ? (
+                        <X className="w-6 h-6" />
+                    ) : (
+                        <MessageCircle className="w-6 h-6" />
+                    )}
+                </button>
             </div>
         </>
     );

@@ -46,7 +46,7 @@ const faqs = [
     question: 'Does Dr. Verma treat children?',
     questionHindi: 'क्या बच्चों का इलाज होता है?',
     answer: 'Yes, Dr. Verma treats patients of all ages, including children with respiratory issues like asthma, allergies, and recurrent chest infections. His gentle approach makes children feel comfortable during examinations.',
-    answerHindi: 'हाँ, बच्चों का भी इलाज होता है — दमा, एलर्जी, बार-बार होने वाले छाती के इंफेक्शन सब।',
+    answerHindi: 'हाँ, बच्चों का भी इलाज होता है: दमा, एलर्जी, बार-बार होने वाले छाती के इंफेक्शन सब।',
   },
   {
     question: 'What are the clinic timings?',
@@ -130,7 +130,7 @@ export default function FAQ() {
   return (
     <div
       ref={sectionRef}
-      className="relative py-24 lg:py-32 bg-soft-grey overflow-hidden"
+      className="relative py-14 sm:py-24 lg:py-32 bg-soft-grey overflow-hidden"
     >
       {/* JSON-LD FAQ Schema for Google */}
       <script
@@ -141,10 +141,10 @@ export default function FAQ() {
       <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12 sm:mb-16">
-          <span className="faq-title inline-block text-[#00D4AA] text-xs sm:text-sm font-semibold uppercase tracking-wider mb-3 sm:mb-4">
+          <span className="faq-title inline-block text-healing-green text-xs sm:text-sm font-semibold uppercase tracking-wider mb-3 sm:mb-4">
             FAQ | अक्सर पूछे जाने वाले सवाल
           </span>
-          <h2 className="faq-title text-2xl sm:text-4xl lg:text-5xl font-bold text-[#0A2540] mb-4 sm:mb-6">
+          <h2 className="faq-title text-2xl sm:text-4xl lg:text-5xl font-bold text-medical-blue mb-4 sm:mb-6">
             Frequently Asked Questions
           </h2>
         </div>
@@ -168,19 +168,19 @@ export default function FAQ() {
                     <span className={`font-semibold text-base sm:text-lg block ${isOpen ? 'text-healing-green' : 'text-medical-blue'}`}>
                       {faq.question}
                     </span>
-                    <span className="text-xs sm:text-sm text-[#4A5568]/70 block mt-1">
+                    <span className="text-xs sm:text-sm text-slate-600/70 block mt-1">
                       {faq.questionHindi}
                     </span>
                   </div>
                   <ChevronDown
-                    className={`w-5 h-5 flex-shrink-0 transition-transform duration-300 ${isOpen ? 'rotate-180 text-healing-green' : 'text-[#4A5568]'
+                    className={`w-5 h-5 flex-shrink-0 transition-transform duration-300 ${isOpen ? 'rotate-180 text-healing-green' : 'text-slate-600'
                       }`}
                   />
                 </button>
 
                 <div className={`overflow-hidden transition-all duration-500 ${isOpen ? 'max-h-[500px]' : 'max-h-0'}`}>
                   <div className="px-4 sm:px-6 pb-4 sm:pb-6 space-y-3">
-                    <p className="text-sm sm:text-base text-[#4A5568] leading-relaxed">
+                    <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
                       {faq.answer}
                     </p>
                     <p className="text-xs sm:text-sm text-healing-green leading-relaxed border-l-2 border-healing-green pl-3">
@@ -195,7 +195,7 @@ export default function FAQ() {
 
         {/* Still Have Questions */}
         <div className="mt-12 text-center">
-          <div className="bg-gradient-to-r from-medical-blue to-[#1a3a5c] rounded-3xl p-8 text-white">
+          <div className="bg-gradient-to-r from-medical-blue to-navy-soft rounded-3xl p-8 text-white">
             <MessageCircle className="w-12 h-12 mx-auto mb-4 text-healing-green" />
             <h3 className="text-2xl font-bold mb-2">Still Have Questions?</h3>
             <p className="text-white/80 mb-6">
@@ -203,7 +203,7 @@ export default function FAQ() {
             </p>
             <a
               href="tel:+917041055430"
-              className="inline-flex items-center gap-2 bg-healing-green text-white px-8 py-4 rounded-full font-semibold hover:bg-[#00B894] transition-all hover:-translate-y-1"
+              className="inline-flex items-center gap-2 bg-healing-green text-white px-8 py-4 rounded-full font-semibold hover:bg-healing-green-dim transition-all hover:-translate-y-1"
             >
               Call: +91-7041055430
             </a>

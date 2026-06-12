@@ -2,68 +2,69 @@ import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Wind, Activity, Moon, Shield, Droplets, Microscope, ArrowRight, Check } from 'lucide-react';
+import { MOTION, prefersReducedMotion } from '@/lib/motion';
 
 gsap.registerPlugin(ScrollTrigger);
 
 const services = [
   {
     icon: Wind,
-    title: 'Asthma That Doesn\'t Control Your Life',
-    subtitle: 'Asthma Management',
-    outcome: '80% fewer attacks within 3 months',
-    description: 'No more midnight emergencies. With proper diagnosis and a personalized action plan, most patients regain control of their daily life.',
-    approach: 'Dr. Verma\'s Approach',
-    approachDetail: 'In-house PFT + allergy testing on first visit. You leave with a clear action plan, not just prescriptions.',
-    benefits: ['Know your exact triggers', 'Proper inhaler technique', 'Emergency action plan', 'Fewer hospital visits'],
+    title: 'Asthma Management',
+    subtitle: 'Long-Term Control',
+    outcome: 'Personalised action plan from your first visit',
+    description: 'Accurate diagnosis, trigger identification and a written action plan help most patients achieve stable, everyday control of their asthma.',
+    approach: 'How Dr. Verma Treats It',
+    approachDetail: 'In-house PFT and allergy testing on the first visit, followed by inhaler technique training and a clear, written management plan.',
+    benefits: ['Know your exact triggers', 'Proper inhaler technique', 'Written action plan', 'Fewer emergency visits'],
   },
   {
     icon: Activity,
-    title: 'Breathe Easier, Walk Further',
-    subtitle: 'COPD Treatment',
-    outcome: 'Most patients walk 2x more within 6 months',
-    description: 'COPD doesn\'t mean giving up your independence. With the right treatment, you can get back to activities you thought were gone.',
-    approach: 'Dr. Verma\'s Approach',
-    approachDetail: 'Comprehensive lung assessment + pulmonary rehab guidance. We track your progress monthly, not just yearly.',
-    benefits: ['Improved stamina', 'Fewer flare-ups', 'Better sleep', 'Medication optimization'],
+    title: 'COPD Treatment',
+    subtitle: 'Breathlessness & Chronic Cough',
+    outcome: 'Structured care with monthly progress reviews',
+    description: 'The right combination of medication, breathing exercises and pulmonary rehabilitation helps ease breathlessness and protect your independence.',
+    approach: 'How Dr. Verma Treats It',
+    approachDetail: 'Comprehensive lung assessment, staged treatment and pulmonary rehab guidance, with progress reviewed every month.',
+    benefits: ['Improved stamina', 'Fewer flare-ups', 'Better sleep', 'Optimised medication'],
   },
   {
     icon: Moon,
-    title: 'Wake Up Actually Rested',
-    subtitle: 'Sleep Apnea & Snoring',
-    outcome: 'Partners report 90% snoring reduction',
-    description: 'If you\'re tired all day despite "sleeping" 8 hours, your breathing may be the problem. Fix the cause, not just the symptoms.',
-    approach: 'Dr. Verma\'s Approach',
-    approachDetail: 'Home sleep study referral + CPAP fitting if needed. No surgery-first approach — conservative treatment first.',
-    benefits: ['All-day energy', 'Better focus', 'Lower BP risk', 'Happier spouse'],
+    title: 'Sleep Apnea & Snoring',
+    subtitle: 'Sleep-Related Breathing',
+    outcome: 'Conservative, evidence-based treatment first',
+    description: 'Daytime tiredness despite a full night in bed often points to disturbed breathing during sleep. Proper evaluation finds the cause.',
+    approach: 'How Dr. Verma Treats It',
+    approachDetail: 'Home sleep study referral, followed by CPAP titration and fitting where needed. Surgery is considered only when conservative care is not enough.',
+    benefits: ['All-day energy', 'Better focus', 'Lower cardiac strain', 'Quieter, deeper sleep'],
   },
   {
     icon: Droplets,
-    title: 'Stop Sneezing Through Life',
-    subtitle: 'Allergy Treatment',
-    outcome: 'Symptom-free seasons within 6 weeks',
-    description: 'Seasonal allergies, dust, pets — know exactly what triggers you and how to avoid or immunize against it.',
-    approach: 'Dr. Verma\'s Approach',
-    approachDetail: 'Skin prick testing + personalized avoidance plan. Immunotherapy for lasting relief, not just antihistamines.',
-    benefits: ['Know your triggers', 'Reduce medication', 'Long-term immunity', 'Better quality of life'],
+    title: 'Allergy Testing & Treatment',
+    subtitle: 'Allergic Rhinitis & Bronchitis',
+    outcome: 'Skin prick testing available in-clinic',
+    description: 'Dust, pollen, pets or food: identify exactly what triggers your symptoms, then treat the cause with a plan that goes beyond antihistamines.',
+    approach: 'How Dr. Verma Treats It',
+    approachDetail: 'Skin prick testing to identify triggers, a personalised avoidance plan, and immunotherapy where lasting desensitisation is appropriate.',
+    benefits: ['Know your triggers', 'Reduce daily medication', 'Long-term immunity', 'Better quality of life'],
   },
   {
     icon: Shield,
-    title: 'Peace of Mind for Smokers & Ex-Smokers',
-    subtitle: 'Lung Cancer Screening',
-    outcome: 'Detect problems 5+ years before symptoms',
-    description: 'If you\'ve smoked 20+ pack-years, early screening can catch issues when they\'re still treatable. Don\'t wait for symptoms.',
-    approach: 'Dr. Verma\'s Approach',
-    approachDetail: 'Risk assessment + low-dose CT referral. Clear explanation of results, not medical jargon.',
-    benefits: ['Early detection', 'Clear next steps', 'Ongoing monitoring', 'Expert guidance'],
+    title: 'Lung Cancer Screening',
+    subtitle: 'For Smokers & Ex-Smokers',
+    outcome: 'Risk assessment with low-dose CT referral',
+    description: 'If you have a significant smoking history, screening can find changes early, when treatment options are widest. You do not need symptoms to begin.',
+    approach: 'How Dr. Verma Treats It',
+    approachDetail: 'Structured risk assessment, low-dose CT referral where indicated, and results explained in plain language with clear next steps.',
+    benefits: ['Early detection', 'Clear next steps', 'Ongoing monitoring', 'Specialist guidance'],
   },
   {
     icon: Microscope,
-    title: 'Finally Understand Your Lungs',
-    subtitle: 'Lung Function Testing',
-    outcome: 'Complete lung health picture in 1 hour',
-    description: 'Unexplained breathlessness? Chronic cough? Get accurate answers with in-house PFT testing — no referrals needed.',
-    approach: 'Dr. Verma\'s Approach',
-    approachDetail: 'Full spirometry + bronchodilator response. Same-day results explained in simple terms.',
+    title: 'Lung Function Testing',
+    subtitle: 'Diagnosis & Monitoring',
+    outcome: 'Same-day spirometry results, explained simply',
+    description: 'Unexplained breathlessness or a cough that will not settle deserves objective answers. In-house PFT testing means no outside referrals.',
+    approach: 'How Dr. Verma Treats It',
+    approachDetail: 'Full spirometry with bronchodilator response, performed in-clinic. Results are reviewed with you the same day in simple terms.',
     benefits: ['Accurate diagnosis', 'Same-day results', 'Clear explanation', 'Treatment roadmap'],
   },
 ];
@@ -73,32 +74,32 @@ export default function Services() {
   const cardsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (prefersReducedMotion()) return;
+
     const ctx = gsap.context(() => {
-      // Title animation
       gsap.fromTo('.services-title',
-        { opacity: 0, y: 40 },
+        { opacity: 0, y: MOTION.rise },
         {
           opacity: 1,
           y: 0,
-          duration: 0.8,
-          ease: 'power3.out',
+          duration: MOTION.dur.base,
+          ease: MOTION.ease,
+          stagger: MOTION.stagger,
           scrollTrigger: {
             trigger: sectionRef.current,
-            start: 'top 70%',
+            start: 'top 75%',
           },
         }
       );
 
-      // Cards stagger animation
       gsap.fromTo('.service-card',
-        { opacity: 0, y: 50, rotateX: 15 },
+        { opacity: 0, y: MOTION.rise },
         {
           opacity: 1,
           y: 0,
-          rotateX: 0,
-          duration: 0.8,
-          stagger: 0.15,
-          ease: 'elastic.out(1, 0.75)',
+          duration: MOTION.dur.base,
+          stagger: MOTION.stagger,
+          ease: MOTION.ease,
           scrollTrigger: {
             trigger: cardsRef.current,
             start: 'top 80%',
@@ -113,26 +114,26 @@ export default function Services() {
   return (
     <div
       ref={sectionRef}
-      className="relative py-24 lg:py-32 bg-[#F6F9FC] overflow-hidden"
+      className="relative py-14 sm:py-24 lg:py-32 bg-soft-grey overflow-hidden"
     >
       {/* Background */}
       <div className="absolute inset-0">
-        <div className="absolute top-20 right-20 w-96 h-96 bg-[#00D4AA]/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-20 left-20 w-72 h-72 bg-[#0A2540]/5 rounded-full blur-3xl" />
+        <div className="absolute top-20 right-20 w-96 h-96 bg-healing-green/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-20 left-20 w-72 h-72 bg-medical-blue/5 rounded-full blur-3xl" />
       </div>
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center mb-16">
-          <span className="services-title inline-block text-[#00D4AA] text-sm font-semibold uppercase tracking-wider mb-4">
-            How We Help You
+        <div className="text-center mb-10 sm:mb-16">
+          <span className="services-title inline-block text-healing-green text-sm font-semibold uppercase tracking-wider mb-4">
+            Conditions We Treat
           </span>
-          <h2 className="services-title text-4xl lg:text-5xl font-bold text-medical-blue mb-6 tracking-tight">
-            Real Results, <span className="font-serif italic text-healing-green">Not Just Treatment</span>
+          <h2 className="services-title text-3xl sm:text-4xl lg:text-5xl font-bold text-medical-blue mb-6 tracking-tight">
+            Specialist Care for <span className="text-healing-green">Every Breathing Concern</span>
           </h2>
-          <p className="services-title text-lg text-[#4A5568] max-w-2xl mx-auto">
-            Every condition has a solution. Here's what you can expect when you visit us —
-            and the outcomes other patients have achieved.
+          <p className="services-title text-lg text-slate-600 max-w-2xl mx-auto">
+            From first consultation to long-term management, each condition is treated
+            with a clear plan you can understand and follow.
           </p>
         </div>
 
@@ -149,21 +150,8 @@ export default function Services() {
             return (
               <div
                 key={index}
-                onMouseMove={(e) => {
-                  const rect = e.currentTarget.getBoundingClientRect();
-                  const x = e.clientX - rect.left;
-                  const y = e.clientY - rect.top;
-                  e.currentTarget.style.setProperty('--x', `${x}px`);
-                  e.currentTarget.style.setProperty('--y', `${y}px`);
-                }}
-                className="service-card group relative bg-white rounded-[2rem] p-6 sm:p-8 border border-slate-200 shadow-sm hover:shadow-[0_20px_40px_rgba(0,0,0,0.12)] hover:border-healing-green/50 transition-all duration-300 hover:-translate-y-1"
-                style={{ perspective: '1000px' }}
+                className="service-card group relative bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-card hover:shadow-card-hover hover:border-healing-green/40 transition-all duration-300 ease-smooth hover:-translate-y-1"
               >
-                {/* Ambient Glow Gradient - Subtle and Professional */}
-                <div
-                  className="absolute -top-20 -right-20 w-64 h-64 rounded-full blur-[80px] opacity-0 group-hover:opacity-10 transition-opacity duration-700 bg-gradient-to-br from-healing-green/20 to-transparent pointer-events-none"
-                />
-
                 {/* Subtitle Badge */}
                 <div className="relative flex items-center gap-3 mb-4">
                   <div className={`w-12 h-12 rounded-xl flex items-center justify-center transition-transform duration-500 group-hover:scale-110 ${accentBg}`}>
@@ -173,13 +161,14 @@ export default function Services() {
                 </div>
 
                 {/* Outcome-Focused Title */}
-                <h3 className="relative text-xl font-bold text-medical-blue mb-2 group-hover:text-healing-green transition-colors leading-tight font-display">
+                <h3 className="relative text-xl font-bold text-medical-blue mb-2 group-hover:text-healing-green transition-colors leading-tight">
                   {service.title}
                 </h3>
 
                 {/* Outcome Badge */}
-                <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold mb-4 ${accentBg} ${accentText}`}>
-                  ✓ {service.outcome}
+                <div className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold mb-4 ${accentBg} ${accentText}`}>
+                  <Check className="w-3.5 h-3.5" />
+                  {service.outcome}
                 </div>
 
                 {/* Description */}
@@ -208,7 +197,7 @@ export default function Services() {
                   href="#contact"
                   className="relative inline-flex items-center text-sm font-bold text-medical-blue group-hover:text-healing-green transition-colors group/btn"
                 >
-                  <span>Book for This</span>
+                  <span>Book a Consultation</span>
                   <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover/btn:translate-x-1" />
                 </a>
 
@@ -220,35 +209,35 @@ export default function Services() {
         </div>
 
         {/* Clinic Specializations Banner */}
-        <div className="mt-16 flex flex-col lg:flex-row items-center gap-8 bg-gradient-to-br from-medical-blue to-[#1a4a7a] rounded-3xl p-8 shadow-xl overflow-hidden relative">
+        <div className="mt-16 flex flex-col lg:flex-row items-center gap-8 bg-gradient-to-br from-medical-blue to-navy-soft rounded-3xl p-8 shadow-xl overflow-hidden relative">
           {/* Background Pattern */}
           <div className="absolute inset-0 opacity-10">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-[#00D4AA] rounded-full blur-3xl" />
+            <div className="absolute top-0 right-0 w-64 h-64 bg-healing-green rounded-full blur-3xl" />
             <div className="absolute bottom-0 left-0 w-48 h-48 bg-white rounded-full blur-3xl" />
           </div>
 
           <div className="lg:w-1/3 relative z-10">
             <div className="relative group">
               <img
-                src="/images/clinic-services-hindi.jpg"
+                src="/images/clinic-services-hindi.webp"
                 alt="Dr. A.K. Verma Clinic Specializations"
                 className="rounded-2xl shadow-2xl w-full h-auto border-4 border-white/20"
               />
-              <div className="absolute -bottom-3 -right-3 bg-[#00D4AA] text-white text-xs font-bold px-3 py-1 rounded-full">
+              <div className="absolute -bottom-3 -right-3 bg-healing-green text-white text-xs font-bold px-3 py-1 rounded-full">
                 15+ Services
               </div>
             </div>
           </div>
           <div className="lg:w-2/3 relative z-10">
-            <span className="inline-flex items-center gap-2 bg-[#00D4AA]/20 text-[#00D4AA] text-sm font-semibold px-3 py-1 rounded-full mb-4">
-              ✨ Advanced Procedures Available
+            <span className="inline-flex items-center gap-2 bg-healing-green/20 text-teal-300 text-sm font-semibold px-3 py-1 rounded-full mb-4">
+              Advanced Procedures Available
             </span>
             <h3 className="text-2xl lg:text-3xl font-bold text-white mt-2 mb-4">
               Comprehensive Treatments Under One Roof
             </h3>
             <p className="text-white/80 mb-6">
-              From routine check-ups to advanced interventions like bronchoscopy and thoracoscopy —
-              Dr. Verma offers complete pulmonology care without the need for referrals to multiple specialists.
+              From routine check-ups to advanced procedures like bronchoscopy and thoracoscopy,
+              Dr. Verma offers complete pulmonology care without referrals to multiple specialists.
             </p>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
               {[
@@ -262,7 +251,7 @@ export default function Services() {
                 'Non-Invasive Ventilation'
               ].map((service, i) => (
                 <div key={i} className="flex items-center gap-2 text-sm">
-                  <Check className="w-4 h-4 text-[#00D4AA] flex-shrink-0" />
+                  <Check className="w-4 h-4 text-teal-300 flex-shrink-0" />
                   <span className="text-white/90">{service}</span>
                 </div>
               ))}
@@ -272,12 +261,12 @@ export default function Services() {
 
         {/* Bottom CTA */}
         <div className="text-center mt-16">
-          <p className="text-[#4A5568] mb-6">
+          <p className="text-slate-600 mb-6">
             Not sure which service you need? Book a consultation and we'll help you.
           </p>
           <a
             href="#contact"
-            className="inline-flex items-center gap-2 bg-[#00D4AA] text-white px-8 py-4 rounded-full font-semibold hover:bg-[#00B894] transition-all hover:-translate-y-1 shadow-lg shadow-[#00D4AA]/30"
+            className="inline-flex items-center gap-2 bg-healing-green text-white px-8 py-4 rounded-full font-semibold hover:bg-healing-green-dim transition-all hover:-translate-y-1 shadow-lg shadow-healing-green/30"
           >
             Book a Consultation
             <ArrowRight className="w-5 h-5" />

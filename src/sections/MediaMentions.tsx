@@ -2,13 +2,14 @@ import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Newspaper, Award, ExternalLink, Mic } from 'lucide-react';
+import { MOTION, prefersReducedMotion } from '@/lib/motion';
 
 gsap.registerPlugin(ScrollTrigger);
 
 const mediaItems = [
     {
         id: 1,
-        image: '/images/newspaper-asthma-awareness.jpg',
+        image: '/images/newspaper-asthma-awareness.webp',
         title: 'Asthma & Inhalers Awareness Campaign',
         source: 'Nagar Chhaya Samachar',
         description: 'Dr. A.K. Verma featured in a major awareness campaign about asthma and proper inhaler usage in collaboration with Cipla.',
@@ -16,7 +17,7 @@ const mediaItems = [
     },
     {
         id: 2,
-        image: '/images/dr-verma-conference.jpg',
+        image: '/images/dr-verma-conference.webp',
         title: 'COPD Dual Bronchodilator Therapy Conference',
         source: 'Medical Conference',
         description: 'Dr. A.K. Verma presenting on "Optimizing Dual Bronchodilator Therapy in COPD Outcome" at a leading pulmonology conference.',
@@ -24,7 +25,7 @@ const mediaItems = [
     },
     {
         id: 3,
-        image: '/images/dr-verma-profile.jpg',
+        image: '/images/dr-verma-profile.webp',
         title: 'Expert Opinion on Pulmonary Fibrosis',
         source: 'Medical Journal',
         description: 'Dr. A.K. Verma shares insights on pulmonary fibrosis treatment and the importance of patient awareness.',
@@ -32,7 +33,7 @@ const mediaItems = [
     },
     {
         id: 4,
-        image: '/images/article-pah-management.jpg',
+        image: '/images/article-pah-management.webp',
         title: 'Management of High-risk PAH',
         source: 'Healthcare Publication',
         description: 'In-depth article by Dr. A.K. Verma on managing pulmonary arterial hypertension in high-risk patients.',
@@ -44,29 +45,32 @@ export default function MediaMentions() {
     const sectionRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
+        if (prefersReducedMotion()) return;
+
         const ctx = gsap.context(() => {
             gsap.fromTo('.media-title',
-                { opacity: 0, y: 30 },
+                { opacity: 0, y: MOTION.rise },
                 {
                     opacity: 1,
                     y: 0,
-                    duration: 0.8,
-                    ease: 'power3.out',
+                    duration: MOTION.dur.base,
+                    ease: MOTION.ease,
+                    stagger: MOTION.stagger,
                     scrollTrigger: {
                         trigger: sectionRef.current,
-                        start: 'top 70%',
+                        start: 'top 75%',
                     },
                 }
             );
 
             gsap.fromTo('.media-card',
-                { opacity: 0, y: 40 },
+                { opacity: 0, y: MOTION.rise },
                 {
                     opacity: 1,
                     y: 0,
-                    duration: 0.6,
-                    stagger: 0.15,
-                    ease: 'power3.out',
+                    duration: MOTION.dur.base,
+                    stagger: MOTION.stagger,
+                    ease: MOTION.ease,
                     scrollTrigger: {
                         trigger: '.media-grid',
                         start: 'top 80%',
@@ -81,7 +85,7 @@ export default function MediaMentions() {
     return (
         <div
             ref={sectionRef}
-            className="relative py-20 lg:py-28 bg-gradient-to-b from-[#F6F9FC] to-white overflow-hidden"
+            className="relative py-14 sm:py-20 lg:py-28 bg-gradient-to-b from-soft-grey to-white overflow-hidden"
         >
             {/* Background Decoration */}
             <div className="absolute top-0 left-0 w-64 h-64 bg-healing-green/5 rounded-full blur-3xl" />
@@ -94,10 +98,10 @@ export default function MediaMentions() {
                         <Newspaper className="w-4 h-4 text-medical-blue" />
                         <span className="text-sm font-semibold text-medical-blue">Featured In</span>
                     </div>
-                    <h2 className="media-title text-3xl lg:text-4xl font-bold text-[#0A2540] mb-4">
+                    <h2 className="media-title text-3xl lg:text-4xl font-bold text-medical-blue mb-4">
                         Media & Publications
                     </h2>
-                    <p className="media-title text-lg text-[#4A5568] max-w-2xl mx-auto">
+                    <p className="media-title text-lg text-slate-600 max-w-2xl mx-auto">
                         Dr. A.K. Verma's expertise recognized in leading healthcare publications and awareness campaigns
                     </p>
                 </div>
@@ -114,20 +118,15 @@ export default function MediaMentions() {
                                 <img
                                     src={item.image}
                                     alt={item.title}
-                                    className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                                    loading="lazy"
+                                    decoding="async"
+                                    className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500 ease-smooth"
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
 
                                 {/* Badge */}
                                 <div className="absolute top-4 left-4">
-                                    <span className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-semibold ${item.type === 'newspaper'
-                                        ? 'bg-blue-500 text-white'
-                                        : item.type === 'conference'
-                                            ? 'bg-orange-500 text-white'
-                                            : item.type === 'feature'
-                                                ? 'bg-[#00D4AA] text-white'
-                                                : 'bg-purple-500 text-white'
-                                        }`}>
+                                    <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-semibold bg-medical-blue/85 text-white backdrop-blur-sm">
                                         {item.type === 'newspaper' && <Newspaper className="w-3 h-3" />}
                                         {item.type === 'conference' && <Mic className="w-3 h-3" />}
                                         {item.type === 'feature' && <Award className="w-3 h-3" />}
@@ -145,7 +144,7 @@ export default function MediaMentions() {
                                 <h3 className="text-lg font-bold text-medical-blue mb-2 line-clamp-2">
                                     {item.title}
                                 </h3>
-                                <p className="text-sm text-[#4A5568] line-clamp-3">
+                                <p className="text-sm text-slate-600 line-clamp-3">
                                     {item.description}
                                 </p>
                             </div>

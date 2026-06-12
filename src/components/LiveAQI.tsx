@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
+
 import { Wind, RefreshCw, ExternalLink, Activity } from 'lucide-react';
 
 interface AQIData {
@@ -108,66 +108,18 @@ export default function LiveAQI() {
         return () => clearInterval(interval);
     }, []);
 
-    // GSAP Smoke Simulation
-    useEffect(() => {
-        if (!smokeRef.current) return;
-
-        const ctx = gsap.context(() => {
-            // Animate multiple smoke blobs
-            const blobs = gsap.utils.toArray('.smoke-blob');
-            blobs.forEach((blob: any) => {
-                gsap.to(blob, {
-                    x: 'random(-50, 50)',
-                    y: 'random(-30, 30)',
-                    scale: 'random(0.8, 1.2)',
-                    rotation: 'random(-20, 20)',
-                    duration: 'random(4, 8)',
-                    repeat: -1,
-                    yoyo: true,
-                    ease: 'sine.inOut',
-                });
-
-                // Drift effect
-                gsap.to(blob, {
-                    xPercent: 'random(-20, 20)',
-                    duration: 'random(10, 20)',
-                    repeat: -1,
-                    yoyo: true,
-                    ease: 'none',
-                });
-            });
-        }, smokeRef);
-
-        return () => ctx.revert();
-    }, []);
-
     const aqiLevel = getAQILevel(aqiData.aqi);
 
     return (
         <div className="relative h-full w-full">
-            {/* 2026 Seamless Glass Container */}
-            <div className="group relative h-full w-full overflow-hidden rounded-[2.5rem] bg-white/40 backdrop-blur-[50px] border border-white/40 shadow-[0_8px_32px_rgba(0,0,0,0.06)] transition-all duration-700 hover:shadow-[0_20px_60px_rgba(0,0,0,0.1)] hover:-translate-y-1">
+            {/* Clean card with a single condition-tinted wash */}
+            <div className="group relative h-full w-full overflow-hidden rounded-3xl bg-white border border-slate-200 shadow-card transition-all duration-300 ease-smooth hover:shadow-card-hover hover:-translate-y-1">
 
-                {/* Dynamic Smoke Atmosphere */}
+                {/* Condition tint */}
                 <div ref={smokeRef} className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-                    {/* Ambient Base Layer */}
                     <div
-                        className="absolute inset-0 transition-colors duration-1000 opacity-20"
-                        style={{ background: `linear-gradient(to bottom right, ${aqiLevel.color}20, transparent)` }}
-                    />
-
-                    {/* Floating Smoke Blobs */}
-                    <div
-                        className="smoke-blob absolute top-[-20%] left-[-10%] w-[600px] h-[600px] rounded-full blur-[80px] opacity-40 mix-blend-multiply transition-colors duration-1000"
-                        style={{ backgroundColor: aqiLevel.smokeColor }}
-                    />
-                    <div
-                        className="smoke-blob absolute bottom-[-20%] right-[-10%] w-[500px] h-[500px] rounded-full blur-[90px] opacity-30 mix-blend-multiply transition-colors duration-1000"
-                        style={{ backgroundColor: aqiLevel.smokeColor }}
-                    />
-                    <div
-                        className="smoke-blob absolute top-[20%] right-[10%] w-[300px] h-[300px] rounded-full blur-[60px] opacity-20 mix-blend-overlay transition-colors duration-1000"
-                        style={{ backgroundColor: aqiLevel.smokeColor }}
+                        className="absolute inset-0 transition-colors duration-1000 opacity-[0.07]"
+                        style={{ background: `linear-gradient(to bottom right, ${aqiLevel.color}, transparent 70%)` }}
                     />
                 </div>
 
@@ -177,7 +129,7 @@ export default function LiveAQI() {
                     {/* Header */}
                     <div className="flex justify-between items-start">
                         <div className="flex items-center gap-3">
-                            <div className="w-12 h-12 rounded-2xl bg-white/80 backdrop-blur-md flex items-center justify-center shadow-sm border border-white/50">
+                            <div className="w-12 h-12 rounded-2xl bg-slate-50 flex items-center justify-center border border-slate-100">
                                 <Wind className="w-6 h-6 transition-colors duration-700" style={{ color: aqiLevel.color }} />
                             </div>
                             <div>
@@ -190,7 +142,7 @@ export default function LiveAQI() {
                         </div>
 
                         {/* Live Indicator */}
-                        <div className="px-3 py-1 rounded-full bg-white/50 border border-white/30 backdrop-blur-md">
+                        <div className="px-3 py-1 rounded-full bg-slate-50 border border-slate-200">
                             <span className="text-[10px] font-bold uppercase tracking-wide text-medical-blue/70">
                                 {aqiData.status === 'loading' ? 'Syncing...' : 'Live'}
                             </span>
@@ -200,25 +152,21 @@ export default function LiveAQI() {
                     {/* Main Hero & Simulation */}
                     <div className="flex-1 flex flex-col justify-center items-center text-center my-6">
                         <div className="relative">
-                            {/* Main Number */}
+                            {/* Main Number — sized to never clip its card */}
                             <h2
-                                className="font-display text-9xl font-bold tracking-tighter tabular-nums leading-none transition-colors duration-700 mix-blend-darken"
+                                className="text-7xl lg:text-8xl font-bold tracking-tighter tabular-nums leading-none transition-colors duration-700"
                                 style={{ color: aqiLevel.color }}
                             >
                                 {aqiData.status === 'loading' ? '--' : aqiData.aqi}
                             </h2>
-
-                            {/* Decorative Label */}
-                            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full text-center pointer-events-none opacity-5">
-                                <span className="text-9xl font-black">AQI</span>
-                            </div>
+                            <span className="block mt-2 text-xs font-bold uppercase tracking-[0.3em] text-slate-400 text-center">AQI</span>
                         </div>
 
                         <div className="mt-4 space-y-1">
                             <p className={`text-2xl font-bold transition-colors duration-700 ${aqiLevel.textColor}`}>
                                 {aqiLevel.label}
                             </p>
-                            <p className="text-sm text-[#4A5568] max-w-[240px] mx-auto">
+                            <p className="text-sm text-slate-600 max-w-[240px] mx-auto">
                                 {aqiLevel.description}
                             </p>
                         </div>
@@ -227,10 +175,10 @@ export default function LiveAQI() {
                     {/* Footer Metrics */}
                     <div className="grid grid-cols-2 gap-4">
                         {/* PM2.5 Card */}
-                        <div className="bg-white/40 backdrop-blur-md rounded-2xl p-4 border border-white/40 hover:bg-white/50 transition-colors">
+                        <div className="bg-slate-50 rounded-2xl p-4 border border-slate-100 transition-colors">
                             <div className="flex items-center gap-2 mb-2">
-                                <Activity className="w-4 h-4 text-[#4A5568]" />
-                                <span className="text-xs font-semibold text-[#4A5568]">PM 2.5</span>
+                                <Activity className="w-4 h-4 text-slate-600" />
+                                <span className="text-xs font-semibold text-slate-600">PM 2.5</span>
                             </div>
                             <div className="text-2xl font-bold text-medical-blue">
                                 {aqiData.pm25.toFixed(0)} <span className="text-xs font-medium text-gray-500">μg/m³</span>
@@ -249,7 +197,7 @@ export default function LiveAQI() {
 
                         {/* Refresh / Source */}
                         <div className="bg-white/40 backdrop-blur-md rounded-2xl p-4 border border-white/40 flex flex-col justify-between hover:bg-white/50 transition-colors">
-                            <div className="text-xs text-[#4A5568] flex items-center justify-between">
+                            <div className="text-xs text-slate-600 flex items-center justify-between">
                                 <span className="font-semibold">Last Update</span>
                                 <RefreshCw className={`w-3 h-3 ${isRefreshing ? 'animate-spin' : ''}`} />
                             </div>
@@ -260,7 +208,7 @@ export default function LiveAQI() {
                                 href="https://aqicn.org/city/india/uttar-pradesh/kanpur/"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="flex items-center gap-1 text-[10px] text-[#4A5568]/70 hover:text-medical-blue transition-colors mt-auto pt-1"
+                                className="flex items-center gap-1 text-[10px] text-slate-600/70 hover:text-medical-blue transition-colors mt-auto pt-1"
                             >
                                 Source: WAQI <ExternalLink className="w-2.5 h-2.5" />
                             </a>

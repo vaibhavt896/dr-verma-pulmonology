@@ -237,7 +237,7 @@ export default function SymptomChecker() {
         urgent: false,
         urgencyLabel: 'Moderate',
         timeframe: 'Within 2 weeks',
-        gradient: 'from-healing-green to-[#00B894]',
+        gradient: 'from-healing-green to-healing-green-dim',
         textColor: 'text-white'
       };
     }
@@ -294,7 +294,7 @@ Please help me book an appointment.
   return (
     <div
       ref={sectionRef}
-      className="relative py-12 sm:py-24 lg:py-32 bg-[#F6F9FC] overflow-hidden"
+      className="relative py-12 sm:py-24 lg:py-32 bg-soft-grey overflow-hidden"
     >
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-b from-healing-green/5 to-transparent" />
@@ -309,7 +309,7 @@ Please help me book an appointment.
           <h2 className="symptom-title text-2xl sm:text-4xl lg:text-5xl font-bold text-medical-blue mb-4 sm:mb-6 px-2">
             Do You Need a Pulmonologist?
           </h2>
-          <p className="symptom-title text-base sm:text-lg text-[#4A5568] max-w-2xl mx-auto px-2">
+          <p className="symptom-title text-base sm:text-lg text-slate-600 max-w-2xl mx-auto px-2">
             Select your symptoms. We'll analyze urgency and recommend next steps.
           </p>
         </div>
@@ -325,8 +325,8 @@ Please help me book an appointment.
                 key={symptom.id}
                 onClick={() => toggleSymptom(symptom.id)}
                 className={`symptom-card relative p-3 sm:p-6 rounded-xl sm:rounded-2xl text-left transition-all duration-200 active:scale-[0.98] ${isSelected
-                  ? 'bg-gradient-to-br from-healing-green to-[#00B894] text-white shadow-lg shadow-healing-green/30'
-                  : 'bg-white text-[#0A2540] shadow-md border border-gray-100'
+                  ? 'bg-gradient-to-br from-healing-green to-healing-green-dim text-white shadow-lg shadow-healing-green/30'
+                  : 'bg-white text-medical-blue shadow-md border border-gray-100'
                   }`}
               >
                 {/* Urgency Badge */}
@@ -354,7 +354,7 @@ Please help me book an appointment.
 
                 {/* Content */}
                 <h3 className="font-semibold text-xs sm:text-base mb-0.5 sm:mb-1 leading-tight">{symptom.label}</h3>
-                <p className={`text-[10px] sm:text-sm leading-tight ${isSelected ? 'text-white/80' : 'text-[#4A5568]'}`}>
+                <p className={`text-[10px] sm:text-sm leading-tight ${isSelected ? 'text-white/80' : 'text-slate-600'}`}>
                   {symptom.description}
                 </p>
               </button>
@@ -365,7 +365,7 @@ Please help me book an appointment.
         {/* Selected Count & Urgency Score */}
         <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-6 mb-6 sm:mb-8">
           <div className="text-center">
-            <span className="text-sm sm:text-base text-[#4A5568]">
+            <span className="text-sm sm:text-base text-slate-600">
               <span className="font-bold text-medical-blue text-xl sm:text-2xl">{selectedSymptoms.length}</span> selected
             </span>
           </div>
@@ -373,7 +373,7 @@ Please help me book an appointment.
           {selectedSymptoms.length > 0 && (
             <div className="flex items-center gap-2 bg-white rounded-full px-3 sm:px-4 py-1.5 sm:py-2 shadow-md border border-gray-100">
               <Activity className="w-4 sm:w-5 h-4 sm:h-5 text-healing-green" />
-              <span className="text-xs sm:text-sm text-[#4A5568]">Urgency:</span>
+              <span className="text-xs sm:text-sm text-slate-600">Urgency:</span>
               <span className={`font-bold text-base sm:text-lg ${urgencyScore >= 15 ? 'text-red-500' :
                 urgencyScore >= 10 ? 'text-orange-500' :
                   urgencyScore >= 5 ? 'text-healing-green' : 'text-gray-500'
@@ -419,7 +419,7 @@ Please help me book an appointment.
               <p className={`text-xs sm:text-sm mb-3 sm:mb-4 ${recommendation.level === 'low' ? 'text-healing-green' : 'text-white/80'}`}>
                 {recommendation.titleHindi}
               </p>
-              <p className={`text-sm sm:text-lg mb-6 sm:mb-8 ${recommendation.level === 'low' ? 'text-[#4A5568]' : 'text-white/90'
+              <p className={`text-sm sm:text-lg mb-6 sm:mb-8 ${recommendation.level === 'low' ? 'text-slate-600' : 'text-white/90'
                 }`}>
                 {recommendation.message}
               </p>
@@ -438,7 +438,7 @@ Please help me book an appointment.
                 <button
                   onClick={handleWhatsApp}
                   className={`w-full inline-flex items-center justify-center gap-2 sm:gap-3 rounded-full px-6 sm:px-8 py-3.5 sm:py-4 font-semibold transition-all active:scale-[0.98] ${recommendation.urgent
-                    ? 'bg-white text-[#0A2540] shadow-lg'
+                    ? 'bg-white text-medical-blue shadow-lg'
                     : recommendation.level === 'low'
                       ? 'bg-[#25D366] text-white shadow-lg shadow-[#25D366]/30'
                       : 'bg-white text-medical-blue shadow-lg'
@@ -453,7 +453,7 @@ Please help me book an appointment.
                 <a
                   href="tel:+917041055430"
                   className={`w-full inline-flex items-center justify-center gap-2 rounded-full px-6 sm:px-8 py-3.5 sm:py-4 font-semibold transition-all active:scale-[0.98] ${recommendation.level === 'low'
-                    ? 'bg-medical-blue text-white hover:bg-[#1a3a5c]'
+                    ? 'bg-medical-blue text-white hover:bg-navy-soft'
                     : 'bg-white/20 text-white hover:bg-white/30 backdrop-blur-sm'
                     }`}
                 >
@@ -466,7 +466,7 @@ Please help me book an appointment.
               {!showWhatsAppMessage && (
                 <button
                   onClick={() => setShowWhatsAppMessage(true)}
-                  className={`mt-6 text-sm underline underline-offset-4 hover:no-underline transition-all ${recommendation.level === 'low' ? 'text-[#4A5568]' : 'text-white/80'
+                  className={`mt-6 text-sm underline underline-offset-4 hover:no-underline transition-all ${recommendation.level === 'low' ? 'text-slate-600' : 'text-white/80'
                     }`}
                 >
                   Preview WhatsApp message →
@@ -474,7 +474,7 @@ Please help me book an appointment.
               )}
 
               {showWhatsAppMessage && (
-                <div className={`mt-6 p-4 rounded-2xl text-left text-sm ${recommendation.level === 'low' ? 'bg-gray-50 text-[#4A5568]' : 'bg-white/10 text-white/90'
+                <div className={`mt-6 p-4 rounded-2xl text-left text-sm ${recommendation.level === 'low' ? 'bg-gray-50 text-slate-600' : 'bg-white/10 text-white/90'
                   }`}>
                   <pre className="whitespace-pre-wrap font-sans">{generateWhatsAppMessage()}</pre>
                 </div>
@@ -487,12 +487,12 @@ Please help me book an appointment.
         {selectedSymptoms.length === 0 && (
           <div className="flex justify-center mb-6 sm:mb-10">
             <div className="inline-flex items-center gap-2 sm:gap-3 bg-white rounded-full px-4 sm:px-6 py-2 sm:py-3 shadow-lg border border-gray-100">
-              <div className="w-8 sm:w-10 h-8 sm:h-10 bg-gradient-to-br from-medical-blue to-[#1a4a7a] rounded-full flex items-center justify-center">
+              <div className="w-8 sm:w-10 h-8 sm:h-10 bg-gradient-to-br from-medical-blue to-navy-soft rounded-full flex items-center justify-center">
                 <span className="text-white text-[8px] sm:text-xs font-bold">MCI</span>
               </div>
               <div className="text-left">
                 <div className="font-semibold text-sm sm:text-base text-medical-blue">Dr. A.K. Verma</div>
-                <div className="text-[10px] sm:text-xs text-[#4A5568]">MCI Registered</div>
+                <div className="text-[10px] sm:text-xs text-slate-600">MCI Registered</div>
               </div>
               <ChevronRight className="w-4 sm:w-5 h-4 sm:h-5 text-healing-green" />
             </div>
@@ -500,7 +500,7 @@ Please help me book an appointment.
         )}
 
         {/* Disclaimer */}
-        <p className="text-center text-xs sm:text-sm text-[#4A5568] mt-6 sm:mt-8 px-4">
+        <p className="text-center text-xs sm:text-sm text-slate-600 mt-6 sm:mt-8 px-4">
           <AlertCircle className="w-3.5 sm:w-4 h-3.5 sm:h-4 inline mr-1" />
           For informational purposes only. Consult a doctor for medical advice.
         </p>

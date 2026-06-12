@@ -1,4 +1,4 @@
-import { Wind, Phone, Mail, MapPin, Facebook, Instagram, Star, MessageCircle, Shield, Award } from 'lucide-react';
+import { Phone, Mail, MapPin, Star, MessageCircle, Shield, Award } from 'lucide-react';
 
 interface FooterProps {
   onNavigate: (sectionId: string) => void;
@@ -36,8 +36,15 @@ export default function Footer({ onNavigate }: FooterProps) {
           {/* Brand Column */}
           <div className="lg:col-span-1">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-12 h-12 bg-gradient-to-br from-healing-green to-[#00B4D8] rounded-xl flex items-center justify-center">
-                <Wind className="w-6 h-6 text-white" />
+              <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center p-1.5">
+                <img
+                  src="/logo.webp"
+                  alt="Dr. A.K. Verma Pulmonology clinic logo"
+                  width={192}
+                  height={192}
+                  loading="lazy"
+                  className="w-full h-full object-contain"
+                />
               </div>
               <div>
                 <h3 className="font-bold text-lg">Dr. A.K. Verma</h3>
@@ -45,8 +52,8 @@ export default function Footer({ onNavigate }: FooterProps) {
               </div>
             </div>
             <p className="text-white/70 leading-relaxed mb-6">
-              Kanpur's most trusted lung specialist with 15+ years of experience.
-              4.9★ rating from 479+ patients.
+              Pulmonologist in Kanpur with 15+ years of experience.
+              4.9★ Google rating from 479+ patient reviews.
             </p>
 
             {/* Rating Badge */}
@@ -59,21 +66,25 @@ export default function Footer({ onNavigate }: FooterProps) {
               <span className="text-sm font-semibold">4.9 (479+ Reviews)</span>
             </div>
 
-            {/* Social Links */}
+            {/* Verified profiles */}
             <div className="flex gap-3">
               <a
-                href="#"
-                aria-label="Facebook"
+                href="https://www.google.com/maps/search/Dr+A+K+Verma+Pulmonologist+Ashok+Nagar+Kanpur"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Google Maps profile"
                 className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-healing-green transition-colors"
               >
-                <Facebook className="w-5 h-5" />
+                <MapPin className="w-5 h-5" />
               </a>
               <a
-                href="#"
-                aria-label="Instagram"
+                href="https://wa.me/917041055430"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="WhatsApp"
                 className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-healing-green transition-colors"
               >
-                <Instagram className="w-5 h-5" />
+                <MessageCircle className="w-5 h-5" />
               </a>
             </div>
           </div>
@@ -179,14 +190,6 @@ export default function Footer({ onNavigate }: FooterProps) {
             <p className="text-white/50 text-sm text-center md:text-left">
               © {new Date().getFullYear()} Dr. A.K. Verma Pulmonology Clinic. All rights reserved.
             </p>
-            <div className="flex gap-6 text-sm">
-              <button className="text-white/50 hover:text-white transition-colors">
-                Privacy Policy
-              </button>
-              <button className="text-white/50 hover:text-white transition-colors">
-                Terms of Service
-              </button>
-            </div>
           </div>
         </div>
       </div>

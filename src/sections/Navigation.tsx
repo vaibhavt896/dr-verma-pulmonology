@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { gsap } from 'gsap';
-import { Menu, X, Phone, Wind, Calendar, Home, User } from 'lucide-react';
+import { Menu, X, Phone, Calendar, Home, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 interface NavigationProps {
@@ -41,7 +41,7 @@ export default function Navigation({ onNavigate }: NavigationProps) {
       gsap.to(mobileMenuRef.current, {
         x: '0%',
         duration: 0.8,
-        ease: 'elastic.out(1, 0.75)',
+        ease: 'power3.out',
         display: 'block'
       });
 
@@ -89,7 +89,7 @@ export default function Navigation({ onNavigate }: NavigationProps) {
     <>
       {/* Top Navigation - Dynamic Island */}
       <nav
-        className={`fixed z-50 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${isScrolled
+        className={`fixed z-50 transition-all duration-500 ease-smooth ${isScrolled
           ? 'top-4 left-1/2 -translate-x-1/2 w-[95%] sm:w-auto min-w-[320px] rounded-full bg-white/70 backdrop-blur-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-white/20 py-2 sm:px-2'
           : 'top-0 left-0 right-0 w-full bg-transparent py-6'
           }`}
@@ -101,14 +101,23 @@ export default function Navigation({ onNavigate }: NavigationProps) {
               onClick={() => handleNavClick('home')}
               className="flex items-center gap-2 group"
             >
-              <div className={`w-10 h-10 bg-gradient-to-br from-healing-green to-[#00B894] rounded-xl flex items-center justify-center transition-transform duration-500 ${isScrolled ? 'scale-90 rounded-full' : ''}`}>
-                <Wind className="w-5 h-5 text-white" />
+              <div className={`w-11 h-11 flex items-center justify-center transition-transform duration-500 ${isScrolled ? 'scale-90' : ''}`}>
+                <picture>
+                  <source type="image/webp" srcSet="/logo.webp" />
+                  <img
+                    src="/logo.png"
+                    alt="Dr. A.K. Verma Pulmonology clinic logo"
+                    width={192}
+                    height={192}
+                    className="w-full h-full object-contain drop-shadow-sm transition-transform duration-500 group-hover:scale-105"
+                  />
+                </picture>
               </div>
               <div className={`hidden sm:block transition-all duration-500 ${isScrolled ? 'w-0 opacity-0 overflow-hidden' : 'w-auto opacity-100'}`}>
                 <h1 className="font-bold text-lg leading-tight text-medical-blue">
                   Dr. A.K. Verma
                 </h1>
-                <p className="text-xs text-[#4A5568]">
+                <p className="text-xs text-slate-600">
                   Pulmonologist
                 </p>
               </div>
@@ -122,7 +131,7 @@ export default function Navigation({ onNavigate }: NavigationProps) {
                   onClick={() => handleNavClick(item.id)}
                   className={`relative px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 hover:bg-gray-100/50 ${isScrolled
                     ? 'text-medical-blue hover:text-healing-green'
-                    : 'text-[#4A5568] hover:text-healing-green'
+                    : 'text-slate-600 hover:text-healing-green'
                     }`}
                 >
                   {item.label}
@@ -140,10 +149,7 @@ export default function Navigation({ onNavigate }: NavigationProps) {
                 className={`hidden md:flex rounded-full bg-white text-medical-blue border-2 border-slate-100 shadow-[0_4px_12px_rgba(0,0,0,0.1)] hover:shadow-[0_8px_16px_rgba(0,0,0,0.15)] hover:-translate-y-0.5 active:scale-95 hover:border-medical-blue/20 transition-all duration-300 ${isScrolled ? 'px-4 py-2 h-9 text-xs font-bold' : 'px-6 h-11 text-sm font-bold'}`}
               >
                 <span className="flex items-center gap-2">
-                  <span className="relative flex h-2.5 w-2.5">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-600"></span>
-                  </span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-healing-green"></span>
                   Free Lung Check
                 </span>
               </Button>
@@ -152,7 +158,7 @@ export default function Navigation({ onNavigate }: NavigationProps) {
               <Button
                 onClick={() => handleNavClick('contact')}
                 variant="secondary"
-                className={`hidden sm:flex rounded-full transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:scale-105 shadow-[0_4px_14px_0_rgba(13,148,136,0.39)] hover:shadow-[0_6px_20px_rgba(13,148,136,0.23)] ${isScrolled ? 'px-4 py-4 h-10 text-sm' : 'px-6 h-11'}`}
+                className={`hidden sm:flex rounded-full transition-all duration-300 ease-smooth hover:scale-105 shadow-[0_4px_14px_0_rgba(13,148,136,0.39)] hover:shadow-[0_6px_20px_rgba(13,148,136,0.23)] ${isScrolled ? 'px-4 py-4 h-10 text-sm' : 'px-6 h-11'}`}
               >
                 Book <span className={`${isScrolled ? 'hidden lg:inline ml-1' : 'inline ml-1'}`}>Appointment</span>
               </Button>
@@ -177,10 +183,16 @@ export default function Navigation({ onNavigate }: NavigationProps) {
         <div className="flex flex-col h-full overflow-y-auto">
           {/* Menu Header with Close Button */}
           <div className="flex items-center justify-between p-6 border-b border-gray-100">
-            <span className="font-bold text-lg text-medical-blue">Menu</span>
+            <div className="flex items-center gap-3">
+              <img src="/logo.webp" alt="" width={192} height={192} className="w-9 h-9 object-contain" />
+              <div>
+                <span className="font-bold text-base leading-tight text-medical-blue block">Dr. A.K. Verma</span>
+                <span className="text-xs text-slate-500">Pulmonologist</span>
+              </div>
+            </div>
             <button
               onClick={() => setIsMobileMenuOpen(false)}
-              className="p-2 rounded-full hover:bg-soft-grey text-[#4A5568] transition-colors"
+              className="p-2 rounded-full hover:bg-soft-grey text-slate-600 transition-colors"
             >
               <X className="w-6 h-6" />
             </button>
@@ -206,7 +218,7 @@ export default function Navigation({ onNavigate }: NavigationProps) {
           </div>
 
           {/* Menu Footer */}
-          <div className="p-6 bg-[#F6F9FC] mt-auto">
+          <div className="p-6 bg-soft-grey mt-auto">
             <a
               href="tel:+917041055430"
               className="flex items-center justify-center gap-2 w-full bg-white border border-medical-blue/10 text-medical-blue font-semibold py-4 rounded-xl mb-4 shadow-sm"
@@ -216,7 +228,7 @@ export default function Navigation({ onNavigate }: NavigationProps) {
             </a>
             <Button
               onClick={() => handleNavClick('contact')}
-              className="w-full bg-healing-green hover:bg-[#00B894] text-white rounded-xl py-6 text-lg shadow-lg shadow-healing-green/20"
+              className="w-full bg-healing-green hover:bg-healing-green-dim text-white rounded-xl py-6 text-lg shadow-lg shadow-healing-green/20"
             >
               Book Appointment
             </Button>
