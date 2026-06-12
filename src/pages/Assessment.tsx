@@ -17,7 +17,7 @@ export default function AssessmentPage() {
     };
 
     return (
-        <div className="min-h-screen bg-[#F6F9FC]">
+        <div className="min-h-screen bg-soft-grey">
             <Navigation onNavigate={handleNavigate} />
 
             <main className="pt-20">

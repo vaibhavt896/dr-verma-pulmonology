@@ -1,4 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+/* Self-hosted fonts — no render-blocking Google Fonts round-trips */
+@import '@fontsource-variable/inter';
+@import '@fontsource-variable/plus-jakarta-sans';
+@import '@fontsource-variable/playfair-display/wght-italic.css';
 
 @tailwind base;
 @tailwind components;
@@ -14,9 +17,9 @@
     --popover-foreground: 230 40% 12%;
     --primary: 210 74% 14%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 168 100% 42%;
+    --secondary: 175 84% 32%;
     --secondary-foreground: 0 0% 100%;
-    --accent: 0 100% 71%;
+    --accent: 175 84% 32%;
     --accent-foreground: 0 0% 100%;
     --muted: 210 20% 96%;
     --muted-foreground: 215 16% 47%;
@@ -24,39 +27,34 @@
     --destructive-foreground: 0 0% 98%;
     --border: 214 32% 91%;
     --input: 214 32% 91%;
-    --ring: 168 100% 42%;
+    --ring: 175 84% 32%;
     --radius: 1rem;
 
-    /* Custom Medical Theme - 2026 Professional Standard */
-    /* Primary Brand: Deepest Navy (Trust, Authority) */
+    /*
+     * Brand palette — the ONLY colors the site uses.
+     * RGB channel triplets so Tailwind opacity modifiers work (bg-healing-green/10).
+     */
+    --rgb-navy: 2 6 23;          /* slate-950 — authority, headings, primary surfaces */
+    --rgb-navy-soft: 30 41 59;   /* slate-800 — gradient endpoint for navy surfaces  */
+    --rgb-teal: 13 148 136;      /* teal-600 — single accent (WCAG AA on white)      */
+    --rgb-teal-dim: 15 118 110;  /* teal-700 — hover state                           */
+    --rgb-coral: 225 29 72;      /* rose-600 — urgent only                           */
+    --rgb-bg: 248 250 252;       /* slate-50 — page background                       */
+
+    /* Hex aliases for inline styles / plain CSS */
     --medical-blue: #020617;
-    /* Slate 950 */
-
-    /* Secondary Brand: Clinical Teal (Healing, Calm, Readable) */
+    --navy-soft: #1E293B;
     --healing-green: #0D9488;
-    /* Teal 600 - Meets WCAG AA with white */
     --healing-green-dim: #0F766E;
-    /* Teal 700 - Hover state */
-    --healing-green-light: #CCFBF1;
-    /* Teal 100 - Backgrounds */
-
-    /* Functional Colors */
     --care-coral: #E11D48;
-    /* Rose 600 - Alerts/Urgent only */
     --soft-grey: #F8FAFC;
-    /* Slate 50 - Background */
-    --pure-white: #FFFFFF;
-    --dark-navy: #0F172A;
-    /* Slate 900 */
     --slate-grey: #475569;
-    /* Slate 600 - Body text */
 
-    /* Animation Easings */
-    --ease-breathe: cubic-bezier(0.4, 0, 0.2, 1);
-    --ease-inhale: cubic-bezier(0.16, 1, 0.3, 1);
-    --ease-exhale: cubic-bezier(0.7, 0, 0.84, 0);
-    --ease-elastic: cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    --ease-smooth: cubic-bezier(0.25, 0.1, 0.25, 1);
+    /* Motion tokens — one easing language for the whole site */
+    --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    --dur-fast: 0.3s;
+    --dur-base: 0.6s;
+    --dur-slow: 1s;
   }
 }
 
@@ -66,12 +64,13 @@
   }
 
   html {
-    scroll-behavior: smooth;
+    /* Lenis owns scrolling; native smooth would fight it */
+    scroll-behavior: auto;
   }
 
   body {
     @apply bg-soft-grey text-medical-blue antialiased;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Inter Variable', system-ui, sans-serif;
     overflow-x: hidden;
   }
 
@@ -81,12 +80,21 @@
   h4,
   h5,
   h6 {
-    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-family: 'Plus Jakarta Sans Variable', system-ui, sans-serif;
     font-weight: 700;
+    letter-spacing: -0.02em;
   }
 
+  /* Serif voice — reserved for the single hero accent */
   .font-display {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Playfair Display Variable', Georgia, serif;
+  }
+
+  /* Visible, consistent keyboard focus everywhere */
+  :focus-visible {
+    outline: 2px solid var(--healing-green);
+    outline-offset: 2px;
+    border-radius: 4px;
   }
 }
 
@@ -95,456 +103,89 @@
     text-wrap: balance;
   }
 
-  /* Gradient Text */
-  .gradient-text {
-    background: linear-gradient(135deg, var(--medical-blue) 0%, var(--healing-green) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .gradient-text-green {
-    background: linear-gradient(135deg, var(--healing-green) 0%, #00B894 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  /* Glass Morphism */
-  .glass {
-    background: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-  }
-
-  .glass-dark {
-    background: rgba(10, 37, 64, 0.9);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-  }
-
-  /* Card Hover Effects */
-  .card-lift {
-    transition: all 0.5s var(--ease-inhale);
-  }
-
-  .card-lift:hover {
-    transform: translateY(-12px);
-    box-shadow: 0 25px 50px -12px rgba(10, 37, 64, 0.15);
-  }
-
-  /* Magnetic Button Effect */
-  .magnetic-btn {
-    transition: transform 0.3s var(--ease-smooth);
-  }
-
-  /* Breathing Animation */
-  @keyframes breathe {
-
-    0%,
-    100% {
-      transform: scale(1) translateY(0);
-      opacity: 1;
-    }
-
-    50% {
-      transform: scale(1.02) translateY(-4px);
-      opacity: 0.95;
-    }
-  }
-
-  .animate-breathe {
-    animation: breathe 6s ease-in-out infinite;
-    will-change: transform;
-  }
-
-  /* Pulse Glow */
-  @keyframes pulse-glow {
-
-    0%,
-    100% {
-      box-shadow: 0 0 20px rgba(0, 212, 170, 0.3);
-    }
-
-    50% {
-      box-shadow: 0 0 40px rgba(0, 212, 170, 0.6);
-    }
-  }
-
-  .animate-pulse-glow {
-    animation: pulse-glow 3s ease-in-out infinite;
-  }
-
-  /* Float Animation */
-  @keyframes float {
-
-    0%,
-    100% {
-      transform: translateY(0px);
-    }
-
-    50% {
-      transform: translateY(-20px);
-    }
-  }
-
-  .animate-float {
-    animation: float 6s ease-in-out infinite;
-  }
-
-  /* Shimmer Effect */
-  @keyframes shimmer {
-    0% {
-      background-position: -200% 0;
-    }
-
-    100% {
-      background-position: 200% 0;
-    }
-  }
-
-  .animate-shimmer {
-    background: linear-gradient(90deg,
-        transparent 0%,
-        rgba(255, 255, 255, 0.4) 50%,
-        transparent 100%);
-    background-size: 200% 100%;
-    animation: shimmer 2s infinite;
-  }
-
-  /* Button Shine Effect */
-  @keyframes btn-shine {
-    0% {
-      transform: translateX(-100%) skewX(-15deg);
-    }
-
-    100% {
-      transform: translateX(200%) skewX(-15deg);
-    }
-  }
-
-  .btn-shine-effect {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 50%;
-    height: 100%;
-    background: linear-gradient(90deg,
-        transparent,
-        rgba(255, 255, 255, 0.2),
-        transparent);
-    transform: translateX(-150%) skewX(-15deg);
-    transition: transform 0.5s;
-  }
-
-  .group:hover .btn-shine-effect {
-    animation: btn-shine 0.75s ease-in-out;
-  }
-
-  /* Gradient Shift */
-  @keyframes gradient-shift {
-    0% {
-      background-position: 0% 50%;
-    }
-
-    50% {
-      background-position: 100% 50%;
-    }
-
-    100% {
-      background-position: 0% 50%;
-    }
-  }
-
-  .animate-gradient {
-    background-size: 200% 200%;
-    animation: gradient-shift 15s ease infinite;
-  }
-
-  /* Blob Morph */
-  @keyframes blob-morph {
-
-    0%,
-    100% {
-      border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
-    }
-
-    50% {
-      border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
-    }
-  }
-
-  .blob-morph {
-    animation: blob-morph 10s ease-in-out infinite;
-  }
-
-  /* Scroll Reveal */
-  .reveal {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: all 0.8s var(--ease-inhale);
-  }
-
-  .reveal.active {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* Custom Scrollbar */
-  ::-webkit-scrollbar {
-    width: 8px;
-  }
-
-  ::-webkit-scrollbar-track {
-    background: #F6F9FC;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, var(--healing-green), var(--medical-blue));
-    border-radius: 4px;
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(180deg, #00B894, #081f36);
-  }
-
-  /* Text Selection */
-  ::selection {
-    background: rgba(0, 212, 170, 0.3);
-    color: var(--medical-blue);
-  }
-
-  /* Focus States */
-  .focus-ring:focus {
-    outline: none;
-    ring: 2px;
-    ring-color: var(--healing-green);
-    ring-offset: 2px;
-  }
-
-  /* Underline Animation */
-  .underline-animation {
-    position: relative;
-  }
-
-  .underline-animation::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: linear-gradient(90deg, var(--healing-green), var(--medical-blue));
-    transition: width 0.4s var(--ease-inhale);
-  }
-
-  .underline-animation:hover::after {
-    width: 100%;
-  }
-
-  /* 3D Card Tilt */
-  .tilt-card {
-    transform-style: preserve-3d;
-    perspective: 1000px;
-  }
-
-  /* Noise Texture Overlay */
-  .noise-overlay::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-    opacity: 0.03;
-    pointer-events: none;
-    z-index: 1;
-  }
-
-  /* Mesh Gradient Background */
-  .mesh-gradient {
-    background:
-      radial-gradient(at 40% 20%, rgba(0, 212, 170, 0.15) 0px, transparent 50%),
-      radial-gradient(at 80% 0%, rgba(10, 37, 64, 0.1) 0px, transparent 50%),
-      radial-gradient(at 0% 50%, rgba(0, 212, 170, 0.1) 0px, transparent 50%),
-      radial-gradient(at 80% 50%, rgba(255, 107, 107, 0.08) 0px, transparent 50%),
-      radial-gradient(at 0% 100%, rgba(10, 37, 64, 0.1) 0px, transparent 50%),
-      #F6F9FC;
-  }
-
-  /* Counter Animation */
   .counter {
     font-variant-numeric: tabular-nums;
   }
 
-  /* Cinematic Glass Card - "Ray-traced" feel */
-  .card-cinematic {
-    @apply relative overflow-hidden bg-white/70 backdrop-blur-xl border border-white/50 transition-all duration-500;
-    box-shadow:
-      0 4px 6px -1px rgba(0, 0, 0, 0.02),
-      0 10px 15px -3px rgba(0, 0, 0, 0.02),
-      0 0 0 1px rgba(255, 255, 255, 0.5) inset;
-    /* Inner light rim */
+  /* Faint engineering-grid texture for hero backgrounds */
+  .bg-dot-grid {
+    background-image: radial-gradient(rgb(2 6 23 / 0.06) 1px, transparent 1px);
+    background-size: 28px 28px;
   }
 
-  .card-cinematic:hover {
-    @apply bg-white/80 border-white/80 -translate-y-2;
-    box-shadow:
-      0 20px 40px -5px rgba(0, 0, 0, 0.05),
-      0 0 0 1px rgba(255, 255, 255, 0.8) inset,
-      0 0 20px 0 rgba(0, 212, 170, 0.1);
-    /* Ambient Glow */
+  /* Typewriter cursor */
+  .typewriter-cursor {
+    display: inline-block;
+    width: 2.5px;
+    height: 0.82em;
+    background: currentColor;
+    margin-left: 3px;
+    vertical-align: -0.06em;
+    border-radius: 1px;
+    animation: cursor-blink 0.75s step-end infinite;
   }
 
-  /* Darker Cinematic Card for variation */
-  .card-cinematic-dark {
-    @apply relative overflow-hidden bg-medical-blue/90 backdrop-blur-xl border border-white/10 transition-all duration-500 text-white;
-    box-shadow:
-      0 4px 20px -1px rgba(0, 0, 0, 0.2),
-      0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+  @keyframes cursor-blink {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0; }
   }
 
-  .card-cinematic-dark:hover {
-    @apply border-white/20 -translate-y-2;
-    box-shadow:
-      0 20px 50px -5px rgba(0, 0, 0, 0.3),
-      0 0 0 1px rgba(255, 255, 255, 0.2) inset,
-      0 0 30px 0 rgba(0, 212, 170, 0.2);
+  /* Light sweep across a button on hover */
+  .btn-shine {
+    position: relative;
+    overflow: hidden;
   }
 
-  /* 2026 Seamless Glass Bento Grid */
-  .bento-glass {
-    @apply relative overflow-hidden transition-all duration-500;
-    background: rgba(255, 255, 255, 0.65);
-    backdrop-filter: blur(40px);
-    -webkit-backdrop-filter: blur(40px);
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    box-shadow:
-      0 4px 6px -1px rgba(0, 0, 0, 0.02),
-      0 0 0 1px rgba(255, 255, 255, 0.3) inset;
-    /* Subtle inner border */
+  .btn-shine::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -150%;
+    height: 100%;
+    width: 60%;
+    transform: skewX(-20deg);
+    background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.22), transparent);
+    transition: left 0.7s var(--ease-out-expo);
+    pointer-events: none;
   }
 
-  .bento-glass:hover {
-    background: rgba(255, 255, 255, 0.75);
-    transform: translateY(-4px);
-    border-color: rgba(255, 255, 255, 0.8);
-    box-shadow:
-      0 20px 40px -10px rgba(0, 0, 0, 0.08),
-      inset 0 0 20px rgba(255, 255, 255, 0.6),
-      /* Stronger inner glow */
-      0 0 15px rgba(255, 255, 255, 0.5);
-    /* Outer light source glow */
-  }
-
-  /* Stagger Children */
-  .stagger-children>* {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-
-  .stagger-children.active>* {
-    opacity: 1;
-    transform: translateY(0);
-    transition: all 0.6s var(--ease-inhale);
-  }
-
-  .stagger-children.active>*:nth-child(1) {
-    transition-delay: 0.1s;
-  }
-
-  .stagger-children.active>*:nth-child(2) {
-    transition-delay: 0.2s;
-  }
-
-  .stagger-children.active>*:nth-child(3) {
-    transition-delay: 0.3s;
-  }
-
-  .stagger-children.active>*:nth-child(4) {
-    transition-delay: 0.4s;
-  }
-
-  .stagger-children.active>*:nth-child(5) {
-    transition-delay: 0.5s;
-  }
-
-  .stagger-children.active>*:nth-child(6) {
-    transition-delay: 0.6s;
+  .btn-shine:hover::after {
+    left: 150%;
   }
 }
 
-/* Reduced Motion */
-@media (prefers-reduced-motion: reduce) {
-
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
+/* Quiet, neutral scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
 }
 
-/* -------------------------------------------------------------------------- */
-/*   Motion Primitives (2026 Update)                                          */
-/* -------------------------------------------------------------------------- */
-
-/* Spotlight Effect - Requires JS to update --x and --y */
-.spotlight-card {
-  position: relative;
-  overflow: hidden;
-  --x: 50%;
-  --y: 50%;
-  --spotlight-color: rgba(255, 255, 255, 0.1);
-  isolation: isolate;
+::-webkit-scrollbar-track {
+  background: var(--soft-grey);
 }
 
-.spotlight-card::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(800px circle at var(--x) var(--y),
-      var(--spotlight-color),
-      transparent 40%);
-  opacity: 0;
-  transition: opacity 0.5s var(--ease-smooth);
-  pointer-events: none;
-  z-index: 2;
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 5px;
+  border: 2px solid var(--soft-grey);
 }
 
-.spotlight-card:hover::before {
-  opacity: 1;
+::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
 }
 
-/* Magnetic Physics - Base class for GSAP/Spring interactions */
-.magnetic-wrap {
-  display: inline-block;
-  position: relative;
-  touch-action: none;
+::selection {
+  background: rgb(var(--rgb-teal) / 0.25);
+  color: var(--medical-blue);
 }
 
-.magnetic-item {
-  position: relative;
-  transition: transform 0.1s linear;
-  /* Fast response for magnetic pull */
-  will-change: transform;
-}
-
-/* Parallax Utilities */
-.parallax-layer {
-  will-change: transform;
-  pointer-events: none;
-  /* Often needed for non-interactive layers */
-}
-
-/* Smooth Scroll Container (if needed for lenis-like feel later) */
-html.lenis {
+/* Lenis smooth-scroll integration */
+html.lenis,
+html.lenis body {
   height: auto;
 }
 
 .lenis.lenis-smooth {
-  scroll-behavior: auto;
+  scroll-behavior: auto !important;
 }
 
 .lenis.lenis-smooth [data-lenis-prevent] {
@@ -555,6 +196,13 @@ html.lenis {
   overflow: hidden;
 }
 
-.lenis.lenis-scrolling iframe {
-  pointer-events: none;
+/* Reduced motion: kill CSS animation; JS animation is gated in code */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

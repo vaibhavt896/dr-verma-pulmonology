@@ -48,10 +48,13 @@ module.exports = {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
-        "medical-blue": "var(--medical-blue)",
-        "healing-green": "var(--healing-green)",
-        "care-coral": "var(--care-coral)",
-        "soft-grey": "var(--soft-grey)",
+        // Brand palette — single source of truth, alpha-aware
+        "medical-blue": "rgb(var(--rgb-navy) / <alpha-value>)",
+        "navy-soft": "rgb(var(--rgb-navy-soft) / <alpha-value>)",
+        "healing-green": "rgb(var(--rgb-teal) / <alpha-value>)",
+        "healing-green-dim": "rgb(var(--rgb-teal-dim) / <alpha-value>)",
+        "care-coral": "rgb(var(--rgb-coral) / <alpha-value>)",
+        "soft-grey": "rgb(var(--rgb-bg) / <alpha-value>)",
       },
       borderRadius: {
         xl: "calc(var(--radius) + 4px)",
@@ -62,6 +65,12 @@ module.exports = {
       },
       boxShadow: {
         xs: "0 1px 2px 0 rgb(0 0 0 / 0.05)",
+        card: "0 1px 2px rgb(2 6 23 / 0.04), 0 8px 24px -8px rgb(2 6 23 / 0.08)",
+        "card-hover": "0 2px 4px rgb(2 6 23 / 0.04), 0 20px 40px -12px rgb(2 6 23 / 0.16)",
+        cta: "0 8px 24px -8px rgb(13 148 136 / 0.45)",
+      },
+      transitionTimingFunction: {
+        smooth: "cubic-bezier(0.16, 1, 0.3, 1)",
       },
       keyframes: {
         "accordion-down": {
@@ -76,22 +85,27 @@ module.exports = {
           "0%,70%,100%": { opacity: "1" },
           "20%,50%": { opacity: "0" },
         },
+        breathe: {
+          "0%, 100%": { transform: "scale(1)", opacity: "0.6" },
+          "50%": { transform: "scale(1.06)", opacity: "1" },
+        },
+        float: {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-10px)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         "caret-blink": "caret-blink 1.25s ease-out infinite",
-      },
-      animation: {
-        "accordion-down": "accordion-down 0.2s ease-out",
-        "accordion-up": "accordion-up 0.2s ease-out",
-        "caret-blink": "caret-blink 1.25s ease-out infinite",
-        "float": "float 6s ease-in-out infinite",
+        breathe: "breathe 7s cubic-bezier(0.4, 0, 0.2, 1) infinite",
+        float: "float 6s ease-in-out infinite",
+        "float-delayed": "float 7s ease-in-out 1.5s infinite",
       },
       fontFamily: {
-        sans: ["Plus Jakarta Sans", "sans-serif"],
-        serif: ["Playfair Display", "serif"],
-        display: ["Playfair Display", "serif"],
+        sans: ["'Inter Variable'", "system-ui", "sans-serif"],
+        heading: ["'Plus Jakarta Sans Variable'", "system-ui", "sans-serif"],
+        display: ["'Playfair Display Variable'", "Georgia", "serif"],
       },
     },
   },
