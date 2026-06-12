@@ -1,319 +1,320 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
-import { Phone, Calendar, Star, Award, Users, Wind } from 'lucide-react';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { Phone, Calendar, Star, Stethoscope } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { MOTION, prefersReducedMotion } from '@/lib/motion';
+
+gsap.registerPlugin(ScrollTrigger);
+
+// The last two words cycle through these — keep them punchy, lung-relevant
+const CYCLE_PHRASES = ['breathe better.', 'sleep deeper.', 'live fuller.'];
 
 interface HeroProps {
   onBookAppointment: () => void;
 }
 
 export default function Hero({ onBookAppointment }: HeroProps) {
-  const heroRef = useRef<HTMLDivElement>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
-  const imageRef = useRef<HTMLDivElement>(null);
+  const heroRef    = useRef<HTMLDivElement>(null);
+  const visualRef  = useRef<HTMLDivElement>(null);
+  const typeTextRef = useRef<HTMLSpanElement>(null);
+  const cursorRef   = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
+    if (prefersReducedMotion()) {
+      if (typeTextRef.current) typeTextRef.current.textContent = CYCLE_PHRASES[0];
+      if (cursorRef.current)   cursorRef.current.style.display = 'none';
+      return;
+    }
+
+    let removePointerParallax: (() => void) | undefined;
+
     const ctx = gsap.context(() => {
-      // 1. Atmospheric Particles Animation (Base Float) - ENHANCED VISIBILITY
-      gsap.fromTo('.particle',
-        {
-          y: 'random(100, 200)',
-          opacity: 0
-        },
-        {
-          y: 'random(-100, -200)',
-          opacity: 'random(0.3, 0.6)', // Increased max opacity
-          duration: 'random(10, 20)', // Slower, more calming drift
-          stagger: {
-            amount: 5,
-            repeat: -1,
-            yoyo: true
-          },
-          ease: 'sine.inOut',
-        }
+
+      /* ── 1 · Entrance ── */
+      const tl = gsap.timeline({ defaults: { ease: MOTION.easeSlow } });
+
+      tl.fromTo('.hero-mask-line',
+        { yPercent: 110 },
+        { yPercent: 0, duration: 1.1, stagger: 0.14 },
+        0.1
+      )
+      .fromTo('.hero-fade',
+        { opacity: 0, y: MOTION.rise },
+        { opacity: 1, y: 0, duration: MOTION.dur.base, stagger: MOTION.stagger },
+        0.55
+      )
+      .fromTo('.hero-visual',
+        { opacity: 0, y: 56, scale: 0.97 },
+        { opacity: 1, y: 0, scale: 1, duration: 1.4 },
+        0.3
+      )
+      .fromTo('.hero-card',
+        { opacity: 0, y: 20, scale: 0.92 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.75, stagger: 0.13 },
+        1.05
       );
 
-      // 2. Content Entrance
-      gsap.fromTo(contentRef.current,
-        { opacity: 0, x: -40, filter: 'blur(10px)' },
-        { opacity: 1, x: 0, filter: 'blur(0px)', duration: 1.2, ease: 'power3.out', delay: 0.2 }
-      );
-
-      gsap.fromTo(imageRef.current,
-        { opacity: 0, x: 40, scale: 0.95, filter: 'blur(10px)' },
-        { opacity: 1, x: 0, scale: 1, filter: 'blur(0px)', duration: 1.2, ease: 'power3.out', delay: 0.4 }
-      );
-
-      // 3. Mouse Move Parallax (Physics)
-      const handleMouseMove = (e: MouseEvent) => {
-        const { clientX, clientY } = e;
-        const xPos = (clientX / window.innerWidth - 0.5);
-        const yPos = (clientY / window.innerHeight - 0.5);
-
-        // Move particles opposite to mouse
-        gsap.to('.particle', {
-          x: xPos * -50,
-          y: yPos * -50,
-          duration: 1,
+      /* ── 2 · Animated counters ── */
+      gsap.utils.toArray<HTMLElement>('[data-count]').forEach((el) => {
+        const target = Number(el.dataset.count);
+        const obj = { v: 0 };
+        gsap.to(obj, {
+          v: target,
+          duration: 1.8,
+          delay: 1.1,
           ease: 'power2.out',
-          overwrite: 'auto'
+          onUpdate: () => { el.textContent = Math.round(obj.v).toLocaleString('en-IN'); },
         });
+      });
 
-        // Move floating stats slightly with mouse
-        gsap.to('.hero-stat', {
-          x: xPos * 30,
-          y: yPos * 30,
-          duration: 1.5,
-          ease: 'power2.out'
-        });
+      /* ── 3 · Typewriter cycling ── */
+      const el = typeTextRef.current!;
 
-        // Move background blob slowly
-        gsap.to('.hero-blob', {
-          x: xPos * -20,
-          y: yPos * -20,
-          duration: 2,
-          ease: 'power1.out'
-        });
+      // Build a master timeline that types → holds → deletes for each phrase, on loop
+      const buildPhraseTimeline = (phrase: string) => {
+        const tl = gsap.timeline();
+        const TYPE_SPEED   = 0.055; // seconds per character while typing
+        const DELETE_SPEED = 0.032; // seconds per character while deleting
+        const HOLD_TIME    = 1.9;   // seconds to hold after fully typed
+        const GAP_TIME     = 0.22;  // pause before typing next phrase
+
+        // Type in — add one character at a time
+        for (let i = 1; i <= phrase.length; i++) {
+          const captured = i;
+          tl.call(() => { el.textContent = phrase.slice(0, captured); }, [], (i - 1) * TYPE_SPEED);
+        }
+
+        // Hold with cursor blinking
+        tl.to({}, { duration: HOLD_TIME });
+
+        // Delete — remove one character at a time (skip if last phrase iteration handled outside)
+        for (let i = phrase.length - 1; i >= 0; i--) {
+          const captured = i;
+          tl.call(() => { el.textContent = phrase.slice(0, captured); }, [], `+=${DELETE_SPEED}`);
+        }
+
+        // Brief gap before next phrase starts
+        tl.to({}, { duration: GAP_TIME });
+
+        return tl;
       };
 
-      window.addEventListener('mousemove', handleMouseMove);
+      // Chain all phrases into a master looping timeline
+      const master = gsap.timeline({ repeat: -1, delay: 1.6 });
+      CYCLE_PHRASES.forEach((phrase) => {
+        master.add(buildPhraseTimeline(phrase));
+      });
 
-      // 4. Scroll Parallax for Background
-      gsap.to('.hero-bg-layer', {
-        yPercent: 30,
+      /* ── 4 · Pointer parallax (desktop only) ── */
+      if (window.matchMedia('(pointer: fine)').matches) {
+        const layers = gsap.utils.toArray<HTMLElement>('[data-depth]').map((el) => ({
+          depth: Number(el.dataset.depth),
+          x: gsap.quickTo(el, 'x', { duration: 0.9, ease: 'power3.out' }),
+          y: gsap.quickTo(el, 'y', { duration: 0.9, ease: 'power3.out' }),
+        }));
+
+        const onMove = (e: MouseEvent) => {
+          const nx = e.clientX / window.innerWidth - 0.5;
+          const ny = e.clientY / window.innerHeight - 0.5;
+          layers.forEach((l) => { l.x(nx * 32 * l.depth); l.y(ny * 20 * l.depth); });
+        };
+
+        window.addEventListener('mousemove', onMove);
+        removePointerParallax = () => window.removeEventListener('mousemove', onMove);
+      }
+
+      /* ── 5 · Scroll parallax on visual column ── */
+      gsap.to(visualRef.current, {
+        yPercent: 8,
         ease: 'none',
         scrollTrigger: {
           trigger: heroRef.current,
           start: 'top top',
           end: 'bottom top',
-          scrub: true
-        }
+          scrub: 0.6,
+        },
       });
-
-      // Cleanup
-      return () => window.removeEventListener('mousemove', handleMouseMove);
 
     }, heroRef);
 
-    return () => ctx.revert();
+    return () => {
+      removePointerParallax?.();
+      ctx.revert();
+    };
   }, []);
 
-  // Magnetic Button Logic
-  const magneticBtnRef = useRef<HTMLButtonElement>(null);
-
-  const handleMagneticMove = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const btn = magneticBtnRef.current;
-    if (!btn) return;
-
-    const { left, top, width, height } = btn.getBoundingClientRect();
-    const x = e.clientX - (left + width / 2);
-    const y = e.clientY - (top + height / 2);
-
-    gsap.to(btn, {
-      x: x * 0.2, // Magnetic pull strength
-      y: y * 0.2,
-      duration: 0.3,
-      ease: 'power2.out'
-    });
-  };
-
-  const handleMagneticLeave = () => {
-    const btn = magneticBtnRef.current;
-    if (!btn) return;
-    gsap.to(btn, { x: 0, y: 0, duration: 0.8, ease: 'elastic.out(1, 0.3)' });
-  };
-
   return (
-    <div
-      ref={heroRef}
-      className="relative min-h-screen flex items-center overflow-hidden bg-soft-grey"
-    >
-      {/* 1. Cinematic Background: Warm, Organic, Breathing */}
-      <div className="absolute inset-0 z-0 hero-bg-layer">
-        {/* Warm Ambient Glow */}
-        <div className="hero-blob absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-gradient-to-br from-amber-100/40 to-orange-50/30 rounded-full blur-[120px] mix-blend-multiply" />
-        <div className="hero-blob absolute bottom-[-10%] right-[-5%] w-[40%] h-[40%] bg-gradient-to-tl from-blue-100/40 to-cyan-50/30 rounded-full blur-[100px] mix-blend-multiply" />
+    <div ref={heroRef} className="relative overflow-hidden bg-soft-grey">
 
-        {/* Subtle Noise Texture for Film Grain Feel */}
-        <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }} />
+      {/* Background — dot grid + two ambient washes, nothing more */}
+      <div className="absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
+        <div className="absolute inset-0 bg-dot-grid [mask-image:radial-gradient(ellipse_70%_55%_at_50%_30%,black_30%,transparent_75%)]" />
+        <div className="absolute top-[-30%] right-[-10%] w-[60%] h-[80%] bg-gradient-to-bl from-healing-green/[0.07] to-transparent rounded-full blur-3xl" />
+        <div className="absolute bottom-[-20%] left-[-15%] w-[45%] h-[55%] bg-gradient-to-tr from-medical-blue/[0.04] to-transparent rounded-full blur-3xl" />
       </div>
 
-      {/* 2. Atmospheric Particles (Visualizing "Air") */}
-      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-        {[...Array(20)].map((_, i) => (
-          <div
-            key={i}
-            className="particle absolute w-1 h-1 bg-amber-400/20 rounded-full"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100 + 20}%`,
-              transform: `scale(${Math.random() * 2 + 0.5})`,
-            }}
-          />
-        ))}
-        {[...Array(15)].map((_, i) => (
-          <div
-            key={`blue-${i}`}
-            className="particle absolute w-1.5 h-1.5 bg-blue-300/20 rounded-full blur-[1px]"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100 + 30}%`,
-              transform: `scale(${Math.random() * 3 + 1})`,
-            }}
-          />
-        ))}
-      </div>
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 sm:pt-28 pb-12 sm:pb-16 lg:pt-32 lg:pb-0 lg:min-h-screen flex items-center">
+        <div className="grid lg:grid-cols-[1.05fr_0.95fr] gap-10 sm:gap-16 lg:gap-8 items-center w-full">
 
-      {/* Content Container - Immersive Layering */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 pt-28 lg:py-20 lg:pt-32 min-h-screen flex items-center">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center w-full">
+          {/* ══════════ Left — copy ══════════ */}
+          <div className="text-left">
 
-          {/* Left Column - Cinematic Typography (Depth Layer: 1) */}
-          <div ref={contentRef} className="text-left relative z-10 pointer-events-none">
-            {/* Enable pointer events only for interactive elements */}
-            <div className="pointer-events-auto">
+            {/* Live badge */}
+            <div className="hero-fade inline-flex items-center gap-2.5 px-4 py-2 bg-white rounded-full shadow-xs border border-slate-200/60 mb-8">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-healing-green opacity-60" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-healing-green" />
+              </span>
+              <span className="text-[11px] font-semibold text-slate-600 tracking-widest uppercase">
+                Accepting new patients · Kanpur
+              </span>
+            </div>
 
-              {/* Trust Badge - Floating Pill */}
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur-md rounded-full shadow-sm border border-white/50 mb-8 hover:shadow-md transition-all duration-300">
-                <span className="relative flex h-2.5 w-2.5">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500"></span>
-                </span>
-                <span className="text-sm font-medium text-gray-600 tracking-wide uppercase text-[11px]">Accepting Urgent Cases</span>
-              </div>
+            {/* Headline — line 1 static, line 2 animated cycling */}
+            <h1 className="text-[clamp(2.9rem,7vw,5.75rem)] font-bold text-medical-blue leading-[1.02] mb-7 tracking-tight">
+              <span className="block overflow-hidden pb-1">
+                <span className="hero-mask-line block">Helping Kanpur</span>
+              </span>
 
-              {/* Headline - Mixed Typography with Depth */}
-              <h1 className="text-4xl sm:text-5xl lg:text-8xl font-bold text-medical-blue leading-[1.05] mb-8 tracking-tight relative">
-                Helping Kanpur <br />
-                <span className="font-display italic font-normal bg-gradient-to-r from-healing-green to-medical-blue bg-clip-text text-transparent p-1">
-                  Breathe Better
-                </span>
-              </h1>
+              {/* Typewriter line — single span, GSAP writes characters */}
+              <span className="block pb-3">
+                <span
+                  ref={typeTextRef}
+                  className="font-display italic font-medium text-healing-green"
+                />
+                {/* Blinking cursor */}
+                <span
+                  ref={cursorRef}
+                  className="typewriter-cursor text-healing-green"
+                  aria-hidden="true"
+                />
+              </span>
+            </h1>
 
-              {/* Subheadline - Storytelling */}
-              <p className="text-lg sm:text-xl text-[#4A5568] mb-10 leading-relaxed max-w-lg font-light backdrop-blur-sm bg-white/30 rounded-lg p-2 sm:-ml-2">
-                Most respiratory struggles are silent. We help you find your voice and your breath again with <span className="font-semibold text-medical-blue">world-class pulmonology care</span>, right here in Ashok Nagar.
-              </p>
+            <p className="hero-fade text-lg sm:text-xl text-slate-600 mb-10 leading-relaxed max-w-lg">
+              Specialist care for asthma, COPD, allergies and sleep disorders,
+              with accurate diagnosis and a clear treatment plan at our Ashok Nagar clinic.
+            </p>
 
-              {/* CTAs - Magnetic Feel */}
-              <div className="flex flex-col sm:flex-row gap-5 mb-16">
+            {/* CTAs */}
+            <div className="hero-fade flex flex-col sm:flex-row gap-4 mb-12">
+              <Button
+                onClick={onBookAppointment}
+                size="lg"
+                className="btn-shine bg-medical-blue hover:bg-navy-soft text-white rounded-2xl px-8 py-7 text-base sm:text-lg font-semibold shadow-card hover:shadow-card-hover transition-all duration-300 ease-smooth hover:-translate-y-0.5"
+              >
+                <Calendar className="w-5 h-5 mr-2" />
+                Book Appointment
+              </Button>
+
+              <a href="tel:+917041055430" className="sm:w-auto">
                 <Button
-                  ref={magneticBtnRef}
-                  onClick={onBookAppointment}
-                  onMouseMove={handleMagneticMove}
-                  onMouseLeave={handleMagneticLeave}
                   size="lg"
-                  className="group relative overflow-hidden bg-medical-blue hover:bg-[#0B1120] text-white rounded-2xl px-6 sm:px-10 py-8 text-lg font-medium shadow-[0_20px_50px_rgba(2,6,23,0.15)] transition-all hover:shadow-[0_20px_50px_rgba(2,6,23,0.3)] will-change-transform"
+                  variant="outline"
+                  className="w-full border border-slate-200 bg-white text-medical-blue hover:bg-slate-50 hover:text-medical-blue rounded-2xl px-8 py-7 text-base sm:text-lg font-semibold transition-all duration-300 ease-smooth hover:-translate-y-0.5 shadow-xs"
                 >
-                  <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
-                  <span className="relative flex items-center gap-2">
-                    <Calendar className="w-5 h-5" />
-                    Book Appointment
-                  </span>
+                  <Phone className="w-5 h-5 mr-2" />
+                  +91-7041055430
                 </Button>
+              </a>
+            </div>
 
-                <a href="tel:+917041055430">
-                  <Button
-                    size="lg"
-                    variant="outline"
-                    className="w-full sm:w-auto border border-medical-blue/10 bg-white/50 backdrop-blur-sm text-medical-blue hover:bg-white hover:text-medical-blue rounded-2xl px-6 sm:px-10 py-8 text-lg font-medium transition-all hover:-translate-y-1 shadow-sm"
-                  >
-                    <Phone className="w-5 h-5 mr-2" />
-                    +91-7041055430
-                  </Button>
-                </a>
+            {/* Trust row */}
+            <div className="hero-fade flex items-start justify-between sm:justify-start sm:items-center gap-3 sm:gap-10 border-t border-medical-blue/10 pt-8 max-w-xl">
+              <div className="flex flex-col">
+                <div className="flex items-baseline gap-1.5">
+                  <span className="counter font-bold text-medical-blue text-xl sm:text-3xl leading-none">4.9</span>
+                  <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
+                </div>
+                <span className="text-xs text-slate-500 mt-1.5">
+                  <span data-count="479" className="counter font-semibold text-slate-600">479</span> Google reviews
+                </span>
               </div>
 
-              {/* Trust Indicators - Minimalist */}
-              <div className="flex items-center gap-8 border-t border-[#0A2540]/10 pt-8 max-w-xl">
-                <div className="flex items-center gap-3">
-                  <div className="flex -space-x-4">
-                    {[1, 2, 3].map((i) => (
-                      <div key={i} className="w-12 h-12 rounded-full border-4 border-[#FAFAF9] bg-gray-200 overflow-hidden shadow-sm">
-                        <img src={`https://randomuser.me/api/portraits/men/${i + 20}.jpg`} alt="Patient" className="w-full h-full object-cover" />
-                      </div>
-                    ))}
-                    <div className="w-12 h-12 rounded-full border-4 border-[#FAFAF9] bg-medical-blue flex items-center justify-center text-white text-xs font-bold shadow-sm">
-                      +10k
-                    </div>
-                  </div>
-                  <div className="flex flex-col">
-                    <div className="flex items-center gap-1">
-                      <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
-                      <span className="font-bold text-medical-blue">4.9</span>
-                    </div>
-                    <span className="text-xs text-[#4A5568] font-medium">Trusted by Families</span>
-                  </div>
-                </div>
+              <div className="h-10 w-px bg-medical-blue/10 hidden sm:block" />
 
-                <div className="h-12 w-px bg-medical-blue/10" />
+              <div className="flex flex-col">
+                <span className="counter font-bold text-medical-blue text-xl sm:text-3xl leading-none">
+                  <span data-count="15">15</span>+
+                </span>
+                <span className="text-xs text-slate-500 mt-1.5">Years of practice</span>
+              </div>
 
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-2xl bg-healing-green/10 flex items-center justify-center">
-                    <Award className="w-6 h-6 text-healing-green" />
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="font-bold text-medical-blue text-lg leading-tight">15+ Years</span>
-                    <span className="text-xs text-[#4A5568]">Clinical Excellence</span>
-                  </div>
-                </div>
+              <div className="h-10 w-px bg-medical-blue/10 hidden sm:block" />
+
+              <div className="flex flex-col">
+                <span className="counter font-bold text-medical-blue text-xl sm:text-3xl leading-none">
+                  <span data-count="10000">10,000</span>+
+                </span>
+                <span className="text-xs text-slate-500 mt-1.5">Patients treated</span>
               </div>
             </div>
           </div>
 
-          {/* Right Column - Immersive Image (Depth Layer: 2) */}
-          <div ref={imageRef} className="absolute inset-0 z-0 h-full w-full lg:relative lg:h-auto lg:w-auto lg:block lg:mt-0 pointer-events-none lg:pointer-events-auto">
-            {/* The "Blob" Morph Background - Behind Everything */}
-            <div className="hero-blob absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[140%] h-[140%] bg-gradient-to-tr from-[#E0F2FE] via-[#F1F5F9] to-transparent rounded-full blur-[80px] opacity-70 animate-pulse-slow pointer-events-none" />
+          {/* ══════════ Right — Apple-style floating figure ══════════ */}
+          <div ref={visualRef} className="hero-visual relative mx-auto w-full max-w-md lg:max-w-[34rem]">
 
-            <div className="relative w-full h-full lg:h-auto">
-              {/* Main Doctor Image - Natural */}
-              <div className="relative w-full h-full lg:mx-auto lg:max-w-none">
+            {/* Breathing rings — behind the figure */}
+            <div
+              className="absolute inset-0 flex items-center justify-center pointer-events-none"
+              aria-hidden="true"
+              data-depth="0.25"
+            >
+              <div className="animate-breathe absolute w-[82%] aspect-square rounded-full border border-healing-green/20" />
+              <div className="animate-breathe absolute w-[98%] aspect-square rounded-full border border-healing-green/12" style={{ animationDelay: '1.3s' }} />
+              <div className="animate-breathe absolute w-[114%] aspect-square rounded-full border border-healing-green/[0.06]" style={{ animationDelay: '2.6s' }} />
+            </div>
+
+            {/* Soft platform glow — grounds the floating figure */}
+            <div
+              className="absolute bottom-[8%] left-1/2 -translate-x-1/2 w-[70%] h-[18%] bg-healing-green/20 rounded-full blur-3xl pointer-events-none"
+              aria-hidden="true"
+              data-depth="0.1"
+            />
+
+            {/* ── The doctor figure — no background, no container ── */}
+            <div className="relative" data-depth="0.12">
+              <picture>
+                <source type="image/webp" srcSet="/dr-verma-new.webp" />
                 <img
                   src="/dr-verma-new.png"
-                  alt="Dr. A.K. Verma"
-                  className="w-full h-full object-cover object-[40%_center] opacity-50 lg:opacity-100 lg:h-auto lg:object-contain lg:object-center relative z-10"
+                  alt="Dr. A.K. Verma, Pulmonologist"
+                  width={774}
+                  height={1024}
+                  fetchPriority="high"
+                  loading="eager"
+                  decoding="sync"
+                  className="relative z-10 w-full h-auto object-contain object-bottom select-none"
+                  style={{
+                    filter: 'drop-shadow(0 24px 56px rgba(2,6,23,0.22)) drop-shadow(0 8px 16px rgba(2,6,23,0.12))',
+                  }}
                 />
+              </picture>
 
-                {/* Floating Info Cards - Glassmorphism - Hidden on mobile */}
-                <div className="hidden lg:flex absolute bottom-6 left-6 right-6 lg:bottom-8 lg:left-8 lg:right-8 z-30 justify-between items-end">
-                  <div className="hero-stat bg-white/10 backdrop-blur-xl border border-white/20 p-3 lg:p-4 rounded-xl text-medical-blue shadow-2xl">
-                    <p className="text-[9px] lg:text-[10px] opacity-80 mb-1 uppercase tracking-wider">Specialization</p>
-                    <p className="font-display text-lg lg:text-xl">Pulmonology</p>
+              {/* Credential bar — bottom */}
+              <div className="hero-card absolute bottom-[12%] left-1/2 -translate-x-1/2 z-20 w-[78%] min-w-[220px]" data-depth="0.28">
+                <div className="bg-white/90 backdrop-blur-md border border-white/60 rounded-2xl shadow-card px-5 py-3.5 flex items-center justify-between gap-4">
+                  <div>
+                    <p className="text-[10px] text-slate-500 uppercase tracking-widest mb-0.5">Dr. A.K. Verma</p>
+                    <p className="font-heading font-bold text-medical-blue leading-tight">MBBS, MD · Pulmonology</p>
                   </div>
-                  <div className="hero-stat bg-healing-green text-white p-3 lg:p-4 rounded-[16px] lg:rounded-[20px] rounded-br-[10px] shadow-lg shadow-healing-green/40 hover:scale-105 transition-transform duration-300 cursor-default">
-                    <Wind className="w-5 h-5 lg:w-6 lg:h-6 mb-2 text-white" />
-                    <div className="h-0.5 w-5 lg:w-6 bg-white/30 rounded-full mb-2" />
-                    <p className="text-[9px] lg:text-[10px] font-bold uppercase tracking-wide">Breathe Easy</p>
+                  <div className="w-10 h-10 rounded-xl bg-medical-blue flex items-center justify-center flex-shrink-0">
+                    <Stethoscope className="w-5 h-5 text-white" />
                   </div>
                 </div>
               </div>
             </div>
-
-            {/* Parallax Floating Elements (Foreground) */}
-            <div className="absolute top-[10%] -right-4 lg:top-[15%] lg:-right-8 hero-stat z-40 hidden lg:block">
-              <div className="bg-white/90 backdrop-blur-md p-3 rounded-xl shadow-[0_20px_60px_rgba(0,0,0,0.15)] flex items-center gap-3 animate-float border border-white/50">
-                <div className="w-10 h-10 bg-blue-50 rounded-full flex items-center justify-center">
-                  <Users className="w-5 h-5 text-blue-600" />
-                </div>
-                <div>
-                  <p className="text-[10px] text-gray-500 font-medium uppercase tracking-wider">Happy Patients</p>
-                  <p className="font-bold text-medical-blue text-lg">10,000+</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Decorative 'Air' Circle */}
-            <div className="absolute -bottom-12 -left-12 w-32 h-32 border border-healing-green/30 rounded-full blur-[1px] animate-spin-slow opacity-60 pointer-events-none" />
           </div>
+
         </div>
       </div>
 
-      {/* Scroll Indicator */}
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2 opacity-60">
-        <span className="text-[10px] uppercase tracking-widest text-[#0A2540]">Scroll</span>
-        <div className="w-[1px] h-12 bg-gradient-to-b from-[#0A2540] to-transparent" />
+      {/* Scroll cue */}
+      <div className="hidden lg:flex absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex-col items-center gap-2 opacity-40" aria-hidden="true">
+        <span className="text-[10px] uppercase tracking-widest text-medical-blue">Scroll</span>
+        <div className="w-px h-10 bg-gradient-to-b from-medical-blue to-transparent" />
       </div>
-    </div >
+    </div>
   );
 }
