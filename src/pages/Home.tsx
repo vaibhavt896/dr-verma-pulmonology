@@ -15,6 +15,7 @@ import MediaMentions from '../sections/MediaMentions';
 import BookingModal from '../components/BookingModal';
 import WhatsAppButton from '../components/WhatsAppButton';
 import { Toaster } from '../components/ui/sonner';
+import { scrollToId } from '../lib/motion';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -26,12 +27,7 @@ export default function Home() {
         // Handle hash scrolling on mount/update
         if (window.location.hash) {
             const sectionId = window.location.hash.replace('#', '');
-            setTimeout(() => {
-                const element = document.getElementById(sectionId);
-                if (element) {
-                    element.scrollIntoView({ behavior: 'smooth' });
-                }
-            }, 100); // Small delay to ensure rendering
+            setTimeout(() => scrollToId(sectionId), 100); // Small delay to ensure rendering
         }
 
         // Initialize ScrollTrigger
@@ -50,14 +46,11 @@ export default function Home() {
     }, []);
 
     const scrollToSection = (sectionId: string) => {
-        const element = document.getElementById(sectionId);
-        if (element) {
-            element.scrollIntoView({ behavior: 'smooth' });
-        }
+        scrollToId(sectionId);
     };
 
     return (
-        <div ref={mainRef} className="min-h-screen bg-[#F6F9FC] overflow-x-hidden">
+        <div ref={mainRef} className="min-h-screen bg-soft-grey overflow-x-hidden">
             <SEOHead />
 
             <Navigation onNavigate={scrollToSection} />
@@ -117,12 +110,12 @@ export default function Home() {
 function SEOHead() {
     useEffect(() => {
         // Update document title
-        document.title = "Best Pulmonologist in Kanpur | Dr. A.K. Verma | Chest Specialist - 4.9★ (479+ Reviews)";
+        document.title = "Dr. A.K. Verma | Pulmonologist in Kanpur | Chest & Respiratory Specialist";
 
         const metaDesc = document.querySelector('meta[name="description"]');
         if (metaDesc) {
             metaDesc.setAttribute('content',
-                "Dr. A.K. Verma - Best Pulmonologist in Kanpur with 15+ years experience. 4.9★ rating from 479+ patients. Expert in asthma, COPD, allergy treatment. Book appointment: +91-7041055430. Location: Ashok Nagar, Kanpur."
+                "Dr. A.K. Verma, Pulmonologist in Kanpur with 15+ years of experience. 4.9 Google rating (479 reviews). Asthma, COPD, allergy & sleep apnea care. Book: +91-7041055430. Ashok Nagar, Kanpur."
             );
         }
 
