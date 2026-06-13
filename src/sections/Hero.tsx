@@ -154,14 +154,14 @@ export default function Hero({ onBookAppointment }: HeroProps) {
         <div className="absolute bottom-[-20%] left-[-15%] w-[45%] h-[55%] bg-gradient-to-tr from-medical-blue/[0.04] to-transparent rounded-full blur-3xl" />
       </div>
 
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 sm:pt-28 pb-12 sm:pb-16 lg:pt-32 lg:pb-0 lg:min-h-screen flex items-center">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 sm:pt-24 pb-8 sm:pb-12 lg:pt-28 lg:pb-0 lg:min-h-screen flex items-center">
         <div className="grid lg:grid-cols-[1.05fr_0.95fr] gap-10 sm:gap-16 lg:gap-8 items-center w-full">
 
           {/* ══════════ Left — copy ══════════ */}
           <div className="text-left">
 
             {/* Live badge */}
-            <div className="hero-fade inline-flex items-center gap-2.5 px-4 py-2 bg-white rounded-full shadow-xs border border-slate-200/60 mb-8">
+            <div className="hero-fade inline-flex items-center gap-2.5 px-4 py-2 bg-white rounded-full shadow-xs border border-slate-200/60 mb-4 sm:mb-6 lg:mb-8">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-healing-green opacity-60" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-healing-green" />
@@ -172,7 +172,7 @@ export default function Hero({ onBookAppointment }: HeroProps) {
             </div>
 
             {/* Headline — line 1 static, line 2 animated cycling */}
-            <h1 className="text-[clamp(2.9rem,7vw,5.75rem)] font-bold text-medical-blue leading-[1.02] mb-7 tracking-tight">
+            <h1 className="text-[clamp(2.4rem,7vw,5.75rem)] font-bold text-medical-blue leading-[1.02] mb-3 sm:mb-5 lg:mb-7 tracking-tight">
               <span className="block overflow-hidden pb-1">
                 <span className="hero-mask-line block">Helping Kanpur</span>
               </span>
@@ -192,36 +192,36 @@ export default function Hero({ onBookAppointment }: HeroProps) {
               </span>
             </h1>
 
-            <p className="hero-fade text-lg sm:text-xl text-slate-600 mb-10 leading-relaxed max-w-lg">
+            <p className="hero-fade text-base sm:text-lg lg:text-xl text-slate-600 mb-5 sm:mb-8 lg:mb-10 leading-relaxed max-w-lg">
               Specialist care for asthma, COPD, allergies and sleep disorders,
               with accurate diagnosis and a clear treatment plan at our Ashok Nagar clinic.
             </p>
 
             {/* CTAs */}
-            <div className="hero-fade flex flex-col sm:flex-row gap-4 mb-12">
+            <div className="hero-fade flex flex-col sm:flex-row gap-3 sm:gap-4 mb-5 sm:mb-8 lg:mb-12">
               <Button
                 onClick={onBookAppointment}
                 size="lg"
-                className="btn-shine bg-medical-blue hover:bg-navy-soft text-white rounded-2xl px-8 py-7 text-base sm:text-lg font-semibold shadow-card hover:shadow-card-hover transition-all duration-300 ease-smooth hover:-translate-y-0.5"
+                className="btn-shine bg-medical-blue hover:bg-navy-soft text-white rounded-2xl px-8 py-5 sm:py-7 text-base sm:text-lg font-semibold shadow-card hover:shadow-card-hover transition-all duration-300 ease-smooth hover:-translate-y-0.5"
               >
                 <Calendar className="w-5 h-5 mr-2" />
                 Book Appointment
               </Button>
 
-              <a href="tel:+917041055430" className="sm:w-auto">
+              <a href="tel:+919454097191" className="sm:w-auto">
                 <Button
                   size="lg"
                   variant="outline"
-                  className="w-full border border-slate-200 bg-white text-medical-blue hover:bg-slate-50 hover:text-medical-blue rounded-2xl px-8 py-7 text-base sm:text-lg font-semibold transition-all duration-300 ease-smooth hover:-translate-y-0.5 shadow-xs"
+                  className="w-full border border-slate-200 bg-white text-medical-blue hover:bg-slate-50 hover:text-medical-blue rounded-2xl px-8 py-5 sm:py-7 text-base sm:text-lg font-semibold transition-all duration-300 ease-smooth hover:-translate-y-0.5 shadow-xs"
                 >
                   <Phone className="w-5 h-5 mr-2" />
-                  +91-7041055430
+                  +91-9454097191
                 </Button>
               </a>
             </div>
 
             {/* Trust row */}
-            <div className="hero-fade flex items-start justify-between sm:justify-start sm:items-center gap-3 sm:gap-10 border-t border-medical-blue/10 pt-8 max-w-xl">
+            <div className="hero-fade flex items-start justify-between sm:justify-start sm:items-center gap-3 sm:gap-10 border-t border-medical-blue/10 pt-5 sm:pt-6 lg:pt-8 max-w-xl">
               <div className="flex flex-col">
                 <div className="flex items-baseline gap-1.5">
                   <span className="counter font-bold text-medical-blue text-xl sm:text-3xl leading-none">4.9</span>
@@ -297,7 +297,7 @@ export default function Hero({ onBookAppointment }: HeroProps) {
                 <div className="bg-white/90 backdrop-blur-md border border-white/60 rounded-2xl shadow-card px-5 py-3.5 flex items-center justify-between gap-4">
                   <div>
                     <p className="text-[10px] text-slate-500 uppercase tracking-widest mb-0.5">Dr. A.K. Verma</p>
-                    <p className="font-heading font-bold text-medical-blue leading-tight">MBBS, MD · Pulmonology</p>
+                    <p className="font-heading font-bold text-medical-blue leading-tight">MBBS, MD, DM · Pulmonology</p>
                   </div>
                   <div className="w-10 h-10 rounded-xl bg-medical-blue flex items-center justify-center flex-shrink-0">
                     <Stethoscope className="w-5 h-5 text-white" />

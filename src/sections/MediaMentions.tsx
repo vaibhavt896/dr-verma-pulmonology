@@ -6,6 +6,15 @@ import { MOTION, prefersReducedMotion } from '@/lib/motion';
 
 gsap.registerPlugin(ScrollTrigger);
 
+const featuredPress = {
+    image: '/Paper%20cutting.webp',
+    title: 'Palpitations Explained: What NVAF Feels Like',
+    source: 'National Daily',
+    description:
+        'Dr. A.K. Verma cited as the expert voice on NVAF — explaining how palpitations, irregular heartbeats and atrial fibrillation are connected, and when patients must seek timely cardiac and pulmonary evaluation.',
+    quote: 'Palpitations are one of the most common symptoms of NVAF and are often described as a sensation of a racing, fluttering or irregular heartbeat.',
+};
+
 const mediaItems = [
     {
         id: 1,
@@ -85,7 +94,7 @@ export default function MediaMentions() {
     return (
         <div
             ref={sectionRef}
-            className="relative py-14 sm:py-20 lg:py-28 bg-gradient-to-b from-soft-grey to-white overflow-hidden"
+            className="relative py-16 sm:py-24 lg:py-32 bg-soft-grey overflow-hidden"
         >
             {/* Background Decoration */}
             <div className="absolute top-0 left-0 w-64 h-64 bg-healing-green/5 rounded-full blur-3xl" />
@@ -98,12 +107,61 @@ export default function MediaMentions() {
                         <Newspaper className="w-4 h-4 text-medical-blue" />
                         <span className="text-sm font-semibold text-medical-blue">Featured In</span>
                     </div>
-                    <h2 className="media-title text-3xl lg:text-4xl font-bold text-medical-blue mb-4">
+                    <h2 className="media-title text-3xl sm:text-4xl lg:text-5xl font-bold text-medical-blue mb-4 tracking-tight">
                         Media & Publications
                     </h2>
                     <p className="media-title text-lg text-slate-600 max-w-2xl mx-auto">
                         Dr. A.K. Verma's expertise recognized in leading healthcare publications and awareness campaigns
                     </p>
+                </div>
+
+                {/* Featured Press Clip */}
+                <div className="media-card mb-10 lg:mb-14">
+                    <div className="group bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100 hover:shadow-2xl transition-all duration-300 max-w-4xl mx-auto">
+                        <div className="flex flex-col sm:flex-row items-stretch">
+                            {/* Newspaper image */}
+                            <div className="sm:w-[45%] relative overflow-hidden bg-slate-50 min-h-[220px] sm:min-h-0">
+                                <img
+                                    src={featuredPress.image}
+                                    alt={featuredPress.title}
+                                    loading="lazy"
+                                    decoding="async"
+                                    className="w-full h-full object-cover object-center group-hover:scale-[1.03] transition-transform duration-500"
+                                />
+                                {/* Badge */}
+                                <div className="absolute top-4 left-4">
+                                    <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold bg-medical-blue text-white shadow">
+                                        <Newspaper className="w-3 h-3" />
+                                        Press Coverage
+                                    </span>
+                                </div>
+                            </div>
+
+                            {/* Text side */}
+                            <div className="sm:w-[55%] p-6 sm:p-8 lg:p-10 flex flex-col justify-center">
+                                <p className="text-xs font-bold text-healing-green uppercase tracking-widest mb-3">
+                                    {featuredPress.source}
+                                </p>
+                                <h3 className="text-xl sm:text-2xl font-bold text-medical-blue mb-4 leading-tight group-hover:text-healing-green transition-colors duration-200">
+                                    {featuredPress.title}
+                                </h3>
+
+                                {/* Pull quote */}
+                                <blockquote className="border-l-4 border-healing-green pl-4 mb-4">
+                                    <p className="text-sm text-slate-500 italic leading-relaxed">
+                                        "{featuredPress.quote}"
+                                    </p>
+                                    <footer className="text-xs font-semibold text-medical-blue mt-2">
+                                        — Dr. A.K. Verma, Pulmonologist, Kanpur
+                                    </footer>
+                                </blockquote>
+
+                                <p className="text-sm text-slate-600 leading-relaxed">
+                                    {featuredPress.description}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 {/* Media Grid */}

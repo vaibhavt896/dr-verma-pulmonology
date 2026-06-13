@@ -48,7 +48,7 @@ export default function About() {
   return (
     <div
       ref={sectionRef}
-      className="relative py-12 sm:py-24 lg:py-32 bg-soft-grey overflow-hidden"
+      className="relative py-16 sm:py-24 lg:py-32 bg-white overflow-hidden"
     >
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-20 items-center">
@@ -78,8 +78,8 @@ export default function About() {
                     <Award className="w-5 sm:w-7 h-5 sm:h-7 text-healing-green" />
                   </div>
                   <div>
-                    <div className="text-lg sm:text-2xl font-bold text-medical-blue">MBBS, MD</div>
-                    <div className="text-gray-500 text-xs sm:text-sm">Pulmonology</div>
+                    <div className="text-lg sm:text-2xl font-bold text-medical-blue">MBBS, MD, DM</div>
+                    <div className="text-gray-500 text-xs sm:text-sm">Interventional Pulmonologist</div>
                   </div>
                 </div>
               </div>
@@ -100,7 +100,7 @@ export default function About() {
             <blockquote className="text-lg sm:text-xl text-slate-600 leading-relaxed mb-8 border-l-4 border-healing-green pl-4 sm:pl-6">
               "Most respiratory disease is treatable when caught early. My goal for every patient is simple: understand the cause, treat it properly, and prevent it from coming back."
               <footer className="mt-3 text-sm font-semibold text-medical-blue">
-                Dr. A.K. Verma, MBBS, MD (Pulmonology)
+                Dr. A.K. Verma — MBBS, MD (KGMU), DM (Pulmonary, Critical Care & Sleep Medicine)
               </footer>
             </blockquote>
 
@@ -136,13 +136,13 @@ export default function About() {
             {/* Clinic Image */}
             <div className="relative rounded-3xl overflow-hidden shadow-card h-[300px] sm:h-[400px]">
               <img
-                src="/clinic-interior.webp"
-                alt="Dr. A.K. Verma Clinic - Ashok Nagar, Kanpur"
-                width={1184}
-                height={864}
+                src="/clinic-exterior.webp"
+                alt="Patel Chest & Allergy Clinic exterior, Dr. A.K. Verma — Ashok Nagar, Kanpur"
+                width={1280}
+                height={1705}
                 loading="lazy"
                 decoding="async"
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover object-[center_28%]"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-medical-blue/90 via-medical-blue/20 to-transparent" />
               <div className="absolute bottom-0 left-0 right-0 p-8 sm:p-10 text-white">
@@ -165,12 +165,12 @@ export default function About() {
                 {[
                   'Pulmonary Function Test (PFT)',
                   'Allergy Testing & Immunotherapy',
+                  'CPAP & BiPAP Therapy',
                   'Digital X-Ray & ECG',
-                  'In-House Pharmacy',
-                  'Sleep Study Facilities',
-                  'Nebulization Therapy'
+                  'Sleep Study Assessment',
+                  'Nebulization & Oxygen Therapy'
                 ].map((feature, idx) => (
-                  <div key={idx} className="flex items-center gap-3 p-3 bg-white rounded-xl shadow-xs border border-gray-100/50">
+                  <div key={idx} className="flex items-center gap-3 p-3 bg-soft-grey rounded-xl border border-slate-200/70">
                     <div className="w-8 h-8 rounded-full bg-healing-green/10 flex items-center justify-center flex-shrink-0">
                       <Check className="w-4 h-4 text-healing-green" />
                     </div>
@@ -186,7 +186,7 @@ export default function About() {
                 </div>
                 <div>
                   <div className="text-xs text-gray-500 uppercase tracking-wide mb-1">Timing</div>
-                  <div className="font-semibold text-medical-blue">9:00 AM - 7:00 PM</div>
+                  <div className="font-semibold text-medical-blue">12–3 PM & 6:30–8:30 PM</div>
                 </div>
               </div>
             </div>

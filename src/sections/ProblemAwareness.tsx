@@ -112,7 +112,7 @@ export default function ProblemAwareness() {
   return (
     <div
       ref={sectionRef}
-      className="relative py-14 sm:py-24 lg:py-32 bg-soft-grey overflow-hidden"
+      className="relative py-16 sm:py-24 lg:py-32 bg-white overflow-hidden"
     >
       {/* Background Elements */}
       <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-care-coral/5 to-transparent" />
@@ -263,7 +263,7 @@ export default function ProblemAwareness() {
                 Take Free Breathing Assessment
               </a>
               <a
-                href="tel:+917041055430"
+                href="tel:+919454097191"
                 className="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white rounded-full px-8 py-4 font-semibold transition-all duration-300 ease-smooth border border-white/30"
               >
                 <Phone className="w-5 h-5" />

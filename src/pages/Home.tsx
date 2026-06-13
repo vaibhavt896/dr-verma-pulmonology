@@ -6,9 +6,11 @@ import Hero from '../sections/Hero';
 import ProblemAwareness from '../sections/ProblemAwareness';
 import SymptomChecker from '../sections/SymptomChecker';
 import About from '../sections/About';
+import Credentials from '../sections/Credentials';
 import Services from '../sections/Services';
 import Testimonials from '../sections/Testimonials';
 import FAQ from '../sections/FAQ';
+import Clinic from '../sections/Clinic';
 import Contact from '../sections/Contact';
 import Footer from '../sections/Footer';
 import MediaMentions from '../sections/MediaMentions';
@@ -72,6 +74,10 @@ export default function Home() {
                     <About />
                 </section>
 
+                <section id="credentials">
+                    <Credentials />
+                </section>
+
                 <section id="services">
                     <Services />
                 </section>
@@ -86,6 +92,10 @@ export default function Home() {
 
                 <section id="faq">
                     <FAQ />
+                </section>
+
+                <section id="clinic">
+                    <Clinic />
                 </section>
 
                 <section id="contact">
@@ -115,7 +125,7 @@ function SEOHead() {
         const metaDesc = document.querySelector('meta[name="description"]');
         if (metaDesc) {
             metaDesc.setAttribute('content',
-                "Dr. A.K. Verma, Pulmonologist in Kanpur with 15+ years of experience. 4.9 Google rating (479 reviews). Asthma, COPD, allergy & sleep apnea care. Book: +91-7041055430. Ashok Nagar, Kanpur."
+                "Dr. A.K. Verma, Consultant Chest Physician & Interventional Pulmonologist at Patel Chest & Allergy Clinic, Kanpur. MBBS, MD (KGMU), DM (Pulmonary, Critical Care & Sleep Medicine). Asthma, COPD, Sleep Apnea, ILD & more. Book: +91-9454097191."
             );
         }
 

@@ -31,11 +31,11 @@ const services = [
     icon: Moon,
     title: 'Sleep Apnea & Snoring',
     subtitle: 'Sleep-Related Breathing',
-    outcome: 'Conservative, evidence-based treatment first',
-    description: 'Daytime tiredness despite a full night in bed often points to disturbed breathing during sleep. Proper evaluation finds the cause.',
+    outcome: 'In-clinic diagnosis · CPAP & BiPAP fitting available',
+    description: 'Loud snoring is not merely a nuisance — untreated Sleep Apnea raises the risk of uncontrolled hypertension, diabetes complications, heart disease and sudden cardiac events during sleep.',
     approach: 'How Dr. Verma Treats It',
-    approachDetail: 'Home sleep study referral, followed by CPAP titration and fitting where needed. Surgery is considered only when conservative care is not enough.',
-    benefits: ['All-day energy', 'Better focus', 'Lower cardiac strain', 'Quieter, deeper sleep'],
+    approachDetail: 'In-clinic sleep study assessment, followed by CPAP or BiPAP titration and fitting at the clinic. Oxygen therapy also available. Surgery is considered only when conservative care is insufficient.',
+    benefits: ['Restful, uninterrupted sleep', 'Better BP & sugar control', 'Reduced cardiac risk', 'CPAP / BiPAP fitting in-clinic'],
   },
   {
     icon: Droplets,
@@ -114,7 +114,7 @@ export default function Services() {
   return (
     <div
       ref={sectionRef}
-      className="relative py-14 sm:py-24 lg:py-32 bg-soft-grey overflow-hidden"
+      className="relative py-16 sm:py-24 lg:py-32 bg-white overflow-hidden"
     >
       {/* Background */}
       <div className="absolute inset-0">
@@ -243,12 +243,12 @@ export default function Services() {
               {[
                 'Bronchoscopy',
                 'Thoracoscopy',
-                'Sleep Studies',
-                'Lung Function Tests',
+                'Sleep Study Assessment',
+                'CPAP & BiPAP Fitting',
+                'Lung Function Tests (PFT)',
                 'Allergy Testing',
                 'TB Treatment',
-                'COPD Management',
-                'Non-Invasive Ventilation'
+                'COPD Management'
               ].map((service, i) => (
                 <div key={i} className="flex items-center gap-2 text-sm">
                   <Check className="w-4 h-4 text-teal-300 flex-shrink-0" />

@@ -17,7 +17,7 @@ export default defineConfig({
       output: {
         manualChunks: {
           react: ['react', 'react-dom', 'react-router-dom'],
-          motion: ['gsap', 'lenis'],
+          motion: ['gsap'],
         },
       },
     },

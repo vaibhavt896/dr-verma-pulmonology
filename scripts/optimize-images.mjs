@@ -72,7 +72,7 @@ const textSvg = Buffer.from(`
   <text x="80" y="320" font-family="Helvetica, Arial, sans-serif" font-size="34" font-weight="400" fill="#5EEAD4">Pulmonologist — Kanpur</text>
   <text x="80" y="420" font-family="Helvetica, Arial, sans-serif" font-size="26" fill="#CBD5E1">Asthma · COPD · Allergy · Sleep Apnea</text>
   <text x="80" y="470" font-family="Helvetica, Arial, sans-serif" font-size="26" fill="#CBD5E1">4.9 ★ on Google · 15+ years of experience</text>
-  <text x="80" y="560" font-family="Helvetica, Arial, sans-serif" font-size="24" font-weight="700" fill="#FFFFFF">+91-7041055430 · Ashok Nagar, Kanpur</text>
+  <text x="80" y="560" font-family="Helvetica, Arial, sans-serif" font-size="24" font-weight="700" fill="#FFFFFF">+91-9454097191 · Ashok Nagar, Kanpur</text>
 </svg>`);
 
 await sharp(textSvg)

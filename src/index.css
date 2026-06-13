@@ -64,7 +64,6 @@
   }
 
   html {
-    /* Lenis owns scrolling; native smooth would fight it */
     scroll-behavior: auto;
   }
 
@@ -176,24 +175,6 @@
 ::selection {
   background: rgb(var(--rgb-teal) / 0.25);
   color: var(--medical-blue);
-}
-
-/* Lenis smooth-scroll integration */
-html.lenis,
-html.lenis body {
-  height: auto;
-}
-
-.lenis.lenis-smooth {
-  scroll-behavior: auto !important;
-}
-
-.lenis.lenis-smooth [data-lenis-prevent] {
-  overscroll-behavior: contain;
-}
-
-.lenis.lenis-stopped {
-  overflow: hidden;
 }
 
 /* Reduced motion: kill CSS animation; JS animation is gated in code */

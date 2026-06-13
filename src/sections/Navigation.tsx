@@ -13,6 +13,7 @@ const navItems = [
   { label: 'About', id: 'about' },
   { label: 'Services', id: 'services' },
   { label: 'Reviews', id: 'testimonials' },
+  { label: 'Clinic', id: 'clinic' },
   { label: 'Contact', id: 'contact' },
 ];
 
@@ -118,7 +119,7 @@ export default function Navigation({ onNavigate }: NavigationProps) {
                   Dr. A.K. Verma
                 </h1>
                 <p className="text-xs text-slate-600">
-                  Pulmonologist
+                  Consultant Chest Physician
                 </p>
               </div>
             </button>
@@ -187,7 +188,7 @@ export default function Navigation({ onNavigate }: NavigationProps) {
               <img src="/logo.webp" alt="" width={192} height={192} className="w-9 h-9 object-contain" />
               <div>
                 <span className="font-bold text-base leading-tight text-medical-blue block">Dr. A.K. Verma</span>
-                <span className="text-xs text-slate-500">Pulmonologist</span>
+                <span className="text-xs text-slate-500">Consultant Chest Physician</span>
               </div>
             </div>
             <button
@@ -220,11 +221,11 @@ export default function Navigation({ onNavigate }: NavigationProps) {
           {/* Menu Footer */}
           <div className="p-6 bg-soft-grey mt-auto">
             <a
-              href="tel:+917041055430"
+              href="tel:+919454097191"
               className="flex items-center justify-center gap-2 w-full bg-white border border-medical-blue/10 text-medical-blue font-semibold py-4 rounded-xl mb-4 shadow-sm"
             >
               <Phone className="w-5 h-5 text-healing-green" />
-              <span>+91-7041055430</span>
+              <span>+91-9454097191</span>
             </a>
             <Button
               onClick={() => handleNavClick('contact')}
@@ -262,7 +263,7 @@ export default function Navigation({ onNavigate }: NavigationProps) {
             </button>
           ))}
           <a
-            href="tel:+917041055430"
+            href="tel:+919454097191"
             onClick={() => { if (navigator.vibrate) navigator.vibrate(10); }}
             className="flex flex-col items-center gap-1 py-3 text-slate-grey hover:text-healing-green transition-colors active:scale-95"
           >
@@ -270,7 +271,7 @@ export default function Navigation({ onNavigate }: NavigationProps) {
             <span className="text-[10px] font-medium">Call</span>
           </a>
           <a
-            href="https://wa.me/917041055430"
+            href="https://wa.me/919454097191"
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => { if (navigator.vibrate) navigator.vibrate(10); }}

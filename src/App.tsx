@@ -1,14 +1,10 @@
-import { lazy, Suspense, useEffect } from 'react';
+import { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
-import { initSmoothScroll } from './lib/motion';
 
 const AssessmentPage = lazy(() => import('./pages/Assessment'));
 
 function App() {
-  useEffect(() => {
-    initSmoothScroll();
-  }, []);
 
   return (
     <Router>

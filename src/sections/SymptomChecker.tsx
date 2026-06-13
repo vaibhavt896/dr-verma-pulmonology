@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { prefersReducedMotion } from '@/lib/motion';
 import {
   Check,
   AlertCircle,
@@ -119,6 +120,7 @@ export default function SymptomChecker() {
   const [showWhatsAppMessage, setShowWhatsAppMessage] = useState(false);
 
   useEffect(() => {
+    if (prefersReducedMotion()) return;
     const ctx = gsap.context(() => {
       gsap.fromTo('.symptom-title',
         { opacity: 0, y: 40 },
@@ -263,28 +265,26 @@ export default function SymptomChecker() {
     const recommendation = getRecommendation();
     const selectedSymptomLabels = selectedSymptoms.map(id => {
       const symptom = symptoms.find(s => s.id === id);
-      return symptom ? `• ${symptom.emoji} ${symptom.label}` : '';
-    }).join('\n');
+      return symptom ? `- ${symptom.label}` : '';
+    }).filter(Boolean).join('\n');
 
-    return `नमस्ते Dr. Verma 🙏
+    return `Good day,
 
-I used the Symptom Checker on your website.
+I used the Symptom Checker on your website and would like to book a consultation at Patel Chest & Allergy Clinic.
 
-📋 My Symptoms:
+Reported Symptoms:
 ${selectedSymptomLabels}
 
-🔴 Urgency Level: ${recommendation?.urgencyLabel || 'Unknown'}
-💡 Recommended Service: ${recommendation?.suggestedService || 'Consultation'}
-⏰ Recommended: ${recommendation?.timeframe || 'Consultation'}
+Urgency: ${recommendation?.urgencyLabel || 'Consultation Required'}
+Suggested Service: ${recommendation?.suggestedService || 'General Consultation'}
+Recommended Timeframe: ${recommendation?.timeframe || 'At your earliest convenience'}
 
-Please help me book an appointment.
-
-धन्यवाद 🙏`;
+Please let me know the next available appointment slot. Thank you.`;
   };
 
   const handleWhatsApp = () => {
     const message = generateWhatsAppMessage();
-    const whatsappUrl = `https://wa.me/917041055430?text=${encodeURIComponent(message)}`;
+    const whatsappUrl = `https://wa.me/919454097191?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
   };
 
@@ -294,7 +294,7 @@ Please help me book an appointment.
   return (
     <div
       ref={sectionRef}
-      className="relative py-12 sm:py-24 lg:py-32 bg-soft-grey overflow-hidden"
+      className="relative py-16 sm:py-24 lg:py-32 bg-soft-grey overflow-hidden"
     >
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-b from-healing-green/5 to-transparent" />
@@ -306,7 +306,7 @@ Please help me book an appointment.
             <Sparkles className="w-4 h-4 text-healing-green" />
             <span className="text-xs sm:text-sm font-semibold text-medical-blue">Smart Symptom Analysis</span>
           </div>
-          <h2 className="symptom-title text-2xl sm:text-4xl lg:text-5xl font-bold text-medical-blue mb-4 sm:mb-6 px-2">
+          <h2 className="symptom-title text-3xl sm:text-4xl lg:text-5xl font-bold text-medical-blue mb-4 sm:mb-6 px-2 tracking-tight">
             Do You Need a Pulmonologist?
           </h2>
           <p className="symptom-title text-base sm:text-lg text-slate-600 max-w-2xl mx-auto px-2">
@@ -451,14 +451,14 @@ Please help me book an appointment.
 
                 {/* Call Button */}
                 <a
-                  href="tel:+917041055430"
+                  href="tel:+919454097191"
                   className={`w-full inline-flex items-center justify-center gap-2 rounded-full px-6 sm:px-8 py-3.5 sm:py-4 font-semibold transition-all active:scale-[0.98] ${recommendation.level === 'low'
                     ? 'bg-medical-blue text-white hover:bg-navy-soft'
                     : 'bg-white/20 text-white hover:bg-white/30 backdrop-blur-sm'
                     }`}
                 >
                   <Phone className="w-5 h-5" />
-                  <span className="hidden sm:inline">Call:</span> +91-7041055430
+                  <span className="hidden sm:inline">Call:</span> +91-9454097191
                 </a>
               </div>
 

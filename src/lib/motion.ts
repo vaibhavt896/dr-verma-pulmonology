@@ -1,4 +1,3 @@
-import Lenis from 'lenis';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -20,35 +19,12 @@ export const prefersReducedMotion = () =>
   typeof window !== 'undefined' &&
   window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-let lenis: Lenis | null = null;
-
-/** Create the Lenis instance once and drive it from GSAP's ticker. */
-export function initSmoothScroll(): Lenis | null {
-  if (lenis || prefersReducedMotion()) return lenis;
-
-  lenis = new Lenis({
-    duration: 1.1,
-    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-  });
-
-  lenis.on('scroll', ScrollTrigger.update);
-  gsap.ticker.add((time) => {
-    lenis?.raf(time * 1000);
-  });
-  gsap.ticker.lagSmoothing(0);
-
-  return lenis;
-}
-
-/** Smooth-scroll to a section; falls back to native when Lenis is off. */
+/** Scroll to a section by id using native browser scroll. */
 export function scrollToId(id: string) {
   const target = document.getElementById(id);
   if (!target) return;
-  if (lenis) {
-    lenis.scrollTo(target, { offset: -80 });
-  } else {
-    target.scrollIntoView({ behavior: prefersReducedMotion() ? 'auto' : 'smooth' });
-  }
+  const top = target.getBoundingClientRect().top + window.scrollY - 80;
+  window.scrollTo({ top, behavior: prefersReducedMotion() ? 'auto' : 'smooth' });
 }
 
 /**

@@ -44,46 +44,46 @@ const generateContextMessage = (context: ContextMessage): string => {
     if (context.source === 'breathing-assessment' && context.score !== undefined) {
         const riskText = context.score <= 5 ? 'Low Risk' :
             context.score <= 10 ? 'Moderate Concern' :
-                context.score <= 15 ? 'High Concern' : 'Urgent';
+                context.score <= 15 ? 'High Concern' : 'Urgent Attention Required';
         const symptomsText = context.symptoms?.join(', ') || 'general breathing concerns';
 
-        return `नमस्ते Dr. Verma,
+        return `Good day,
 
-I completed the breathing assessment on your website.
+I completed the Breathing Health Assessment on your website and would like to request a consultation.
 
-📊 My Score: ${context.score}/20 (${riskText})
-🔍 Main Concerns: ${symptomsText}
+Assessment Score: ${context.score}/20 — ${riskText}
+Reported Concerns: ${symptomsText}
 
-I would like to book a consultation. Please let me know the next available slot.
+Could you please let me know the next available appointment slot?
 
-धन्यवाद 🙏`;
+Thank you.`;
     }
 
     if (context.source === 'symptom-checker' && context.symptoms) {
-        return `नमस्ते Dr. Verma,
+        return `Good day,
 
-I completed the symptom checker on your website.
+I used the Symptom Checker on your website and would like to book a consultation with Dr. Verma.
 
-🔍 My Symptoms: ${context.symptoms.join(', ')}
+My reported symptoms: ${context.symptoms.join(', ')}
 
-I would like to book a consultation to discuss these symptoms.
+Please let me know the available appointment slots.
 
-धन्यवाद 🙏`;
+Thank you.`;
     }
 
     if (context.source === 'service' && context.serviceName) {
-        return `नमस्ते Dr. Verma,
+        return `Good day,
 
-I'm interested in ${context.serviceName} treatment. Could you please provide more information and help me book a consultation?
+I am interested in ${context.serviceName} and would like to book a consultation at Patel Chest & Allergy Clinic. Could you please share the available appointment slots?
 
-धन्यवाद 🙏`;
+Thank you.`;
     }
 
-    return `नमस्ते Dr. Verma,
+    return `Good day,
 
-I would like to book an appointment for consultation. Please let me know the next available slot.
+I would like to book a consultation appointment with Dr. A.K. Verma at Patel Chest & Allergy Clinic. Please let me know the next available slot.
 
-धन्यवाद 🙏`;
+Thank you.`;
 };
 
 export default function WhatsAppButton({ contextMessage }: WhatsAppButtonProps) {
@@ -92,7 +92,7 @@ export default function WhatsAppButton({ contextMessage }: WhatsAppButtonProps) 
     const [message, setMessage] = useState('');
     const [showTooltip, setShowTooltip] = useState(false);
 
-    const phoneNumber = '917041055430';
+    const phoneNumber = '919454097191';
 
     useEffect(() => {
         // Let the visitor read the hero before any chrome appears
@@ -125,13 +125,13 @@ export default function WhatsAppButton({ contextMessage }: WhatsAppButtonProps) 
     };
 
     const handleQuickMessage = (msg: string) => {
-        const fullMessage = `नमस्ते Dr. Verma,
+        const fullMessage = `Good day,
 
 ${msg}
 
-Please let me know the next available appointment slot.
+I would like to book a consultation with Dr. A.K. Verma at your earliest convenience. Please let me know the available appointment slots.
 
-धन्यवाद 🙏`;
+Thank you.`;
         handleSendMessage(fullMessage);
     };
 
@@ -179,11 +179,14 @@ Please let me know the next available appointment slot.
                         <div className="bg-[#ECE5DD] p-4 max-h-[400px] overflow-y-auto">
                             {/* Welcome Message */}
                             <div className="bg-white rounded-lg p-3 shadow-sm max-w-[90%] mb-4">
-                                <p className="text-sm text-gray-700">
-                                    नमस्ते! 🙏 Welcome to Dr. A.K. Verma's clinic. How can we help you today?
+                                <p className="text-sm text-gray-700 font-medium">
+                                    Patel Chest & Allergy Clinic
                                 </p>
-                                <p className="text-xs text-gray-500 mt-2">
-                                    📍 Ashok Nagar, Kanpur | ⏰ Mon-Sat, 9AM-7PM
+                                <p className="text-sm text-gray-600 mt-1">
+                                    Hello! How can we assist you today? Select a topic below or type your message.
+                                </p>
+                                <p className="text-xs text-gray-400 mt-2">
+                                    Ashok Nagar, Kanpur &nbsp;·&nbsp; Mon–Sat: 12–3 PM & 6:30–8:30 PM
                                 </p>
                                 <span className="text-[10px] text-gray-400 mt-1 block">Now</span>
                             </div>
@@ -240,9 +243,9 @@ Please let me know the next available appointment slot.
             <div className="fixed bottom-[88px] md:bottom-4 right-3 md:right-4 z-50 flex flex-col items-end gap-3">
                 {/* Tooltip — desktop only; on mobile it overlapped content */}
                 {showTooltip && !isOpen && (
-                    <div className="hidden md:block bg-white rounded-xl shadow-card px-4 py-3 text-sm text-gray-700 max-w-[200px] animate-in fade-in slide-in-from-bottom-2 duration-500">
-                        <p className="font-medium">Need help?</p>
-                        <p className="text-xs text-gray-500 mt-1">Chat with Dr. Verma's clinic on WhatsApp</p>
+                    <div className="hidden md:block bg-white rounded-xl shadow-card px-4 py-3 text-sm text-gray-700 max-w-[220px] animate-in fade-in slide-in-from-bottom-2 duration-500">
+                        <p className="font-medium text-medical-blue">Book an Appointment</p>
+                        <p className="text-xs text-gray-500 mt-1">Connect with Patel Chest & Allergy Clinic on WhatsApp</p>
                     </div>
                 )}
 

@@ -48,12 +48,11 @@ export default function Footer({ onNavigate }: FooterProps) {
               </div>
               <div>
                 <h3 className="font-bold text-lg">Dr. A.K. Verma</h3>
-                <p className="text-white/60 text-sm">Pulmonologist</p>
+                <p className="text-white/60 text-sm">Consultant Chest Physician</p>
               </div>
             </div>
             <p className="text-white/70 leading-relaxed mb-6">
-              Pulmonologist in Kanpur with 15+ years of experience.
-              4.9★ Google rating from 479+ patient reviews.
+              Consultant Chest Physician & Interventional Pulmonologist in Kanpur. MBBS, MD (KGMU), DM (Pulmonary, Critical Care & Sleep Medicine). 15+ years experience. 4.9★ Google rating from 479+ patient reviews.
             </p>
 
             {/* Rating Badge */}
@@ -78,7 +77,7 @@ export default function Footer({ onNavigate }: FooterProps) {
                 <MapPin className="w-5 h-5" />
               </a>
               <a
-                href="https://wa.me/917041055430"
+                href="https://wa.me/919454097191"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="WhatsApp"
@@ -107,7 +106,7 @@ export default function Footer({ onNavigate }: FooterProps) {
 
             {/* Book Appointment Button */}
             <a
-              href="https://wa.me/917041055430"
+              href="https://wa.me/919454097191"
               target="_blank"
               rel="noopener noreferrer"
               className="mt-6 inline-flex items-center gap-2 bg-[#25D366] text-white px-5 py-3 rounded-full font-semibold text-sm hover:bg-[#1fb855] transition-all"
@@ -144,19 +143,19 @@ export default function Footer({ onNavigate }: FooterProps) {
               <li className="flex items-center gap-3">
                 <Phone className="w-5 h-5 text-healing-green flex-shrink-0" />
                 <a
-                  href="tel:+917041055430"
+                  href="tel:+919454097191"
                   className="text-white/70 hover:text-healing-green transition-colors"
                 >
-                  +91-7041055430
+                  +91-9454097191
                 </a>
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="w-5 h-5 text-healing-green flex-shrink-0" />
                 <a
-                  href="mailto:drakverma.clinic@gmail.com"
+                  href="mailto:dmpulmonarymedicine.in@gmail.com"
                   className="text-white/70 hover:text-healing-green transition-colors text-sm"
                 >
-                  drakverma.clinic@gmail.com
+                  dmpulmonarymedicine.in@gmail.com
                 </a>
               </li>
             </ul>
@@ -164,7 +163,8 @@ export default function Footer({ onNavigate }: FooterProps) {
             {/* Working Hours */}
             <div className="mt-6 p-4 bg-white/5 rounded-xl">
               <h5 className="font-medium mb-2 text-sm">Working Hours</h5>
-              <p className="text-white/70 text-sm">Mon - Sat: 9:00 AM - 7:00 PM</p>
+              <p className="text-white/70 text-sm">Mon – Sat: 12:00 PM – 3:00 PM</p>
+              <p className="text-white/70 text-sm">Mon – Sat: 6:30 PM – 8:30 PM</p>
               <p className="text-white/50 text-sm">Sunday: Closed</p>
             </div>
 
@@ -183,12 +183,12 @@ export default function Footer({ onNavigate }: FooterProps) {
         </div>
       </div>
 
-      {/* Bottom Bar */}
+      {/* Bottom Bar — extra bottom padding on mobile clears the fixed bottom nav bar */}
       <div className="border-t border-white/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 pb-24 md:pb-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-white/50 text-sm text-center md:text-left">
-              © {new Date().getFullYear()} Dr. A.K. Verma Pulmonology Clinic. All rights reserved.
+              © {new Date().getFullYear()} Patel Chest & Allergy Clinic. All rights reserved.
             </p>
           </div>
         </div>

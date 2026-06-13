@@ -1,20 +1,10 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { MapPin, Clock, Phone, Car, Accessibility, Wifi, Check } from 'lucide-react';
+import { MapPin, Clock, Phone, Car, Accessibility, Wifi } from 'lucide-react';
+import { prefersReducedMotion } from '@/lib/motion';
 
 gsap.registerPlugin(ScrollTrigger);
-
-const facilities = [
-  { icon: Check, label: 'Pulmonary Function Test Lab' },
-  { icon: Check, label: 'Allergy Testing Center' },
-  { icon: Check, label: 'In-House Pharmacy' },
-  { icon: Check, label: 'Digital X-Ray' },
-  { icon: Check, label: 'ECG Facility' },
-  { icon: Check, label: 'Blood Test Collection' },
-  { icon: Check, label: 'Nebulization' },
-  { icon: Check, label: 'Oxygen Therapy' },
-];
 
 const amenities = [
   { icon: Car, label: 'Parking Available' },
@@ -27,6 +17,7 @@ export default function Clinic() {
   const sectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (prefersReducedMotion()) return;
     const ctx = gsap.context(() => {
       gsap.fromTo('.clinic-title',
         { opacity: 0, y: 40 },
@@ -56,20 +47,6 @@ export default function Clinic() {
         }
       );
 
-      gsap.fromTo('.facility-item',
-        { opacity: 0, x: -20 },
-        {
-          opacity: 1,
-          x: 0,
-          duration: 0.4,
-          stagger: 0.05,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: '.facilities-list',
-            start: 'top 80%',
-          },
-        }
-      );
     }, sectionRef);
 
     return () => ctx.revert();
@@ -78,15 +55,15 @@ export default function Clinic() {
   return (
     <div
       ref={sectionRef}
-      className="relative py-24 lg:py-32 bg-soft-grey overflow-hidden"
+      className="relative py-16 sm:py-24 lg:py-32 bg-white overflow-hidden"
     >
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center mb-16">
-          <span className="clinic-title inline-block text-healing-green text-sm font-semibold uppercase tracking-wider mb-4">
+        <div className="text-center mb-12 sm:mb-16">
+          <span className="clinic-title inline-block text-healing-green text-xs sm:text-sm font-semibold uppercase tracking-wider mb-3 sm:mb-4">
             Visit Our Clinic
           </span>
-          <h2 className="clinic-title text-4xl lg:text-5xl font-bold text-medical-blue mb-6">
+          <h2 className="clinic-title text-3xl sm:text-4xl lg:text-5xl font-bold text-medical-blue mb-6 tracking-tight">
             Modern Facility, Complete Care
           </h2>
           <p className="clinic-title text-lg text-slate-600 max-w-2xl mx-auto">
@@ -101,13 +78,17 @@ export default function Clinic() {
             {/* Clinic Image */}
             <div className="clinic-image relative rounded-3xl overflow-hidden shadow-2xl">
               <img
-                src="/clinic-interior.webp"
-                alt="Dr. A.K. Verma Clinic - Ashok Nagar, Kanpur"
-                className="w-full h-80 object-cover"
+                src="/clinic-exterior.webp"
+                alt="Patel Chest & Allergy Clinic exterior, Dr. A.K. Verma — Ashok Nagar, Kanpur"
+                width={1280}
+                height={1705}
+                loading="lazy"
+                decoding="async"
+                className="w-full h-80 object-cover object-[center_30%]"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-medical-blue/80 to-transparent" />
               <div className="absolute bottom-6 left-6 right-6 text-white">
-                <h3 className="text-2xl font-bold mb-2">Dr. A.K. Verma Clinic</h3>
+                <h3 className="text-2xl font-bold mb-2">Patel Chest & Allergy Clinic</h3>
                 <p className="text-white/80 text-sm">
                   Opposite Vikas Diagnostic, Near Motijheel Chauraha
                 </p>
@@ -138,7 +119,7 @@ export default function Clinic() {
                 Clinic Address
               </h3>
               <p className="text-slate-600 leading-relaxed mb-4">
-                <strong className="text-medical-blue">111A/34, Dr. A.K. Verma Clinic</strong><br />
+                <strong className="text-medical-blue">111A/34, Patel Chest & Allergy Clinic</strong><br />
                 Opposite Vikas Diagnostic<br />
                 Near Motijheel Chauraha<br />
                 Ashok Nagar Road, Kanpur - 208012<br />
@@ -162,8 +143,12 @@ export default function Clinic() {
               </h3>
               <div className="space-y-2">
                 <div className="flex justify-between">
-                  <span className="text-slate-600">Monday - Saturday</span>
-                  <span className="font-semibold text-medical-blue">9:00 AM - 7:00 PM</span>
+                  <span className="text-slate-600">Mon – Sat (Morning)</span>
+                  <span className="font-semibold text-medical-blue">12:00 PM – 3:00 PM</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-slate-600">Mon – Sat (Evening)</span>
+                  <span className="font-semibold text-medical-blue">6:30 PM – 8:30 PM</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-slate-600">Sunday</span>
@@ -184,35 +169,14 @@ export default function Clinic() {
                 Contact
               </h3>
               <a
-                href="tel:+917041055430"
+                href="tel:+919454097191"
                 className="text-2xl font-bold text-healing-green hover:text-healing-green-dim transition-colors"
               >
-                +91-7041055430
+                +91-9454097191
               </a>
               <p className="text-sm text-slate-600 mt-2">
                 Call or WhatsApp for appointments
               </p>
-            </div>
-
-            {/* Facilities */}
-            <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
-              <h3 className="text-xl font-bold text-medical-blue mb-4">
-                In-House Facilities
-              </h3>
-              <div className="facilities-list grid grid-cols-2 gap-3">
-                {facilities.map((facility, index) => {
-                  const Icon = facility.icon;
-                  return (
-                    <div
-                      key={index}
-                      className="facility-item flex items-center gap-2 text-sm text-slate-600"
-                    >
-                      <Icon className="w-4 h-4 text-healing-green" />
-                      {facility.label}
-                    </div>
-                  );
-                })}
-              </div>
             </div>
 
             {/* Amenities */}

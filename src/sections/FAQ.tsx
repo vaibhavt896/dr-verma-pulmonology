@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ChevronDown, MessageCircle } from 'lucide-react';
+import { prefersReducedMotion } from '@/lib/motion';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -9,14 +10,14 @@ const faqs = [
   {
     question: 'What conditions does Dr. Verma treat?',
     questionHindi: 'डॉ. वर्मा किन बीमारियों का इलाज करते हैं?',
-    answer: 'Dr. Verma specializes in treating all respiratory conditions including asthma, COPD (Chronic Obstructive Pulmonary Disease), allergic bronchitis, chronic cough, sleep apnea, interstitial lung disease, tuberculosis, pneumonia, and other chest-related conditions. He also provides allergy testing and treatment.',
-    answerHindi: 'दमा, COPD, एलर्जी, टीबी, निमोनिया और छाती की सभी बीमारियों का इलाज होता है।',
+    answer: 'Dr. Verma specializes in the full spectrum of chest and respiratory conditions: asthma, COPD, Sleep Apnea (OSA), Interstitial Lung Disease (ILD), allergic bronchitis, chronic cough, tuberculosis, pneumonia, and respiratory allergies. The clinic also provides CPAP, BiPAP and Oxygen Therapy for sleep-related breathing disorders.',
+    answerHindi: 'दमा, COPD, स्लीप एप्निया, ILD, एलर्जी, टीबी, निमोनिया और छाती की सभी बीमारियों का इलाज होता है। CPAP, BiPAP और ऑक्सीजन थेरेपी की सुविधा भी उपलब्ध है।',
   },
   {
     question: 'How do I book an appointment?',
     questionHindi: 'अपॉइंटमेंट कैसे बुक करें?',
-    answer: 'You can book an appointment by calling +91-7041055430, clicking the "Book Appointment" button on this website, or visiting the clinic directly. Same-day appointments are often available for urgent cases.',
-    answerHindi: '+91-7041055430 पर कॉल करें या WhatsApp करें। अर्जेंट केस के लिए उसी दिन अपॉइंटमेंट मिल जाती है।',
+    answer: 'You can book an appointment by calling +91-9454097191, clicking the "Book Appointment" button on this website, or visiting the clinic directly. Same-day appointments are often available for urgent cases.',
+    answerHindi: '+91-9454097191 पर कॉल करें या WhatsApp करें। अर्जेंट केस के लिए उसी दिन अपॉइंटमेंट मिल जाती है।',
   },
   {
     question: 'How quickly can I expect improvement?',
@@ -51,8 +52,8 @@ const faqs = [
   {
     question: 'What are the clinic timings?',
     questionHindi: 'क्लिनिक का समय क्या है?',
-    answer: 'The clinic is open Monday to Saturday from 9:00 AM to 7:00 PM. Sunday is closed. For emergencies, you can call +91-7041055430 and the doctor will guide you accordingly.',
-    answerHindi: 'सोमवार से शनिवार: सुबह 9 बजे से शाम 7 बजे। रविवार बंद। इमरजेंसी में फोन करें।',
+    answer: 'The clinic is open Monday to Saturday in two slots: 12:00 PM – 3:00 PM and 6:30 PM – 8:30 PM. Sunday is closed. For emergencies, you can call +91-9454097191 and the doctor will guide you accordingly.',
+    answerHindi: 'सोमवार से शनिवार: दोपहर 12 बजे से 3 बजे और शाम 6:30 बजे से 8:30 बजे। रविवार बंद। इमरजेंसी में फोन करें।',
   },
   {
     question: 'Do you accept health insurance?',
@@ -89,6 +90,7 @@ export default function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   useEffect(() => {
+    if (prefersReducedMotion()) return;
     const ctx = gsap.context(() => {
       gsap.fromTo('.faq-title',
         { opacity: 0, y: 40 },
@@ -130,7 +132,7 @@ export default function FAQ() {
   return (
     <div
       ref={sectionRef}
-      className="relative py-14 sm:py-24 lg:py-32 bg-soft-grey overflow-hidden"
+      className="relative py-16 sm:py-24 lg:py-32 bg-soft-grey overflow-hidden"
     >
       {/* JSON-LD FAQ Schema for Google */}
       <script
@@ -144,7 +146,7 @@ export default function FAQ() {
           <span className="faq-title inline-block text-healing-green text-xs sm:text-sm font-semibold uppercase tracking-wider mb-3 sm:mb-4">
             FAQ | अक्सर पूछे जाने वाले सवाल
           </span>
-          <h2 className="faq-title text-2xl sm:text-4xl lg:text-5xl font-bold text-medical-blue mb-4 sm:mb-6">
+          <h2 className="faq-title text-3xl sm:text-4xl lg:text-5xl font-bold text-medical-blue mb-4 sm:mb-6 tracking-tight">
             Frequently Asked Questions
           </h2>
         </div>
@@ -202,10 +204,10 @@ export default function FAQ() {
               Our team is here to help. Call us or send a WhatsApp message.
             </p>
             <a
-              href="tel:+917041055430"
+              href="tel:+919454097191"
               className="inline-flex items-center gap-2 bg-healing-green text-white px-8 py-4 rounded-full font-semibold hover:bg-healing-green-dim transition-all hover:-translate-y-1"
             >
-              Call: +91-7041055430
+              Call: +91-9454097191
             </a>
           </div>
         </div>

@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { prefersReducedMotion } from '@/lib/motion';
 import {
     Wind,
     ChevronRight,
@@ -176,16 +177,14 @@ const getWhatsAppMessage = (score: number, answers: number[]): string => {
         ? symptoms.join(', ')
         : 'general breathing concerns';
 
-    return `नमस्ते Dr. Verma 🙏
+    return `Good day,
 
-I took the Breathing Health Check on your website.
+I completed the Breathing Health Assessment on your website and would like to book a consultation at Patel Chest & Allergy Clinic.
 
-📊 Score: ${score}/20 (${riskLevel.title})
-🔍 Concerns: ${symptomText}
+Assessment Score: ${score}/20 — ${riskLevel.title}
+Reported Concerns: ${symptomText}
 
-Please help me book an appointment.
-
-धन्यवाद`;
+Could you please let me know the next available appointment slot? Thank you.`;
 };
 
 interface BreathingAssessmentProps {
@@ -207,6 +206,7 @@ export default function BreathingAssessment({ onComplete, onBookAppointment }: B
     const riskLevel = getRiskLevel(totalScore);
 
     useEffect(() => {
+        if (prefersReducedMotion()) return;
         const ctx = gsap.context(() => {
             // Title animation
             gsap.fromTo('.breathing-title',
@@ -328,7 +328,7 @@ export default function BreathingAssessment({ onComplete, onBookAppointment }: B
 
     const handleWhatsApp = () => {
         const message = getWhatsAppMessage(totalScore, answers);
-        const whatsappUrl = `https://wa.me/917041055430?text=${encodeURIComponent(message)}`;
+        const whatsappUrl = `https://wa.me/919454097191?text=${encodeURIComponent(message)}`;
         window.open(whatsappUrl, '_blank');
     };
 

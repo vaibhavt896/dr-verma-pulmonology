@@ -4,6 +4,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Phone, MapPin, Clock, CheckCircle, User, MessageCircle, Sparkles, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { prefersReducedMotion } from '@/lib/motion';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -11,8 +12,8 @@ const contactInfo = [
   {
     icon: Phone,
     title: 'Call Now',
-    content: '+91-7041055430',
-    link: 'tel:+917041055430',
+    content: '+91-9454097191',
+    link: 'tel:+919454097191',
     color: 'var(--healing-green)',
   },
   {
@@ -26,7 +27,7 @@ const contactInfo = [
   {
     icon: Clock,
     title: 'Hours',
-    content: 'Mon-Sat: 9AM - 7PM',
+    content: '12–3 PM & 6:30–8:30 PM',
     link: null,
     color: '#8B5CF6',
   },
@@ -42,6 +43,7 @@ export default function Contact() {
   });
 
   useEffect(() => {
+    if (prefersReducedMotion()) return;
     const ctx = gsap.context(() => {
       gsap.fromTo('.contact-title',
         { opacity: 0, y: 40 },
@@ -77,15 +79,15 @@ export default function Contact() {
   }, []);
 
   const handleWhatsApp = () => {
-    const message = `नमस्ते Dr. Verma 🙏
+    const message = `Good day,
 
-I'd like to book an appointment.
+I would like to request a callback for a consultation appointment at Patel Chest & Allergy Clinic.
 
-Name: ${formData.name || '[Please share]'}
-Phone: ${formData.phone || '[Please share]'}
+Name: ${formData.name || '—'}
+Phone: ${formData.phone || '—'}
 
-धन्यवाद 🙏`;
-    const whatsappUrl = `https://wa.me/917041055430?text=${encodeURIComponent(message)}`;
+Please let me know the next available slot. Thank you.`;
+    const whatsappUrl = `https://wa.me/919454097191?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
   };
 
@@ -116,7 +118,7 @@ Phone: ${formData.phone || '[Please share]'}
   return (
     <div
       ref={sectionRef}
-      className="relative py-16 sm:py-24 lg:py-32 bg-gradient-to-b from-soft-grey to-white overflow-hidden"
+      className="relative py-16 sm:py-24 lg:py-32 bg-soft-grey overflow-hidden"
     >
       {/* Background */}
       <div className="absolute inset-0">
@@ -130,7 +132,7 @@ Phone: ${formData.phone || '[Please share]'}
             <Sparkles className="w-4 h-4 text-healing-green" />
             <span className="text-xs sm:text-sm font-semibold text-medical-blue">Book in 30 Seconds</span>
           </div>
-          <h2 className="contact-title text-2xl sm:text-4xl lg:text-5xl font-bold text-medical-blue mb-4">
+          <h2 className="contact-title text-3xl sm:text-4xl lg:text-5xl font-bold text-medical-blue mb-4 tracking-tight">
             Ready to Breathe Easier?
           </h2>
           <p className="contact-title text-base sm:text-lg text-slate-600 max-w-xl mx-auto">
@@ -141,7 +143,7 @@ Phone: ${formData.phone || '[Please share]'}
         {/* Primary CTAs - WhatsApp & Call */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12 sm:mb-16">
           <a
-            href="https://wa.me/917041055430"
+            href="https://wa.me/919454097191"
             target="_blank"
             rel="noopener noreferrer"
             className="contact-title flex items-center justify-center gap-3 bg-[#25D366] text-white px-8 py-4 sm:py-5 rounded-full font-semibold text-lg shadow-[0_10px_30px_rgba(37,211,102,0.4)] hover:shadow-[0_15px_40px_rgba(37,211,102,0.5)] hover:-translate-y-1 transition-all active:scale-[0.98]"
@@ -151,11 +153,11 @@ Phone: ${formData.phone || '[Please share]'}
             <ArrowRight className="w-5 h-5" />
           </a>
           <a
-            href="tel:+917041055430"
+            href="tel:+919454097191"
             className="contact-title flex items-center justify-center gap-3 bg-medical-blue text-white px-8 py-4 sm:py-5 rounded-full font-semibold text-lg shadow-[0_10px_30px_rgba(10,37,64,0.3)] hover:shadow-[0_15px_40px_rgba(10,37,64,0.4)] hover:-translate-y-1 transition-all active:scale-[0.98]"
           >
             <Phone className="w-6 h-6" />
-            Call: +91-7041055430
+            Call: +91-9454097191
           </a>
         </div>
 

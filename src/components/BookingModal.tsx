@@ -9,9 +9,8 @@ interface BookingModalProps {
 }
 
 const timeSlots = [
-    '9:00 AM', '9:30 AM', '10:00 AM', '10:30 AM', '11:00 AM', '11:30 AM',
-    '12:00 PM', '12:30 PM', '2:00 PM', '2:30 PM', '3:00 PM', '3:30 PM',
-    '4:00 PM', '4:30 PM', '5:00 PM', '5:30 PM', '6:00 PM', '6:30 PM'
+    '12:00 PM', '12:30 PM', '1:00 PM', '1:30 PM', '2:00 PM', '2:30 PM',
+    '6:30 PM', '7:00 PM', '7:30 PM', '8:00 PM', '8:30 PM'
 ];
 
 const consultationTypes = [
@@ -96,7 +95,7 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
                     <div className="flex items-center justify-between">
                         <div>
                             <h2 className="text-2xl font-bold">Book Appointment</h2>
-                            <p className="text-white/80 text-sm mt-1">Dr. A.K. Verma • Pulmonologist</p>
+                            <p className="text-white/80 text-sm mt-1">Dr. A.K. Verma &nbsp;·&nbsp; Consultant Chest Physician</p>
                         </div>
                         <button
                             onClick={onClose}
@@ -140,11 +139,11 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
                                     A confirmation has been sent to your phone. Please arrive 10 minutes early.
                                 </p>
                                 <a
-                                    href="tel:+917041055430"
+                                    href="tel:+919454097191"
                                     className="inline-flex items-center gap-2 text-healing-green font-semibold"
                                 >
                                     <Phone className="w-4 h-4" />
-                                    +91-7041055430
+                                    +91-9454097191
                                 </a>
                             </div>
                             <Button
