@@ -165,7 +165,7 @@ export default function MediaMentions() {
                 </div>
 
                 {/* Media Grid */}
-                <div className="media-grid grid sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+                <div className="media-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
                     {mediaItems.map((item) => (
                         <div
                             key={item.id}

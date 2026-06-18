@@ -161,7 +161,7 @@ export default function About() {
                 <span className="text-healing-green">Under One Roof</span>
               </h3>
 
-              <div className="grid sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 min-[480px]:grid-cols-2 gap-3">
                 {[
                   'Pulmonary Function Test (PFT)',
                   'Allergy Testing & Immunotherapy',

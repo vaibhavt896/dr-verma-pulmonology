@@ -138,7 +138,7 @@ export default function Services() {
         </div>
 
         {/* Services Grid */}
-        <div ref={cardsRef} className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+        <div ref={cardsRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
           {services.map((service, index) => {
             const Icon = service.icon;
             // Alternate between subtle blue and teal accents for professional variety without chaos

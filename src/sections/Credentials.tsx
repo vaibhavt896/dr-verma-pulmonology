@@ -154,7 +154,7 @@ export default function Credentials() {
         </div>
 
         {/* Certificate cards */}
-        <div className="cred-grid grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+        <div className="cred-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
           {certificates.map((cert, index) => (
             <button
               key={index}
