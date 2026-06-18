@@ -91,7 +91,7 @@ export default function Navigation({ onNavigate }: NavigationProps) {
       {/* Top Navigation - Dynamic Island */}
       <nav
         className={`fixed z-50 transition-all duration-500 ease-smooth ${isScrolled
-          ? 'top-4 left-1/2 -translate-x-1/2 w-[95%] sm:w-auto min-w-[320px] rounded-full bg-white/70 backdrop-blur-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-white/20 py-2 sm:px-2'
+          ? 'top-4 left-1/2 -translate-x-1/2 w-[95%] sm:w-auto min-w-[320px] rounded-full bg-white/95 lg:bg-white/70 lg:backdrop-blur-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-white/20 py-2 sm:px-2'
           : 'top-0 left-0 right-0 w-full bg-transparent py-6'
           }`}
       >
@@ -247,7 +247,7 @@ export default function Navigation({ onNavigate }: NavigationProps) {
 
 
       {/* Mobile Bottom Navigation Bar */}
-      <div className="fixed bottom-0 left-0 right-0 z-50 md:hidden bg-white/90 backdrop-blur-lg border-t border-gray-200/50 shadow-[0_-5px_20px_rgba(0,0,0,0.05)] pb-safe">
+      <div className="fixed bottom-0 left-0 right-0 z-50 md:hidden bg-white border-t border-gray-200/50 shadow-[0_-5px_20px_rgba(0,0,0,0.05)] pb-safe">
         <div className="grid grid-cols-4 gap-1 py-1 px-2">
           {[{ label: 'Home', icon: Home, id: 'home' }, { label: 'About', icon: User, id: 'about' }].map((item) => (
             <button
