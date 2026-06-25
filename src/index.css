@@ -1,6 +1,7 @@
 /* Self-hosted fonts — no render-blocking Google Fonts round-trips */
 @import '@fontsource-variable/inter';
 @import '@fontsource-variable/plus-jakarta-sans';
+@import '@fontsource-variable/playfair-display/wght.css';
 @import '@fontsource-variable/playfair-display/wght-italic.css';
 
 @tailwind base;
@@ -151,6 +152,19 @@
   .btn-shine:hover::after {
     left: 150%;
   }
+}
+
+/* Announcement bar ticker — mobile marquee */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.animate-marquee {
+  animation: marquee 22s linear infinite;
+  will-change: transform;
+}
+.animate-marquee:hover {
+  animation-play-state: paused;
 }
 
 /* Quiet, neutral scrollbar */

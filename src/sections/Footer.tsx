@@ -16,9 +16,13 @@ const quickLinks = [
 const services = [
   'Asthma Treatment',
   'COPD Management',
+  'Tuberculosis (TB) Care',
+  'Pneumonia & Chest Infections',
+  'Lung Cancer Evaluation',
+  'Pleural Disease Care',
+  'Sleep Apnea & Sleep Medicine',
+  'Critical Care & Respiratory ICU',
   'Allergy Testing',
-  'Sleep Disorders',
-  'Lung Cancer Screening',
   'Pulmonary Function Tests',
 ];
 

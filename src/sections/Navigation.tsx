@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { gsap } from 'gsap';
-import { Menu, X, Phone, Calendar, Home, User } from 'lucide-react';
+import { Menu, X, Phone, Calendar, Home, User, Sparkles, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 interface NavigationProps {
@@ -88,11 +88,42 @@ export default function Navigation({ onNavigate }: NavigationProps) {
 
   return (
     <>
+      {/* Announcement Bar — all screens, slides away on scroll */}
+      <div
+        className={`fixed top-0 left-0 right-0 z-50 bg-medical-blue text-white transition-transform duration-500 ease-smooth ${isScrolled ? '-translate-y-full' : 'translate-y-0'}`}
+      >
+        <div className="h-9 flex items-center overflow-hidden">
+          {/* Mobile: scrolling ticker */}
+          <div className="flex md:hidden w-screen overflow-hidden">
+            <div className="animate-marquee flex items-center whitespace-nowrap">
+              {[0, 1].map((i) => (
+                <span key={i} className="flex items-center gap-2 pr-14 text-[12px]">
+                  <Sparkles className="w-3 h-3 text-healing-green flex-shrink-0" />
+                  <span className="font-semibold text-white">Accepting New Patients in Kanpur</span>
+                  <span className="text-healing-green/60 mx-1">·</span>
+                  <span className="text-white/70">Asthma · COPD · Allergies · Sleep Disorders</span>
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* Desktop: centered static */}
+          <div className="hidden md:flex w-full max-w-7xl mx-auto px-6 lg:px-8 items-center justify-center">
+            <p className="flex items-center gap-2.5 text-[13px]">
+              <Sparkles className="w-3.5 h-3.5 text-healing-green flex-shrink-0" />
+              <span className="font-semibold text-white">Accepting New Patients in Kanpur</span>
+              <span className="w-1 h-1 rounded-full bg-healing-green/70 flex-shrink-0" />
+              <span className="text-white/60">Compassionate care for Asthma, COPD, Allergies &amp; Sleep Disorders</span>
+            </p>
+          </div>
+        </div>
+      </div>
+
       {/* Top Navigation - Dynamic Island */}
       <nav
         className={`fixed z-50 transition-all duration-500 ease-smooth ${isScrolled
           ? 'top-4 left-1/2 -translate-x-1/2 w-[95%] sm:w-auto min-w-[320px] rounded-full bg-white/95 lg:bg-white/70 lg:backdrop-blur-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-white/20 py-2 sm:px-2'
-          : 'top-0 left-0 right-0 w-full bg-transparent py-6'
+          : 'top-9 left-0 right-0 w-full bg-transparent py-6'
           }`}
       >
         <div className={`mx-auto px-4 sm:px-6 lg:px-8 ${isScrolled ? 'max-w-none' : 'max-w-7xl'}`}>
@@ -141,27 +172,34 @@ export default function Navigation({ onNavigate }: NavigationProps) {
             </div>
 
             {/* CTA Buttons */}
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-4 lg:gap-5">
 
-
-              <Button
-                onClick={() => handleNavClick('assessment')}
-                variant="ghost"
-                className={`hidden md:flex rounded-full bg-white text-medical-blue border-2 border-slate-100 shadow-[0_4px_12px_rgba(0,0,0,0.1)] hover:shadow-[0_8px_16px_rgba(0,0,0,0.15)] hover:-translate-y-0.5 active:scale-95 hover:border-medical-blue/20 transition-all duration-300 ${isScrolled ? 'px-4 py-2 h-9 text-xs font-bold' : 'px-6 h-11 text-sm font-bold'}`}
+              {/* Phone contact block — desktop, hidden once collapsed to pill */}
+              <a
+                href="tel:+919454097191"
+                className={`items-center gap-2.5 group/phone ${isScrolled ? 'hidden' : 'hidden lg:flex'}`}
               >
-                <span className="flex items-center gap-2">
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-healing-green"></span>
-                  Free Lung Check
+                <span className="w-10 h-10 rounded-full bg-healing-green/10 flex items-center justify-center transition-colors group-hover/phone:bg-healing-green/20">
+                  <Phone className="w-4 h-4 text-healing-green" />
                 </span>
-              </Button>
+                <span className="leading-tight whitespace-nowrap">
+                  <span className="block text-sm font-bold text-medical-blue">+91 94540 97191</span>
+                  <span className="block text-[11px] text-slate-500">Call for Appointments</span>
+                </span>
+              </a>
+
+              {/* Divider between phone and Book */}
+              <span className={`h-9 w-px bg-slate-200 ${isScrolled ? 'hidden' : 'hidden lg:block'}`} />
 
               {/* Book Appointment - Primary Action */}
               <Button
                 onClick={() => handleNavClick('contact')}
                 variant="secondary"
-                className={`hidden sm:flex rounded-full transition-all duration-300 ease-smooth hover:scale-105 shadow-[0_4px_14px_0_rgba(13,148,136,0.39)] hover:shadow-[0_6px_20px_rgba(13,148,136,0.23)] ${isScrolled ? 'px-4 py-4 h-10 text-sm' : 'px-6 h-11'}`}
+                className={`hidden sm:flex rounded-full transition-all duration-300 ease-smooth hover:scale-105 shadow-[0_4px_14px_0_rgba(13,148,136,0.39)] hover:shadow-[0_6px_20px_rgba(13,148,136,0.23)] ${isScrolled ? 'px-5 h-10 text-sm' : 'px-7 h-11'}`}
               >
-                Book <span className={`${isScrolled ? 'hidden lg:inline ml-1' : 'inline ml-1'}`}>Appointment</span>
+                <span className="whitespace-nowrap">
+                  Book<span className={isScrolled ? 'hidden lg:inline' : 'inline'}>&nbsp;Appointment</span>
+                </span>
               </Button>
 
               {/* Mobile Menu Button */}
@@ -248,20 +286,39 @@ export default function Navigation({ onNavigate }: NavigationProps) {
 
       {/* Mobile Bottom Navigation Bar */}
       <div className="fixed bottom-0 left-0 right-0 z-50 md:hidden bg-white border-t border-gray-200/50 shadow-[0_-5px_20px_rgba(0,0,0,0.05)] pb-safe">
-        <div className="grid grid-cols-4 gap-1 py-1 px-2">
-          {[{ label: 'Home', icon: Home, id: 'home' }, { label: 'About', icon: User, id: 'about' }].map((item) => (
+        <div className="grid grid-cols-5 items-end px-2 py-1">
+          {/* Home */}
+          <button
+            onClick={() => { if (navigator.vibrate) navigator.vibrate(10); handleNavClick('home'); }}
+            className="flex flex-col items-center gap-1 py-3 text-slate-grey hover:text-healing-green transition-colors active:scale-95"
+          >
+            <Home className="w-6 h-6" />
+            <span className="text-[10px] font-medium">Home</span>
+          </button>
+
+          {/* About */}
+          <button
+            onClick={() => { if (navigator.vibrate) navigator.vibrate(10); handleNavClick('about'); }}
+            className="flex flex-col items-center gap-1 py-3 text-slate-grey hover:text-healing-green transition-colors active:scale-95"
+          >
+            <User className="w-6 h-6" />
+            <span className="text-[10px] font-medium">About</span>
+          </button>
+
+          {/* Book — elevated center */}
+          <div className="flex justify-center">
             <button
-              key={item.id}
-              onClick={() => {
-                if (navigator.vibrate) navigator.vibrate(10);
-                handleNavClick(item.id);
-              }}
-              className="flex flex-col items-center gap-1 py-3 text-slate-grey hover:text-healing-green transition-colors active:scale-95"
+              onClick={() => { if (navigator.vibrate) navigator.vibrate(10); handleNavClick('contact'); }}
+              className="flex flex-col items-center -mt-6 active:scale-95 transition-transform"
             >
-              <item.icon className="w-6 h-6" />
-              <span className="text-[10px] font-medium">{item.label}</span>
+              <span className="w-14 h-14 rounded-full bg-healing-green text-white flex items-center justify-center shadow-[0_6px_16px_rgba(13,148,136,0.45)] border-4 border-white">
+                <Calendar className="w-6 h-6" />
+              </span>
+              <span className="text-[10px] font-medium text-healing-green mt-1">Book</span>
             </button>
-          ))}
+          </div>
+
+          {/* Call */}
           <a
             href="tel:+919454097191"
             onClick={() => { if (navigator.vibrate) navigator.vibrate(10); }}
@@ -270,16 +327,15 @@ export default function Navigation({ onNavigate }: NavigationProps) {
             <Phone className="w-6 h-6" />
             <span className="text-[10px] font-medium">Call</span>
           </a>
-          <a
-            href="https://wa.me/919454097191"
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={() => { if (navigator.vibrate) navigator.vibrate(10); }}
-            className="flex flex-col items-center gap-1 py-3 rounded-2xl bg-healing-green text-white shadow-[0_4px_12px_rgba(13,148,136,0.3)] active:scale-95 transition-transform"
+
+          {/* Clinic */}
+          <button
+            onClick={() => { if (navigator.vibrate) navigator.vibrate(10); handleNavClick('clinic'); }}
+            className="flex flex-col items-center gap-1 py-3 text-slate-grey hover:text-healing-green transition-colors active:scale-95"
           >
-            <Calendar className="w-6 h-6" />
-            <span className="text-[10px] font-medium">Book</span>
-          </a>
+            <MapPin className="w-6 h-6" />
+            <span className="text-[10px] font-medium">Clinic</span>
+          </button>
         </div>
       </div>
     </>

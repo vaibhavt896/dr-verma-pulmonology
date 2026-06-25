@@ -230,29 +230,53 @@ export default function Services() {
           </div>
           <div className="lg:w-2/3 relative z-10">
             <span className="inline-flex items-center gap-2 bg-healing-green/20 text-teal-300 text-sm font-semibold px-3 py-1 rounded-full mb-4">
-              Advanced Procedures Available
+              Pulmonary · Critical Care · Sleep Medicine
             </span>
             <h3 className="text-2xl lg:text-3xl font-bold text-white mt-2 mb-4">
               Comprehensive Treatments Under One Roof
             </h3>
             <p className="text-white/80 mb-6">
-              From routine check-ups to advanced procedures like bronchoscopy and thoracoscopy,
-              Dr. Verma offers complete pulmonology care without referrals to multiple specialists.
+              With a DM in Pulmonary, Critical Care &amp; Sleep Medicine, Dr. Verma manages
+              everything from common chest infections to complex pleural and critical-care
+              conditions, all without referrals to multiple specialists.
             </p>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+            <div className="grid sm:grid-cols-2 gap-x-8 gap-y-6">
               {[
-                'Bronchoscopy',
-                'Thoracoscopy',
-                'Sleep Study Assessment',
-                'CPAP & BiPAP Fitting',
-                'Lung Function Tests (PFT)',
-                'Allergy Testing',
-                'TB Treatment',
-                'COPD Management'
-              ].map((service, i) => (
-                <div key={i} className="flex items-center gap-2 text-sm">
-                  <Check className="w-4 h-4 text-teal-300 flex-shrink-0" />
-                  <span className="text-white/90">{service}</span>
+                {
+                  group: 'Conditions We Manage',
+                  items: [
+                    'Tuberculosis (TB)',
+                    'Pneumonia & Chest Infections',
+                    'Lung Cancer',
+                    'Pleural Effusion',
+                    'Pneumothorax & Hydropneumothorax',
+                    'Critical Care & Respiratory ICU',
+                  ],
+                },
+                {
+                  group: 'Procedures & Diagnostics',
+                  items: [
+                    'Bronchoscopy',
+                    'Thoracoscopy',
+                    'Pulmonary Function Test (PFT)',
+                    'Sleep Study · CPAP & BiPAP',
+                    'Allergy Testing',
+                    'Nebulization & Oxygen Therapy',
+                  ],
+                },
+              ].map((col) => (
+                <div key={col.group}>
+                  <p className="text-xs font-bold text-teal-300 uppercase tracking-wider mb-3">
+                    {col.group}
+                  </p>
+                  <div className="space-y-2.5">
+                    {col.items.map((service, i) => (
+                      <div key={i} className="flex items-center gap-2 text-sm">
+                        <Check className="w-4 h-4 text-teal-300 flex-shrink-0" />
+                        <span className="text-white/90">{service}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               ))}
             </div>
