@@ -44,46 +44,30 @@ const generateContextMessage = (context: ContextMessage): string => {
     if (context.source === 'breathing-assessment' && context.score !== undefined) {
         const riskText = context.score <= 5 ? 'Low Risk' :
             context.score <= 10 ? 'Moderate Concern' :
-                context.score <= 15 ? 'High Concern' : 'Urgent Attention Required';
+                context.score <= 15 ? 'High Concern' : 'Urgent';
         const symptomsText = context.symptoms?.join(', ') || 'general breathing concerns';
 
-        return `Good day,
+        return `Hi, I completed the Breathing Health Assessment on your website.
 
-I completed the Breathing Health Assessment on your website and would like to request a consultation.
+Score: ${context.score}/20 — ${riskText}
+Concerns: ${symptomsText}
 
-Assessment Score: ${context.score}/20 — ${riskText}
-Reported Concerns: ${symptomsText}
-
-Could you please let me know the next available appointment slot?
-
-Thank you.`;
+Please book me a consultation with Dr. Verma at the earliest.`;
     }
 
     if (context.source === 'symptom-checker' && context.symptoms) {
-        return `Good day,
+        return `Hi, I used the Symptom Checker on your website and need a consultation with Dr. Verma.
 
-I used the Symptom Checker on your website and would like to book a consultation with Dr. Verma.
+Symptoms: ${context.symptoms.join(', ')}
 
-My reported symptoms: ${context.symptoms.join(', ')}
-
-Please let me know the available appointment slots.
-
-Thank you.`;
+Please share an available appointment slot.`;
     }
 
     if (context.source === 'service' && context.serviceName) {
-        return `Good day,
-
-I am interested in ${context.serviceName} and would like to book a consultation at Patel Chest & Allergy Clinic. Could you please share the available appointment slots?
-
-Thank you.`;
+        return `Hi, I'd like to consult Dr. Verma for ${context.serviceName}. Please share the next available appointment slot.`;
     }
 
-    return `Good day,
-
-I would like to book a consultation appointment with Dr. A.K. Verma at Patel Chest & Allergy Clinic. Please let me know the next available slot.
-
-Thank you.`;
+    return `Hi, I'd like to book a consultation with Dr. A.K. Verma. Please share the next available appointment slot.`;
 };
 
 export default function WhatsAppButton({ contextMessage }: WhatsAppButtonProps) {
@@ -125,13 +109,9 @@ export default function WhatsAppButton({ contextMessage }: WhatsAppButtonProps) 
     };
 
     const handleQuickMessage = (msg: string) => {
-        const fullMessage = `Good day,
+        const fullMessage = `Hi, ${msg}
 
-${msg}
-
-I would like to book a consultation with Dr. A.K. Verma at your earliest convenience. Please let me know the available appointment slots.
-
-Thank you.`;
+Please book me a consultation with Dr. Verma and share an available slot.`;
         handleSendMessage(fullMessage);
     };
 

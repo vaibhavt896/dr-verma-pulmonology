@@ -268,18 +268,15 @@ export default function SymptomChecker() {
       return symptom ? `- ${symptom.label}` : '';
     }).filter(Boolean).join('\n');
 
-    return `Good day,
+    return `Hi, I used the Symptom Checker on your website and need a consultation with Dr. Verma.
 
-I used the Symptom Checker on your website and would like to book a consultation at Patel Chest & Allergy Clinic.
-
-Reported Symptoms:
+Symptoms:
 ${selectedSymptomLabels}
 
 Urgency: ${recommendation?.urgencyLabel || 'Consultation Required'}
 Suggested Service: ${recommendation?.suggestedService || 'General Consultation'}
-Recommended Timeframe: ${recommendation?.timeframe || 'At your earliest convenience'}
 
-Please let me know the next available appointment slot. Thank you.`;
+Please share the next available appointment slot.`;
   };
 
   const handleWhatsApp = () => {

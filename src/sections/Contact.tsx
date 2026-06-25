@@ -79,14 +79,12 @@ export default function Contact() {
   }, []);
 
   const handleWhatsApp = () => {
-    const message = `Good day,
-
-I would like to request a callback for a consultation appointment at Patel Chest & Allergy Clinic.
+    const message = `Hi, I'd like to book an appointment with Dr. A.K. Verma.
 
 Name: ${formData.name || '—'}
 Phone: ${formData.phone || '—'}
 
-Please let me know the next available slot. Thank you.`;
+Please confirm an available slot.`;
     const whatsappUrl = `https://wa.me/919454097191?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
   };

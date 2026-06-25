@@ -177,14 +177,12 @@ const getWhatsAppMessage = (score: number, answers: number[]): string => {
         ? symptoms.join(', ')
         : 'general breathing concerns';
 
-    return `Good day,
+    return `Hi, I completed the Breathing Health Assessment on your website.
 
-I completed the Breathing Health Assessment on your website and would like to book a consultation at Patel Chest & Allergy Clinic.
+Score: ${score}/20 — ${riskLevel.title}
+Concerns: ${symptomText}
 
-Assessment Score: ${score}/20 — ${riskLevel.title}
-Reported Concerns: ${symptomText}
-
-Could you please let me know the next available appointment slot? Thank you.`;
+Please book me a consultation with Dr. Verma at the earliest.`;
 };
 
 interface BreathingAssessmentProps {
