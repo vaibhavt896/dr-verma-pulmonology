@@ -209,7 +209,7 @@ export default function Services() {
         </div>
 
         {/* Clinic Specializations Banner */}
-        <div className="mt-16 flex flex-col lg:flex-row items-center gap-8 bg-gradient-to-br from-medical-blue to-navy-soft rounded-3xl p-8 shadow-xl overflow-hidden relative">
+        <div className="mt-16 flex flex-col lg:flex-row items-center gap-8 bg-gradient-to-br from-medical-blue to-navy-soft rounded-3xl p-5 sm:p-8 shadow-xl overflow-hidden relative">
           {/* Background Pattern */}
           <div className="absolute inset-0 opacity-10">
             <div className="absolute top-0 right-0 w-64 h-64 bg-healing-green rounded-full blur-3xl" />

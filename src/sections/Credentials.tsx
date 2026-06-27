@@ -257,7 +257,7 @@ export default function Credentials() {
             <button
               onClick={() => setLightboxIndex(null)}
               aria-label="Close"
-              className="absolute -top-4 -right-4 sm:top-0 sm:-right-14 w-10 h-10 bg-white/10 hover:bg-white/20 border border-white/20 rounded-full flex items-center justify-center transition-colors backdrop-blur-sm"
+              className="absolute top-2 right-2 sm:top-0 sm:-right-14 w-10 h-10 bg-white/10 hover:bg-white/20 border border-white/20 rounded-full flex items-center justify-center transition-colors backdrop-blur-sm"
             >
               <X className="w-5 h-5 text-white" />
             </button>
@@ -266,7 +266,7 @@ export default function Credentials() {
             <button
               onClick={() => setLightboxIndex(prev => prev !== null ? (prev - 1 + certificates.length) % certificates.length : null)}
               aria-label="Previous certificate"
-              className="absolute left-0 top-[calc(50%-3rem)] sm:-left-14 -translate-x-1/2 sm:translate-x-0 w-10 h-10 bg-white/10 hover:bg-white/20 border border-white/20 rounded-full flex items-center justify-center transition-colors backdrop-blur-sm"
+              className="absolute left-2 sm:-left-14 top-[calc(50%-3rem)] w-10 h-10 bg-white/10 hover:bg-white/20 border border-white/20 rounded-full flex items-center justify-center transition-colors backdrop-blur-sm"
             >
               <ChevronLeft className="w-5 h-5 text-white" />
             </button>
@@ -275,7 +275,7 @@ export default function Credentials() {
             <button
               onClick={() => setLightboxIndex(prev => prev !== null ? (prev + 1) % certificates.length : null)}
               aria-label="Next certificate"
-              className="absolute right-0 top-[calc(50%-3rem)] sm:-right-14 translate-x-1/2 sm:translate-x-0 w-10 h-10 bg-white/10 hover:bg-white/20 border border-white/20 rounded-full flex items-center justify-center transition-colors backdrop-blur-sm"
+              className="absolute right-2 sm:-right-14 top-[calc(50%-3rem)] w-10 h-10 bg-white/10 hover:bg-white/20 border border-white/20 rounded-full flex items-center justify-center transition-colors backdrop-blur-sm"
             >
               <ChevronRight className="w-5 h-5 text-white" />
             </button>

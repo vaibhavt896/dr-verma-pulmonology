@@ -104,19 +104,19 @@ export default function About() {
               </footer>
             </blockquote>
 
-            {/* 3 Key Stats - Inline */}
-            <div className="flex flex-wrap gap-6 mb-8">
-              <div>
-                <div className="text-3xl sm:text-4xl font-bold text-healing-green counter">15+</div>
-                <div className="text-sm text-slate-600">Years Experience</div>
+            {/* 3 Key Stats - single row with dividers */}
+            <div className="flex items-center divide-x divide-slate-200 mb-8">
+              <div className="pr-4 sm:pr-6">
+                <div className="text-2xl sm:text-3xl lg:text-4xl font-bold text-healing-green counter">15+</div>
+                <div className="text-xs sm:text-sm text-slate-600 mt-0.5">Years Experience</div>
               </div>
-              <div>
-                <div className="text-3xl sm:text-4xl font-bold text-medical-blue counter">10K+</div>
-                <div className="text-sm text-slate-600">Patients Treated</div>
+              <div className="px-4 sm:px-6">
+                <div className="text-2xl sm:text-3xl lg:text-4xl font-bold text-medical-blue counter">10K+</div>
+                <div className="text-xs sm:text-sm text-slate-600 mt-0.5">Patients Treated</div>
               </div>
-              <div>
-                <div className="text-3xl sm:text-4xl font-bold text-amber-500 counter">4.9★</div>
-                <div className="text-sm text-slate-600">Google Rating</div>
+              <div className="pl-4 sm:pl-6">
+                <div className="text-2xl sm:text-3xl lg:text-4xl font-bold text-amber-500 counter">4.9★</div>
+                <div className="text-xs sm:text-sm text-slate-600 mt-0.5">Google Rating</div>
               </div>
             </div>
 

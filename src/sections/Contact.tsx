@@ -160,19 +160,21 @@ Please confirm an available slot.`;
         </div>
 
         {/* Quick Info Cards */}
-        <div className="contact-grid grid grid-cols-3 gap-3 sm:gap-6 mb-12 sm:mb-16">
+        <div className="contact-grid grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-6 mb-12 sm:mb-16">
           {contactInfo.map((info, index) => {
             const Icon = info.icon;
             const CardContent = (
-              <div className="contact-card text-center bg-white rounded-2xl p-4 sm:p-6 shadow-[0_4px_20px_rgba(0,0,0,0.05)] border border-gray-100 hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)] transition-all">
+              <div className="contact-card bg-white rounded-2xl p-4 sm:p-6 shadow-[0_4px_20px_rgba(0,0,0,0.05)] border border-gray-100 hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)] transition-all flex sm:flex-col items-center sm:text-center gap-4 sm:gap-0">
                 <div
-                  className="w-12 h-12 sm:w-14 sm:h-14 mx-auto rounded-xl flex items-center justify-center mb-3"
+                  className="w-11 h-11 sm:w-14 sm:h-14 flex-shrink-0 rounded-xl flex items-center justify-center sm:mx-auto sm:mb-3"
                   style={{ backgroundColor: `${info.color}15` }}
                 >
-                  <Icon className="w-6 h-6 sm:w-7 sm:h-7" style={{ color: info.color }} />
+                  <Icon className="w-5 h-5 sm:w-7 sm:h-7" style={{ color: info.color }} />
                 </div>
-                <div className="text-xs sm:text-sm text-slate-600 mb-1">{info.title}</div>
-                <div className="font-semibold text-sm sm:text-base text-medical-blue">{info.content}</div>
+                <div className="min-w-0">
+                  <div className="text-xs sm:text-sm text-slate-600 sm:mb-1">{info.title}</div>
+                  <div className="font-semibold text-sm sm:text-base text-medical-blue">{info.content}</div>
+                </div>
               </div>
             );
 
