@@ -100,6 +100,14 @@ export default function WhatsAppButton({ contextMessage }: WhatsAppButtonProps) 
         }
     }, [contextMessage]);
 
+    // Lock background scroll while the mobile bottom sheet is open
+    useEffect(() => {
+        if (isOpen && window.matchMedia('(max-width: 767px)').matches) {
+            document.body.style.overflow = 'hidden';
+            return () => { document.body.style.overflow = ''; };
+        }
+    }, [isOpen]);
+
     const handleSendMessage = (customMessage?: string) => {
         const text = customMessage || message || generateContextMessage({ source: 'general' });
         const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(text)}`;
@@ -119,12 +127,22 @@ Please book me a consultation with Dr. Verma and share an available slot.`;
 
     return (
         <>
-            {/* Chat Widget — clears the mobile bottom nav, normal offset on desktop */}
+            {/* Chat Widget — full-height bottom sheet on mobile, floating card on desktop */}
             {isOpen && (
-                <div className="fixed bottom-[160px] md:bottom-24 right-4 z-50 w-[340px] sm:w-96 animate-in slide-in-from-bottom-4 fade-in duration-300">
-                    <div className="bg-white rounded-2xl shadow-2xl overflow-hidden border border-gray-100">
+                <>
+                {/* Mobile dim backdrop — tap to dismiss the sheet */}
+                <div
+                    className="md:hidden fixed inset-0 bg-black/40 backdrop-blur-[2px] z-[60] animate-in fade-in duration-300"
+                    onClick={() => setIsOpen(false)}
+                />
+                <div className="fixed z-[60] inset-x-0 bottom-0 md:inset-x-auto md:bottom-24 md:right-4 md:w-96 animate-in slide-in-from-bottom-4 fade-in duration-300">
+                    <div className="bg-white rounded-t-2xl md:rounded-2xl shadow-2xl overflow-hidden border border-gray-100 flex flex-col h-[85vh] md:h-auto">
+                        {/* Mobile drag handle */}
+                        <div className="md:hidden flex justify-center pt-2.5 pb-1 bg-[#25D366]">
+                            <span className="w-10 h-1 rounded-full bg-white/40" />
+                        </div>
                         {/* Header */}
-                        <div className="bg-[#25D366] p-4 text-white">
+                        <div className="bg-[#25D366] px-4 pb-4 pt-3 md:pt-4 text-white">
                             <div className="flex items-center justify-between">
                                 <div className="flex items-center gap-3">
                                     <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-white/30 bg-white shadow-sm">
@@ -156,7 +174,7 @@ Please book me a consultation with Dr. Verma and share an available slot.`;
                         </div>
 
                         {/* Chat Body */}
-                        <div className="bg-[#ECE5DD] p-4 max-h-[400px] overflow-y-auto">
+                        <div className="bg-[#ECE5DD] p-4 flex-1 md:flex-none md:max-h-[400px] overflow-y-auto">
                             {/* Welcome Message */}
                             <div className="bg-white rounded-lg p-3 shadow-sm max-w-[90%] mb-4">
                                 <p className="text-sm text-gray-700 font-medium">
@@ -194,7 +212,7 @@ Please book me a consultation with Dr. Verma and share an available slot.`;
                         </div>
 
                         {/* Custom Message Input */}
-                        <div className="p-3 bg-white border-t border-gray-100">
+                        <div className="p-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] md:pb-3 bg-white border-t border-gray-100">
                             <div className="flex gap-2">
                                 <input
                                     type="text"
@@ -217,10 +235,11 @@ Please book me a consultation with Dr. Verma and share an available slot.`;
                         </div>
                     </div>
                 </div>
+                </>
             )}
 
             {/* Floating Button — raised above the mobile bottom nav so it never covers it */}
-            <div className="fixed bottom-[88px] md:bottom-4 right-3 md:right-4 z-50 flex flex-col items-end gap-3">
+            <div className={`fixed bottom-[88px] md:bottom-4 right-3 md:right-4 z-50 flex-col items-end gap-3 ${isOpen ? 'hidden md:flex' : 'flex'}`}>
                 {/* Tooltip — desktop only; on mobile it overlapped content */}
                 {showTooltip && !isOpen && (
                     <div className="hidden md:block bg-white rounded-xl shadow-card px-4 py-3 text-sm text-gray-700 max-w-[220px] animate-in fade-in slide-in-from-bottom-2 duration-500">

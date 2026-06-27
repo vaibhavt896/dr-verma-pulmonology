@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useLayoutEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Phone, Calendar, Star, Award, Users, Megaphone, Activity, Wind, Droplets, Moon, ArrowRight, ShieldCheck } from 'lucide-react';
@@ -20,7 +20,9 @@ export default function Hero({ onBookAppointment }: HeroProps) {
   const typeTextRef = useRef<HTMLSpanElement>(null);
   const cursorRef   = useRef<HTMLSpanElement>(null);
 
-  useEffect(() => {
+  // useLayoutEffect applies the hidden start-state before the browser paints,
+  // so the entrance never flashes visible-then-jumps on slower devices.
+  useLayoutEffect(() => {
     if (prefersReducedMotion()) {
       if (typeTextRef.current) typeTextRef.current.textContent = CYCLE_PHRASES[0];
       if (cursorRef.current)   cursorRef.current.style.display = 'none';
@@ -124,17 +126,21 @@ export default function Hero({ onBookAppointment }: HeroProps) {
         removePointerParallax = () => window.removeEventListener('mousemove', onMove);
       }
 
-      /* ── 5 · Scroll parallax on visual column ── */
-      gsap.to(visualRef.current, {
-        yPercent: 8,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: heroRef.current,
-          start: 'top top',
-          end: 'bottom top',
-          scrub: 0.6,
-        },
-      });
+      /* ── 5 · Scroll parallax on visual column — pointer-fine (desktop) only.
+         Scrubbed transforms are the most jank-prone effect on low-end touch
+         devices, so we skip them there and keep scrolling perfectly smooth. ── */
+      if (window.matchMedia('(pointer: fine)').matches) {
+        gsap.to(visualRef.current, {
+          yPercent: 8,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: heroRef.current,
+            start: 'top top',
+            end: 'bottom top',
+            scrub: 0.6,
+          },
+        });
+      }
 
     }, heroRef);
 
@@ -164,8 +170,7 @@ export default function Hero({ onBookAppointment }: HeroProps) {
             <div className="hero-fade inline-flex items-center gap-2 px-4 py-2 bg-healing-green/10 lg:bg-white rounded-full shadow-xs border border-healing-green/15 lg:border-slate-200/60 mb-4 sm:mb-6 lg:mb-8">
               <Megaphone className="w-3.5 h-3.5 text-healing-green lg:hidden flex-shrink-0" />
               <span className="text-[11px] font-semibold text-healing-green tracking-widest uppercase">
-                <span className="lg:hidden">Accepting New Patients · Kanpur</span>
-                <span className="hidden lg:inline">Expert Respiratory Care in Kanpur</span>
+                Expert Respiratory Care in Kanpur
               </span>
             </div>
 
@@ -195,7 +200,7 @@ export default function Hero({ onBookAppointment }: HeroProps) {
               <span className="lg:hidden block h-1 w-24 rounded-full bg-gradient-to-r from-healing-green to-healing-green/20" />
               <div className="hidden lg:flex items-center gap-3 max-w-sm">
                 <span className="h-px flex-1 bg-gradient-to-r from-slate-300/80 to-transparent" />
-                <img src="/logo.webp" alt="" width={28} height={28} className="w-6 h-6 object-contain opacity-80 flex-shrink-0" aria-hidden="true" />
+                <img src="/logo-mark.webp" alt="" width={444} height={345} className="h-6 w-auto object-contain opacity-80 flex-shrink-0" aria-hidden="true" />
                 <span className="h-px flex-1 bg-gradient-to-l from-slate-300/80 to-transparent" />
               </div>
             </div>
@@ -428,7 +433,7 @@ export default function Hero({ onBookAppointment }: HeroProps) {
               <div className="hero-card absolute z-20 bottom-[5%] right-[-0.75rem] w-[185px] min-w-0 lg:bottom-[10%] lg:left-1/2 lg:right-auto lg:-translate-x-1/2 lg:w-[82%] lg:min-w-[240px]" data-depth="0.28">
                 <div className="bg-white/95 backdrop-blur-md border border-white/60 rounded-2xl shadow-card px-3 py-2.5 lg:px-5 lg:py-3.5 flex items-center gap-2.5 lg:gap-3.5">
                   <div className="w-9 h-9 lg:w-12 lg:h-12 rounded-full bg-healing-green flex items-center justify-center flex-shrink-0">
-                    <img src="/logo.webp" alt="" width={48} height={48} className="w-5 h-5 lg:w-7 lg:h-7 object-contain brightness-0 invert" aria-hidden="true" />
+                    <img src="/logo-mark.webp" alt="" width={444} height={345} className="w-5 h-5 lg:w-7 lg:h-7 object-contain brightness-0 invert" aria-hidden="true" />
                   </div>
                   <div className="min-w-0">
                     <p className="font-heading font-bold text-medical-blue text-[13px] lg:text-base leading-tight">Dr. A. K. Verma</p>

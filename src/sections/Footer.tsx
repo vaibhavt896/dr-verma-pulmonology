@@ -42,10 +42,10 @@ export default function Footer({ onNavigate }: FooterProps) {
             <div className="flex items-center gap-3 mb-6">
               <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center p-1.5">
                 <img
-                  src="/logo.webp"
+                  src="/logo-mark.webp"
                   alt="Dr. A.K. Verma Pulmonology clinic logo"
-                  width={192}
-                  height={192}
+                  width={444}
+                  height={345}
                   loading="lazy"
                   className="w-full h-full object-contain"
                 />

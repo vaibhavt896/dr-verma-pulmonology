@@ -37,6 +37,10 @@ export default function Home() {
             toggleActions: 'play none none reverse',
         });
 
+        // Mobile stability: the browser address bar showing/hiding fires a resize
+        // that would otherwise recalculate every scroll animation and cause jitter.
+        ScrollTrigger.config({ ignoreMobileResize: true });
+
         // Refresh after fonts load
         document.fonts.ready.then(() => {
             ScrollTrigger.refresh();

@@ -221,6 +221,10 @@ export default function Services() {
               <img
                 src="/images/clinic-services-hindi.webp"
                 alt="Dr. A.K. Verma Clinic Specializations"
+                width={508}
+                height={649}
+                loading="lazy"
+                decoding="async"
                 className="rounded-2xl shadow-2xl w-full h-auto border-4 border-white/20"
               />
               <div className="absolute -bottom-3 -right-3 bg-healing-green text-white text-xs font-bold px-3 py-1 rounded-full">

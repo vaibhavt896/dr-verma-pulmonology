@@ -122,37 +122,40 @@ export default function Navigation({ onNavigate }: NavigationProps) {
       {/* Top Navigation - Dynamic Island */}
       <nav
         className={`fixed z-50 transition-all duration-500 ease-smooth ${isScrolled
-          ? 'top-4 left-1/2 -translate-x-1/2 w-[95%] sm:w-auto min-w-[320px] rounded-full bg-white/95 lg:bg-white/70 lg:backdrop-blur-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-white/20 py-2 sm:px-2'
-          : 'top-9 left-0 right-0 w-full bg-transparent py-6'
+          ? 'top-3 left-1/2 -translate-x-1/2 w-[95%] sm:w-auto rounded-full bg-white/85 lg:backdrop-blur-xl lg:backdrop-saturate-150 shadow-[0_6px_24px_-8px_rgba(13,30,50,0.18)] ring-1 ring-black/[0.06] py-1.5 px-1.5'
+          : 'top-9 left-0 right-0 w-full bg-transparent py-3'
           }`}
       >
-        <div className={`mx-auto px-4 sm:px-6 lg:px-8 ${isScrolled ? 'max-w-none' : 'max-w-7xl'}`}>
-          <div className="flex items-center justify-between gap-4">
-            {/* Logo */}
+        <div className={`mx-auto ${isScrolled ? 'max-w-none px-2' : 'max-w-7xl px-4 sm:px-6 lg:px-8'}`}>
+          <div className={`flex items-center justify-between ${isScrolled ? 'gap-2' : 'gap-4'}`}>
+            {/* Logo — full lockup at the top of the page, icon mark once collapsed */}
             <button
               onClick={() => handleNavClick('home')}
-              className="flex items-center gap-2 group"
+              className="flex items-center group flex-shrink-0"
+              aria-label="Dr. A.K. Verma — go to top"
             >
-              <div className={`w-11 h-11 flex items-center justify-center transition-transform duration-500 ${isScrolled ? 'scale-90' : ''}`}>
-                <picture>
-                  <source type="image/webp" srcSet="/logo.webp" />
-                  <img
-                    src="/logo.png"
-                    alt="Dr. A.K. Verma Pulmonology clinic logo"
-                    width={192}
-                    height={192}
-                    className="w-full h-full object-contain drop-shadow-sm transition-transform duration-500 group-hover:scale-105"
-                  />
-                </picture>
-              </div>
-              <div className={`hidden sm:block transition-all duration-500 ${isScrolled ? 'w-0 opacity-0 overflow-hidden' : 'w-auto opacity-100'}`}>
-                <h1 className="font-bold text-lg leading-tight text-medical-blue">
-                  Dr. A.K. Verma
-                </h1>
-                <p className="text-xs text-slate-600">
-                  Consultant Chest Physician
-                </p>
-              </div>
+              {/* Full stacked lockup (icon + name + role) — expanded state */}
+              <picture className={isScrolled ? 'hidden' : 'block'}>
+                <source type="image/webp" srcSet="/logo-full.webp" />
+                <img
+                  src="/logo-full.png"
+                  alt="Dr. A.K. Verma — Consultant Chest Physician"
+                  width={853}
+                  height={651}
+                  className="h-14 w-auto object-contain drop-shadow-sm transition-transform duration-500 group-hover:scale-[1.03]"
+                />
+              </picture>
+              {/* Icon mark only — collapsed pill state */}
+              <picture className={isScrolled ? 'block' : 'hidden'}>
+                <source type="image/webp" srcSet="/logo-mark.webp" />
+                <img
+                  src="/logo-mark.png"
+                  alt="Dr. A.K. Verma logo"
+                  width={444}
+                  height={345}
+                  className="h-9 w-auto object-contain ml-1 drop-shadow-sm transition-transform duration-500 group-hover:scale-105"
+                />
+              </picture>
             </button>
 
             {/* Desktop Navigation */}
@@ -161,9 +164,9 @@ export default function Navigation({ onNavigate }: NavigationProps) {
                 <button
                   key={item.id}
                   onClick={() => handleNavClick(item.id)}
-                  className={`relative px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 hover:bg-gray-100/50 ${isScrolled
-                    ? 'text-medical-blue hover:text-healing-green'
-                    : 'text-slate-600 hover:text-healing-green'
+                  className={`relative rounded-full text-sm font-medium transition-all duration-300 hover:bg-gray-100/50 ${isScrolled
+                    ? 'px-3 py-1.5 text-medical-blue hover:text-healing-green'
+                    : 'px-4 py-2 text-slate-600 hover:text-healing-green'
                     }`}
                 >
                   {item.label}
@@ -172,7 +175,7 @@ export default function Navigation({ onNavigate }: NavigationProps) {
             </div>
 
             {/* CTA Buttons */}
-            <div className="flex items-center gap-4 lg:gap-5">
+            <div className={`flex items-center ${isScrolled ? 'gap-2' : 'gap-4 lg:gap-5'}`}>
 
               {/* Phone contact block — desktop, hidden once collapsed to pill */}
               <a
@@ -195,7 +198,7 @@ export default function Navigation({ onNavigate }: NavigationProps) {
               <Button
                 onClick={() => handleNavClick('contact')}
                 variant="secondary"
-                className={`hidden sm:flex rounded-full transition-all duration-300 ease-smooth hover:scale-105 shadow-[0_4px_14px_0_rgba(13,148,136,0.39)] hover:shadow-[0_6px_20px_rgba(13,148,136,0.23)] ${isScrolled ? 'px-5 h-10 text-sm' : 'px-7 h-11'}`}
+                className={`hidden sm:flex rounded-full transition-all duration-300 ease-smooth hover:scale-105 shadow-[0_4px_14px_0_rgba(13,148,136,0.39)] hover:shadow-[0_6px_20px_rgba(13,148,136,0.23)] ${isScrolled ? 'px-4 h-9 text-sm' : 'px-7 h-11'}`}
               >
                 <span className="whitespace-nowrap">
                   Book<span className={isScrolled ? 'hidden lg:inline' : 'inline'}>&nbsp;Appointment</span>
@@ -222,13 +225,16 @@ export default function Navigation({ onNavigate }: NavigationProps) {
         <div className="flex flex-col h-full overflow-y-auto">
           {/* Menu Header with Close Button */}
           <div className="flex items-center justify-between p-6 border-b border-gray-100">
-            <div className="flex items-center gap-3">
-              <img src="/logo.webp" alt="" width={192} height={192} className="w-9 h-9 object-contain" />
-              <div>
-                <span className="font-bold text-base leading-tight text-medical-blue block">Dr. A.K. Verma</span>
-                <span className="text-xs text-slate-500">Consultant Chest Physician</span>
-              </div>
-            </div>
+            <picture>
+              <source type="image/webp" srcSet="/logo-full.webp" />
+              <img
+                src="/logo-full.png"
+                alt="Dr. A.K. Verma — Consultant Chest Physician"
+                width={853}
+                height={651}
+                className="h-12 w-auto object-contain"
+              />
+            </picture>
             <button
               onClick={() => setIsMobileMenuOpen(false)}
               className="p-2 rounded-full hover:bg-soft-grey text-slate-600 transition-colors"
