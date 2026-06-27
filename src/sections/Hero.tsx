@@ -195,16 +195,6 @@ export default function Hero({ onBookAppointment }: HeroProps) {
               </span>
             </h1>
 
-            {/* Divider — short teal flourish on mobile, logo divider on desktop */}
-            <div className="hero-fade mb-5 sm:mb-7">
-              <span className="lg:hidden block h-1 w-24 rounded-full bg-gradient-to-r from-healing-green to-healing-green/20" />
-              <div className="hidden lg:flex items-center gap-3 max-w-sm">
-                <span className="h-px flex-1 bg-gradient-to-r from-slate-300/80 to-transparent" />
-                <img src="/logo-mark.webp" alt="" width={444} height={345} className="h-6 w-auto object-contain opacity-80 flex-shrink-0" aria-hidden="true" />
-                <span className="h-px flex-1 bg-gradient-to-l from-slate-300/80 to-transparent" />
-              </div>
-            </div>
-
             {/* Paragraph */}
             <p className="hero-fade text-[15px] lg:text-xl text-slate-600 mb-6 lg:mb-10 leading-relaxed max-w-lg">
               <span className="font-semibold text-medical-blue">Expert pulmonary care</span> for asthma, COPD, allergies and sleep disorders, with accurate diagnosis and a personalized treatment plan at our Ashok Nagar clinic.
