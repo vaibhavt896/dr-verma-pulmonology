@@ -79,7 +79,7 @@ export default function Clinic() {
             <div className="clinic-image relative rounded-3xl overflow-hidden shadow-2xl">
               <img
                 src="/clinic-exterior.webp"
-                alt="Patel Chest & Allergy Clinic exterior, Dr. A.K. Verma — Ashok Nagar, Kanpur"
+                alt="Patel Chest & Allergy Clinic exterior, Dr. A.K. Verma - Ashok Nagar, Kanpur"
                 width={1280}
                 height={1705}
                 loading="lazy"

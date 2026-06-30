@@ -187,7 +187,7 @@ export default function Footer({ onNavigate }: FooterProps) {
         </div>
       </div>
 
-      {/* Bottom Bar — extra bottom padding on mobile clears the fixed bottom nav bar */}
+      {/* Bottom Bar - extra bottom padding on mobile clears the fixed bottom nav bar */}
       <div className="border-t border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 pb-24 md:pb-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">

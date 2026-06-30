@@ -4,7 +4,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 /**
- * Motion tokens — the entire site speaks one easing language.
+ * Motion tokens - the entire site speaks one easing language.
  * Entrances: rise + fade only. No bounce, no elastic, no blur filters.
  */
 export const MOTION = {

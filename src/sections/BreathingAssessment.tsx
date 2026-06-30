@@ -179,7 +179,7 @@ const getWhatsAppMessage = (score: number, answers: number[]): string => {
 
     return `Hi, I completed the Breathing Health Assessment on your website.
 
-Score: ${score}/20 — ${riskLevel.title}
+Score: ${score}/20 (${riskLevel.title})
 Concerns: ${symptomText}
 
 Please book me a consultation with Dr. Verma at the earliest.`;

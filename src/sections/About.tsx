@@ -57,16 +57,16 @@ export default function About() {
             <div className="about-image relative">
               <div className="overflow-hidden rounded-3xl shadow-card">
                 <picture>
-                  <source media="(min-width: 1024px)" srcSet="/images/dr-verma-hero-lg.webp 1200w" />
-                  <source media="(min-width: 640px)" srcSet="/images/dr-verma-hero-md.webp 768w" />
+                  <source media="(min-width: 1024px)" srcSet="/images/dr-verma-about-lg.webp" />
+                  <source media="(min-width: 640px)" srcSet="/images/dr-verma-about-md.webp" />
                   <img
-                    src="/images/dr-verma-hero-sm.webp"
-                    alt="Dr. A.K. Verma, Pulmonologist in Kanpur"
-                    width={1200}
-                    height={675}
+                    src="/images/dr-verma-about-sm.webp"
+                    alt="Dr. A.K. Verma at Patel Chest & Allergy Clinic, Kanpur"
+                    width={1086}
+                    height={1448}
                     loading="lazy"
                     decoding="async"
-                    className="w-full h-[300px] sm:h-[400px] lg:h-[600px] object-cover object-top"
+                    className="w-full h-[300px] sm:h-[400px] lg:h-[600px] object-cover object-center"
                   />
                 </picture>
               </div>
@@ -100,7 +100,7 @@ export default function About() {
             <blockquote className="text-lg sm:text-xl text-slate-600 leading-relaxed mb-8 border-l-4 border-healing-green pl-4 sm:pl-6">
               "Most respiratory disease is treatable when caught early. My goal for every patient is simple: understand the cause, treat it properly, and prevent it from coming back."
               <footer className="mt-3 text-sm font-semibold text-medical-blue">
-                Dr. A.K. Verma — MBBS, MD (KGMU), DM (Pulmonary, Critical Care & Sleep Medicine)
+                Dr. A.K. Verma, MBBS, MD (KGMU), DM (Pulmonary, Critical Care & Sleep Medicine)
               </footer>
             </blockquote>
 
@@ -137,7 +137,7 @@ export default function About() {
             <div className="relative rounded-3xl overflow-hidden shadow-card h-[300px] sm:h-[400px]">
               <img
                 src="/clinic-exterior.webp"
-                alt="Patel Chest & Allergy Clinic exterior, Dr. A.K. Verma — Ashok Nagar, Kanpur"
+                alt="Patel Chest & Allergy Clinic exterior, Dr. A.K. Verma - Ashok Nagar, Kanpur"
                 width={1280}
                 height={1705}
                 loading="lazy"

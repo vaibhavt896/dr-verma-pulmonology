@@ -129,7 +129,7 @@ function SEOHead() {
         const metaDesc = document.querySelector('meta[name="description"]');
         if (metaDesc) {
             metaDesc.setAttribute('content',
-                "Dr. A.K. Verma, Consultant Chest Physician & Interventional Pulmonologist at Patel Chest & Allergy Clinic, Kanpur. MBBS, MD (KGMU), DM (Pulmonary, Critical Care & Sleep Medicine). Asthma, COPD, TB, Pneumonia, Lung Cancer, Pleural disease, Sleep Apnea & Critical Care. Book: +91-9454097191."
+                "Dr. A.K. Verma, Consultant Chest Physician & Interventional Pulmonologist at Patel Chest & Allergy Clinic, Kanpur. MBBS, MD (KGMU), DM (Pulmonary, Critical Care & Sleep Medicine). Asthma, COPD, TB, ILD, Pneumonia, Lung Cancer, Pleural disease, Sleep Disorders (Sleep Apnea, Insomnia, Parasomnia) & Critical Care. Bronchoscopy, Thoracoscopy, EBUS, PFT & Impulse Oscillometry. Book: +91-9454097191."
             );
         }
 

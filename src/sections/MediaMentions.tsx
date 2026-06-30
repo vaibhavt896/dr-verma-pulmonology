@@ -11,7 +11,7 @@ const featuredPress = {
     title: 'Palpitations Explained: What NVAF Feels Like',
     source: 'National Daily',
     description:
-        'Dr. A.K. Verma cited as the expert voice on NVAF — explaining how palpitations, irregular heartbeats and atrial fibrillation are connected, and when patients must seek timely cardiac and pulmonary evaluation.',
+        'Dr. A.K. Verma cited as the expert voice on NVAF, explaining how palpitations, irregular heartbeats and atrial fibrillation are connected, and when patients must seek timely cardiac and pulmonary evaluation.',
     quote: 'Palpitations are one of the most common symptoms of NVAF and are often described as a sensation of a racing, fluttering or irregular heartbeat.',
 };
 
@@ -152,7 +152,7 @@ export default function MediaMentions() {
                                         "{featuredPress.quote}"
                                     </p>
                                     <footer className="text-xs font-semibold text-medical-blue mt-2">
-                                        — Dr. A.K. Verma, Pulmonologist, Kanpur
+                                        Dr. A.K. Verma, Pulmonologist, Kanpur
                                     </footer>
                                 </blockquote>
 

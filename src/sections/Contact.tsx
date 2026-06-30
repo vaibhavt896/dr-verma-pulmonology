@@ -81,8 +81,8 @@ export default function Contact() {
   const handleWhatsApp = () => {
     const message = `Hi, I'd like to book an appointment with Dr. A.K. Verma.
 
-Name: ${formData.name || '—'}
-Phone: ${formData.phone || '—'}
+Name: ${formData.name || 'Not provided'}
+Phone: ${formData.phone || 'Not provided'}
 
 Please confirm an available slot.`;
     const whatsappUrl = `https://wa.me/919454097191?text=${encodeURIComponent(message)}`;

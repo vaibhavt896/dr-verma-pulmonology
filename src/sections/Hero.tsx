@@ -7,7 +7,7 @@ import { MOTION, prefersReducedMotion } from '@/lib/motion';
 
 gsap.registerPlugin(ScrollTrigger);
 
-// The last two words cycle through these — keep them punchy, lung-relevant
+// The last two words cycle through these - keep them punchy, lung-relevant
 const CYCLE_PHRASES = ['breathe better.', 'sleep deeper.', 'live fuller.'];
 
 interface HeroProps {
@@ -81,7 +81,7 @@ export default function Hero({ onBookAppointment }: HeroProps) {
         const HOLD_TIME    = 1.9;   // seconds to hold after fully typed
         const GAP_TIME     = 0.22;  // pause before typing next phrase
 
-        // Type in — add one character at a time
+        // Type in - add one character at a time
         for (let i = 1; i <= phrase.length; i++) {
           const captured = i;
           tl.call(() => { el.textContent = phrase.slice(0, captured); }, [], (i - 1) * TYPE_SPEED);
@@ -90,7 +90,7 @@ export default function Hero({ onBookAppointment }: HeroProps) {
         // Hold with cursor blinking
         tl.to({}, { duration: HOLD_TIME });
 
-        // Delete — remove one character at a time (skip if last phrase iteration handled outside)
+        // Delete - remove one character at a time (skip if last phrase iteration handled outside)
         for (let i = phrase.length - 1; i >= 0; i--) {
           const captured = i;
           tl.call(() => { el.textContent = phrase.slice(0, captured); }, [], `+=${DELETE_SPEED}`);
@@ -126,7 +126,7 @@ export default function Hero({ onBookAppointment }: HeroProps) {
         removePointerParallax = () => window.removeEventListener('mousemove', onMove);
       }
 
-      /* ── 5 · Scroll parallax on visual column — pointer-fine (desktop) only.
+      /* ── 5 · Scroll parallax on visual column - pointer-fine (desktop) only.
          Scrubbed transforms are the most jank-prone effect on low-end touch
          devices, so we skip them there and keep scrolling perfectly smooth. ── */
       if (window.matchMedia('(pointer: fine)').matches) {
@@ -153,35 +153,35 @@ export default function Hero({ onBookAppointment }: HeroProps) {
   return (
     <div ref={heroRef} className="relative overflow-hidden bg-soft-grey">
 
-      {/* Background — dot grid + two ambient washes, nothing more */}
+      {/* Background - dot grid + two ambient washes, nothing more */}
       <div className="absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
         <div className="absolute inset-0 bg-dot-grid [mask-image:radial-gradient(ellipse_70%_55%_at_50%_30%,black_30%,transparent_75%)]" />
         <div className="absolute top-[-30%] right-[-10%] w-[60%] h-[80%] bg-gradient-to-bl from-healing-green/[0.07] to-transparent rounded-full blur-3xl" />
         <div className="absolute bottom-[-20%] left-[-15%] w-[45%] h-[55%] bg-gradient-to-tr from-medical-blue/[0.04] to-transparent rounded-full blur-3xl" />
       </div>
 
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 md:pt-32 pb-8 sm:pb-12 lg:pt-36 lg:pb-0 lg:min-h-screen flex items-center">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 md:pt-32 pb-8 sm:pb-12 lg:pt-32 lg:pb-0 lg:min-h-screen flex items-center">
         <div className="relative grid lg:grid-cols-[1.05fr_0.95fr] gap-10 sm:gap-16 lg:gap-8 items-center w-full">
 
-          {/* ══════════ Left — copy ══════════ */}
+          {/* ══════════ Left - copy ══════════ */}
           <div className="text-left">
 
-            {/* Eyebrow badge — teal pill w/ megaphone on mobile, white pill on desktop */}
-            <div className="hero-fade inline-flex items-center gap-2 px-4 py-2 bg-healing-green/10 lg:bg-white rounded-full shadow-xs border border-healing-green/15 lg:border-slate-200/60 mb-4 sm:mb-6 lg:mb-8">
+            {/* Eyebrow badge - teal pill w/ megaphone on mobile, white pill on desktop */}
+            <div className="hero-fade inline-flex items-center gap-2 px-4 py-2 bg-healing-green/10 lg:bg-white rounded-full shadow-xs border border-healing-green/15 lg:border-slate-200/60 mb-4 sm:mb-5 lg:mb-5">
               <Megaphone className="w-3.5 h-3.5 text-healing-green lg:hidden flex-shrink-0" />
               <span className="text-[11px] font-semibold text-healing-green tracking-widest uppercase">
                 Expert Respiratory Care in Kanpur
               </span>
             </div>
 
-            {/* Headline — line 1 static, line 2 animated cycling */}
-            <h1 className="font-display text-[clamp(2.1rem,5.2vw,4.5rem)] font-bold text-medical-blue leading-[1.05] mb-4 sm:mb-5 lg:mb-6 tracking-tight">
+            {/* Headline - line 1 static, line 2 animated cycling */}
+            <h1 className="font-display text-[clamp(2.1rem,5vw,4rem)] font-bold text-medical-blue leading-[1.05] mb-3 sm:mb-4 lg:mb-4 tracking-tight">
               <span className="block overflow-hidden pb-1">
                 <span className="hero-mask-line block">Helping Kanpur</span>
               </span>
 
-              {/* Typewriter line — single span, GSAP writes characters */}
-              <span className="block pb-3">
+              {/* Typewriter line - single span, GSAP writes characters */}
+              <span className="block pb-2">
                 <span
                   ref={typeTextRef}
                   className="font-display italic font-medium text-healing-green"
@@ -196,17 +196,40 @@ export default function Hero({ onBookAppointment }: HeroProps) {
             </h1>
 
             {/* Paragraph */}
-            <p className="hero-fade text-[15px] lg:text-xl text-slate-600 mb-6 lg:mb-10 leading-relaxed max-w-lg">
-              <span className="font-semibold text-medical-blue">Expert pulmonary care</span> for asthma, COPD, allergies and sleep disorders, with accurate diagnosis and a personalized treatment plan at our Ashok Nagar clinic.
+            <p className="hero-fade text-[15px] lg:text-lg text-slate-600 mb-4 lg:mb-4 leading-relaxed max-w-lg">
+              <span className="font-semibold text-medical-blue">Expert pulmonary, sleep &amp; critical care</span>, with accurate diagnosis and a personalized treatment plan at our Ashok Nagar clinic.
             </p>
 
-            {/* Mobile — Doctor profile card */}
+            {/* Specialised-care chips: the doctor's key conditions & procedures, clearly visible up top */}
+            <div className="hero-fade mb-5 lg:mb-6 max-w-xl">
+              <p className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider mb-2">Specialised care for</p>
+              <div className="flex flex-wrap gap-1.5">
+                {[
+                  'Tuberculosis (TB)',
+                  'Interstitial Lung Disease (ILD)',
+                  'Lung Cancer',
+                  'Sleep Apnea',
+                  'Insomnia',
+                  'Parasomnia',
+                  'Impulse Oscillometry',
+                  'Thoracentesis',
+                  'Intercostal Tube Insertion',
+                ].map((tag) => (
+                  <span key={tag} className="inline-flex items-center gap-1.5 rounded-full border border-healing-green/25 bg-healing-green/[0.07] px-2.5 py-1 text-[11px] font-semibold text-medical-blue">
+                    <span className="w-1.5 h-1.5 rounded-full bg-healing-green flex-shrink-0" />
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Mobile - Doctor profile card */}
             <div className="hero-fade lg:hidden rounded-2xl overflow-hidden bg-white border border-slate-100 shadow-[0_4px_28px_rgba(2,6,23,0.07)]">
               <div className="relative flex items-end">
                 {/* Ambient teal wash */}
                 <div className="absolute inset-0 bg-gradient-to-br from-healing-green/[0.05] to-transparent pointer-events-none" aria-hidden="true" />
 
-                {/* Left — credentials */}
+                {/* Left - credentials */}
                 <div className="relative z-10 flex-1 p-5 self-center">
                   <div className="flex items-center gap-0.5 mb-3">
                     {[1,2,3,4,5].map(i => (
@@ -225,7 +248,7 @@ export default function Hero({ onBookAppointment }: HeroProps) {
                   </div>
                 </div>
 
-                {/* Right — doctor image anchored to card bottom */}
+                {/* Right - doctor image anchored to card bottom */}
                 <div className="w-[45%] flex-shrink-0 self-end">
                   <picture>
                     <source type="image/webp" srcSet="/dr-verma-new.webp" />
@@ -244,8 +267,8 @@ export default function Hero({ onBookAppointment }: HeroProps) {
               </div>
             </div>
 
-            {/* CTAs — desktop only; mobile uses bottom nav + Take the first step banner */}
-            <div className="hero-fade hidden lg:flex gap-3 lg:mt-0 lg:mb-12">
+            {/* CTAs - desktop only; mobile uses bottom nav + Take the first step banner */}
+            <div className="hero-fade hidden lg:flex gap-3 lg:mt-0 lg:mb-8">
               <Button
                 onClick={onBookAppointment}
                 size="lg"
@@ -268,8 +291,8 @@ export default function Hero({ onBookAppointment }: HeroProps) {
               </a>
             </div>
 
-            {/* Trust row — desktop / tablet inline */}
-            <div className="hero-fade hidden sm:flex items-center justify-start gap-7 border-t border-medical-blue/10 pt-6 lg:pt-8 max-w-xl">
+            {/* Trust row - desktop / tablet inline */}
+            <div className="hero-fade hidden sm:flex items-center justify-start gap-7 border-t border-medical-blue/10 pt-5 lg:pt-6 max-w-xl">
               {/* Years of Experience */}
               <div className="flex items-center gap-2.5 sm:gap-3">
                 <span className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-healing-green/10 flex items-center justify-center flex-shrink-0">
@@ -312,7 +335,7 @@ export default function Hero({ onBookAppointment }: HeroProps) {
               </div>
             </div>
 
-            {/* Trust row — mobile card */}
+            {/* Trust row - mobile card */}
             <div className="hero-fade sm:hidden mt-7 bg-white rounded-2xl shadow-card border border-slate-100 px-1.5 py-5 grid grid-cols-3 divide-x divide-slate-200">
               <div className="flex flex-col items-center text-center px-1">
                 <Star className="w-5 h-5 text-healing-green mb-2" />
@@ -331,7 +354,7 @@ export default function Hero({ onBookAppointment }: HeroProps) {
               </div>
             </div>
 
-            {/* Mobile — Expert Respiratory Care quick links */}
+            {/* Mobile - Expert Respiratory Care quick links */}
             <div className="lg:hidden mt-10">
               <h2 className="text-xl font-bold text-medical-blue mb-4">Expert Respiratory Care</h2>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
@@ -353,7 +376,7 @@ export default function Hero({ onBookAppointment }: HeroProps) {
               </div>
             </div>
 
-            {/* Mobile — Take the first step banner */}
+            {/* Mobile - Take the first step banner */}
             <div className="lg:hidden mt-6 bg-gradient-to-br from-medical-blue to-navy-soft rounded-2xl p-5 flex items-center gap-4">
               <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center flex-shrink-0">
                 <Calendar className="w-6 h-6 text-white" />
@@ -371,10 +394,10 @@ export default function Hero({ onBookAppointment }: HeroProps) {
             </div>
           </div>
 
-          {/* ══════════ Right — Apple-style floating figure ══════════ */}
+          {/* ══════════ Right - Apple-style floating figure ══════════ */}
           <div ref={visualRef} className="hero-visual hidden lg:block relative mx-auto w-full max-w-[34rem]">
 
-            {/* Breathing rings — behind the figure */}
+            {/* Breathing rings - behind the figure */}
             <div
               className="absolute inset-0 flex items-center justify-center pointer-events-none"
               aria-hidden="true"
@@ -385,7 +408,7 @@ export default function Hero({ onBookAppointment }: HeroProps) {
               <div className="animate-breathe absolute w-[114%] aspect-square rounded-full border border-healing-green/[0.06]" style={{ animationDelay: '2.6s' }} />
             </div>
 
-            {/* Soft platform glow — grounds the floating figure */}
+            {/* Soft platform glow - grounds the floating figure */}
             <div
               className="absolute bottom-[8%] left-1/2 -translate-x-1/2 w-[70%] h-[18%] bg-healing-green/20 rounded-full blur-3xl pointer-events-none"
               aria-hidden="true"
@@ -400,7 +423,7 @@ export default function Hero({ onBookAppointment }: HeroProps) {
               <span className="absolute bottom-[34%] right-[2%] text-healing-green/15 text-lg font-light">+</span>
             </div>
 
-            {/* ── The doctor figure — no background, no container ── */}
+            {/* ── The doctor figure - no background, no container ── */}
             <div className="relative" data-depth="0.12">
               <picture>
                 <source type="image/webp" srcSet="/dr-verma-new.webp" />
@@ -419,7 +442,7 @@ export default function Hero({ onBookAppointment }: HeroProps) {
                 />
               </picture>
 
-              {/* Credential card — compact & bottom-right on mobile, centered on desktop */}
+              {/* Credential card - compact & bottom-right on mobile, centered on desktop */}
               <div className="hero-card absolute z-20 bottom-[5%] right-[-0.75rem] w-[185px] min-w-0 lg:bottom-[10%] lg:left-1/2 lg:right-auto lg:-translate-x-1/2 lg:w-[82%] lg:min-w-[240px]" data-depth="0.28">
                 <div className="bg-white/95 backdrop-blur-md border border-white/60 rounded-2xl shadow-card px-3 py-2.5 lg:px-5 lg:py-3.5 flex items-center gap-2.5 lg:gap-3.5">
                   <div className="w-9 h-9 lg:w-12 lg:h-12 rounded-full bg-healing-green flex items-center justify-center flex-shrink-0">

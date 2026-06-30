@@ -49,7 +49,7 @@ const generateContextMessage = (context: ContextMessage): string => {
 
         return `Hi, I completed the Breathing Health Assessment on your website.
 
-Score: ${context.score}/20 — ${riskText}
+Score: ${context.score}/20 (${riskText})
 Concerns: ${symptomsText}
 
 Please book me a consultation with Dr. Verma at the earliest.`;
@@ -127,10 +127,10 @@ Please book me a consultation with Dr. Verma and share an available slot.`;
 
     return (
         <>
-            {/* Chat Widget — full-height bottom sheet on mobile, floating card on desktop */}
+            {/* Chat Widget - full-height bottom sheet on mobile, floating card on desktop */}
             {isOpen && (
                 <>
-                {/* Mobile dim backdrop — tap to dismiss the sheet */}
+                {/* Mobile dim backdrop - tap to dismiss the sheet */}
                 <div
                     className="md:hidden fixed inset-0 bg-black/40 backdrop-blur-[2px] z-[60] animate-in fade-in duration-300"
                     onClick={() => setIsOpen(false)}
@@ -238,9 +238,9 @@ Please book me a consultation with Dr. Verma and share an available slot.`;
                 </>
             )}
 
-            {/* Floating Button — raised above the mobile bottom nav so it never covers it */}
+            {/* Floating Button - raised above the mobile bottom nav so it never covers it */}
             <div className={`fixed bottom-[88px] md:bottom-4 right-3 md:right-4 z-50 flex-col items-end gap-3 ${isOpen ? 'hidden md:flex' : 'flex'}`}>
-                {/* Tooltip — desktop only; on mobile it overlapped content */}
+                {/* Tooltip - desktop only; on mobile it overlapped content */}
                 {showTooltip && !isOpen && (
                     <div className="hidden md:block bg-white rounded-xl shadow-card px-4 py-3 text-sm text-gray-700 max-w-[220px] animate-in fade-in slide-in-from-bottom-2 duration-500">
                         <p className="font-medium text-medical-blue">Book an Appointment</p>

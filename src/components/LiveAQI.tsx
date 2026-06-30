@@ -152,7 +152,7 @@ export default function LiveAQI() {
                     {/* Main Hero & Simulation */}
                     <div className="flex-1 flex flex-col justify-center items-center text-center my-6">
                         <div className="relative">
-                            {/* Main Number — sized to never clip its card */}
+                            {/* Main Number - sized to never clip its card */}
                             <h2
                                 className="text-7xl lg:text-8xl font-bold tracking-tighter tabular-nums leading-none transition-colors duration-700"
                                 style={{ color: aqiLevel.color }}

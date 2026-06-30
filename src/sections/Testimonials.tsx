@@ -59,7 +59,7 @@ export default function Testimonials() {
           </p>
         </div>
 
-        {/* Stats Banner — one consistent set of numbers */}
+        {/* Stats Banner - one consistent set of numbers */}
         <div className="testimonial-title bg-gradient-to-r from-medical-blue to-navy-soft rounded-3xl p-6 sm:p-10 mb-12 sm:mb-16">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 text-center text-white">
             {stats.map((stat, i) => (
@@ -78,7 +78,7 @@ export default function Testimonials() {
           </div>
         </div>
 
-        {/* Google Reviews — the real social proof */}
+        {/* Google Reviews - the real social proof */}
         <div className="testimonial-title">
           <GoogleReviews variant="full" />
         </div>

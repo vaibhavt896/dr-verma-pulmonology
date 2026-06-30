@@ -29,12 +29,12 @@ const services = [
   },
   {
     icon: Moon,
-    title: 'Sleep Apnea & Snoring',
-    subtitle: 'Sleep-Related Breathing',
-    outcome: 'In-clinic diagnosis · CPAP & BiPAP fitting available',
-    description: 'Loud snoring is not merely a nuisance — untreated Sleep Apnea raises the risk of uncontrolled hypertension, diabetes complications, heart disease and sudden cardiac events during sleep.',
+    title: 'Sleep Disorders',
+    subtitle: 'Sleep Apnea · Insomnia · Parasomnia',
+    outcome: 'In-clinic sleep study · CPAP & BiPAP fitting available',
+    description: 'From obstructive sleep apnea and chronic insomnia to parasomnias, sleep-related disorders are fully evaluated and managed in-clinic. Untreated sleep apnea raises the risk of uncontrolled hypertension, diabetes complications and heart disease.',
     approach: 'How Dr. Verma Treats It',
-    approachDetail: 'In-clinic sleep study assessment, followed by CPAP or BiPAP titration and fitting at the clinic. Oxygen therapy also available. Surgery is considered only when conservative care is insufficient.',
+    approachDetail: 'A sleep study assessment to pinpoint the disorder, followed by CPAP or BiPAP titration and fitting at the clinic, plus targeted treatment for insomnia and parasomnia. Oxygen therapy is also available.',
     benefits: ['Restful, uninterrupted sleep', 'Better BP & sugar control', 'Reduced cardiac risk', 'CPAP / BiPAP fitting in-clinic'],
   },
   {
@@ -60,11 +60,11 @@ const services = [
   {
     icon: Microscope,
     title: 'Lung Function Testing',
-    subtitle: 'Diagnosis & Monitoring',
+    subtitle: 'PFT · Impulse Oscillometry',
     outcome: 'Same-day spirometry results, explained simply',
-    description: 'Unexplained breathlessness or a cough that will not settle deserves objective answers. In-house PFT testing means no outside referrals.',
+    description: 'Unexplained breathlessness or a cough that will not settle deserves objective answers. In-house PFT and impulse oscillometry mean no outside referrals.',
     approach: 'How Dr. Verma Treats It',
-    approachDetail: 'Full spirometry with bronchodilator response, performed in-clinic. Results are reviewed with you the same day in simple terms.',
+    approachDetail: 'Full spirometry with bronchodilator response and impulse oscillometry (IOS), performed in-clinic. Results are reviewed with you the same day in simple terms.',
     benefits: ['Accurate diagnosis', 'Same-day results', 'Clear explanation', 'Treatment roadmap'],
   },
 ];
@@ -228,7 +228,7 @@ export default function Services() {
                 className="rounded-2xl shadow-2xl w-full h-auto border-4 border-white/20"
               />
               <div className="absolute -bottom-3 -right-3 bg-healing-green text-white text-xs font-bold px-3 py-1 rounded-full">
-                15+ Services
+                30+ Conditions
               </div>
             </div>
           </div>
@@ -247,13 +247,17 @@ export default function Services() {
             <div className="grid sm:grid-cols-2 gap-x-8 gap-y-6">
               {[
                 {
-                  group: 'Conditions We Manage',
+                  group: 'Conditions We Treat',
                   items: [
                     'Tuberculosis (TB)',
-                    'Pneumonia & Chest Infections',
+                    'Interstitial Lung Disease (ILD)',
+                    'Asthma & COPD',
                     'Lung Cancer',
-                    'Pleural Effusion',
-                    'Pneumothorax & Hydropneumothorax',
+                    'Pneumonia & Chest Infections',
+                    'Pleural Effusion, Pneumothorax & Hydropneumothorax',
+                    'Sleep Disorders: Apnea, Insomnia & Parasomnia',
+                    'Respiratory Allergy & Allergic Rhinitis',
+                    'Pediatric Pulmonary Diseases (5+ yrs)',
                     'Critical Care & Respiratory ICU',
                   ],
                 },
@@ -262,10 +266,14 @@ export default function Services() {
                   items: [
                     'Bronchoscopy',
                     'Thoracoscopy',
+                    'EBUS (Endobronchial Ultrasound)',
+                    'Thoracentesis (Pleural Fluid Tapping)',
+                    'Intercostal Drainage (ICD) Tube Insertion',
+                    'Pleurodesis',
                     'Pulmonary Function Test (PFT)',
+                    'Impulse Oscillometry (IOS)',
                     'Sleep Study · CPAP & BiPAP',
-                    'Allergy Testing',
-                    'Nebulization & Oxygen Therapy',
+                    'Allergy Testing (Skin Prick)',
                   ],
                 },
               ].map((col) => (

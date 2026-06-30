@@ -88,7 +88,7 @@ export default function Navigation({ onNavigate }: NavigationProps) {
 
   return (
     <>
-      {/* Announcement Bar — all screens, slides away on scroll */}
+      {/* Announcement Bar - all screens, slides away on scroll */}
       <div
         className={`fixed top-0 left-0 right-0 z-50 bg-medical-blue text-white transition-transform duration-500 ease-smooth ${isScrolled ? '-translate-y-full' : 'translate-y-0'}`}
       >
@@ -128,24 +128,24 @@ export default function Navigation({ onNavigate }: NavigationProps) {
       >
         <div className={`mx-auto ${isScrolled ? 'max-w-none px-2' : 'max-w-7xl px-4 sm:px-6 lg:px-8'}`}>
           <div className={`flex items-center justify-between ${isScrolled ? 'gap-2' : 'gap-4'}`}>
-            {/* Logo — full lockup at the top of the page, icon mark once collapsed */}
+            {/* Logo - full lockup at the top of the page, icon mark once collapsed */}
             <button
               onClick={() => handleNavClick('home')}
               className="flex items-center group flex-shrink-0"
-              aria-label="Dr. A.K. Verma — go to top"
+              aria-label="Dr. A.K. Verma - go to top"
             >
-              {/* Full stacked lockup (icon + name + role) — expanded state */}
+              {/* Full stacked lockup (icon + name + role) - expanded state */}
               <picture className={isScrolled ? 'hidden' : 'block'}>
                 <source type="image/webp" srcSet="/logo-full.webp" />
                 <img
                   src="/logo-full.png"
-                  alt="Dr. A.K. Verma — Consultant Chest Physician"
+                  alt="Dr. A.K. Verma - Consultant Chest Physician"
                   width={853}
                   height={651}
                   className="h-14 w-auto object-contain drop-shadow-sm transition-transform duration-500 group-hover:scale-[1.03]"
                 />
               </picture>
-              {/* Icon mark only — collapsed pill state */}
+              {/* Icon mark only - collapsed pill state */}
               <picture className={isScrolled ? 'block' : 'hidden'}>
                 <source type="image/webp" srcSet="/logo-mark.webp" />
                 <img
@@ -177,7 +177,7 @@ export default function Navigation({ onNavigate }: NavigationProps) {
             {/* CTA Buttons */}
             <div className={`flex items-center ${isScrolled ? 'gap-2' : 'gap-4 lg:gap-5'}`}>
 
-              {/* Phone contact block — desktop, hidden once collapsed to pill */}
+              {/* Phone contact block - desktop, hidden once collapsed to pill */}
               <a
                 href="tel:+919454097191"
                 className={`items-center gap-2.5 group/phone ${isScrolled ? 'hidden' : 'hidden lg:flex'}`}
@@ -229,7 +229,7 @@ export default function Navigation({ onNavigate }: NavigationProps) {
               <source type="image/webp" srcSet="/logo-full.webp" />
               <img
                 src="/logo-full.png"
-                alt="Dr. A.K. Verma — Consultant Chest Physician"
+                alt="Dr. A.K. Verma - Consultant Chest Physician"
                 width={853}
                 height={651}
                 className="h-12 w-auto object-contain"
@@ -311,7 +311,7 @@ export default function Navigation({ onNavigate }: NavigationProps) {
             <span className="text-[10px] font-medium">About</span>
           </button>
 
-          {/* Book — elevated center */}
+          {/* Book - elevated center */}
           <div className="flex justify-center">
             <button
               onClick={() => { if (navigator.vibrate) navigator.vibrate(10); handleNavClick('contact'); }}

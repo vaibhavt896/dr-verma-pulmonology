@@ -1,4 +1,4 @@
-/* Self-hosted fonts — no render-blocking Google Fonts round-trips */
+/* Self-hosted fonts - no render-blocking Google Fonts round-trips */
 @import '@fontsource-variable/inter';
 @import '@fontsource-variable/plus-jakarta-sans';
 @import '@fontsource-variable/playfair-display/wght.css';
@@ -32,15 +32,15 @@
     --radius: 1rem;
 
     /*
-     * Brand palette — the ONLY colors the site uses.
+     * Brand palette - the ONLY colors the site uses.
      * RGB channel triplets so Tailwind opacity modifiers work (bg-healing-green/10).
      */
-    --rgb-navy: 2 6 23;          /* slate-950 — authority, headings, primary surfaces */
-    --rgb-navy-soft: 30 41 59;   /* slate-800 — gradient endpoint for navy surfaces  */
-    --rgb-teal: 13 148 136;      /* teal-600 — single accent (WCAG AA on white)      */
-    --rgb-teal-dim: 15 118 110;  /* teal-700 — hover state                           */
-    --rgb-coral: 225 29 72;      /* rose-600 — urgent only                           */
-    --rgb-bg: 248 250 252;       /* slate-50 — page background                       */
+    --rgb-navy: 2 6 23;          /* slate-950 - authority, headings, primary surfaces */
+    --rgb-navy-soft: 30 41 59;   /* slate-800 - gradient endpoint for navy surfaces  */
+    --rgb-teal: 13 148 136;      /* teal-600 - single accent (WCAG AA on white)      */
+    --rgb-teal-dim: 15 118 110;  /* teal-700 - hover state                           */
+    --rgb-coral: 225 29 72;      /* rose-600 - urgent only                           */
+    --rgb-bg: 248 250 252;       /* slate-50 - page background                       */
 
     /* Hex aliases for inline styles / plain CSS */
     --medical-blue: #020617;
@@ -51,7 +51,7 @@
     --soft-grey: #F8FAFC;
     --slate-grey: #475569;
 
-    /* Motion tokens — one easing language for the whole site */
+    /* Motion tokens - one easing language for the whole site */
     --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
     --dur-fast: 0.3s;
     --dur-base: 0.6s;
@@ -85,7 +85,7 @@
     letter-spacing: -0.02em;
   }
 
-  /* Serif voice — reserved for the single hero accent */
+  /* Serif voice - reserved for the single hero accent */
   .font-display {
     font-family: 'Playfair Display Variable', Georgia, serif;
   }
@@ -154,7 +154,7 @@
   }
 }
 
-/* Announcement bar ticker — mobile marquee */
+/* Announcement bar ticker - mobile marquee */
 @keyframes marquee {
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }

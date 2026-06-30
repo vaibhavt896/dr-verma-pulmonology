@@ -148,8 +148,8 @@ export default function Credentials() {
             Credentials & <span className="text-healing-green">Recognition</span>
           </h2>
           <p className="cred-header text-base sm:text-lg text-slate-500 max-w-2xl mx-auto leading-relaxed">
-            Workshops, CMEs, and invited faculty positions — ongoing commitment to staying
-            at the forefront of pulmonology and respiratory care.
+            Workshops, CMEs, and invited faculty positions reflect an ongoing commitment to
+            staying at the forefront of pulmonology and respiratory care.
           </p>
         </div>
 
