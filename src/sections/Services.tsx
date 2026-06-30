@@ -257,7 +257,7 @@ export default function Services() {
                     'Pleural Effusion, Pneumothorax & Hydropneumothorax',
                     'Sleep Disorders: Apnea, Insomnia & Parasomnia',
                     'Respiratory Allergy & Allergic Rhinitis',
-                    'Pediatric Pulmonary Diseases (5+ yrs)',
+                    'Paediatric Pulmonary Diseases (5+ yrs)',
                     'Critical Care & Respiratory ICU',
                   ],
                 },

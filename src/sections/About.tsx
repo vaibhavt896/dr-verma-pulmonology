@@ -92,15 +92,20 @@ export default function About() {
               About Dr. A.K. Verma
             </span>
 
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-medical-blue mb-6 leading-tight">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-medical-blue mb-4 leading-tight">
               Restoring Your Health & <span className="text-healing-green">Peace of Mind</span>
             </h2>
+
+            {/* Clinic positioning, exactly as on the clinic's own materials */}
+            <p className="text-base sm:text-lg font-semibold text-slate-700 mb-6">
+              Patel Chest &amp; Allergy Clinic: a Superspeciality Center for Chest, Allergy &amp; Sleep Disorder, caring for adults and children.
+            </p>
 
             {/* Single Powerful Quote */}
             <blockquote className="text-lg sm:text-xl text-slate-600 leading-relaxed mb-8 border-l-4 border-healing-green pl-4 sm:pl-6">
               "Most respiratory disease is treatable when caught early. My goal for every patient is simple: understand the cause, treat it properly, and prevent it from coming back."
               <footer className="mt-3 text-sm font-semibold text-medical-blue">
-                Dr. A.K. Verma, MBBS, MD (KGMU), DM (Pulmonary, Critical Care & Sleep Medicine)
+                Dr. A.K. Verma, MBBS, MD (KGMU), DM (Pulmonary, Critical Care & Sleep Medicine), Vallabhbhai Patel Chest Institute, University of Delhi
               </footer>
             </blockquote>
 

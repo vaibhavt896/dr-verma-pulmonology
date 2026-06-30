@@ -197,7 +197,7 @@ export default function Hero({ onBookAppointment }: HeroProps) {
 
             {/* Paragraph */}
             <p className="hero-fade text-[15px] lg:text-lg text-slate-600 mb-4 lg:mb-4 leading-relaxed max-w-lg">
-              <span className="font-semibold text-medical-blue">Expert pulmonary, sleep &amp; critical care</span>, with accurate diagnosis and a personalized treatment plan at our Ashok Nagar clinic.
+              <span className="font-semibold text-medical-blue">Expert pulmonary, allergy, sleep &amp; critical care</span> for adults and children, with accurate diagnosis and a personalized treatment plan at our Ashok Nagar clinic.
             </p>
 
             {/* Specialised-care chips: the doctor's key conditions & procedures, clearly visible up top */}
@@ -205,15 +205,16 @@ export default function Hero({ onBookAppointment }: HeroProps) {
               <p className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider mb-2">Specialised care for</p>
               <div className="flex flex-wrap gap-1.5">
                 {[
+                  'Asthma',
+                  'COPD',
+                  'Respiratory Allergy',
                   'Tuberculosis (TB)',
                   'Interstitial Lung Disease (ILD)',
                   'Lung Cancer',
                   'Sleep Apnea',
                   'Insomnia',
                   'Parasomnia',
-                  'Impulse Oscillometry',
-                  'Thoracentesis',
-                  'Intercostal Tube Insertion',
+                  'Paediatric Pulmonary Diseases',
                 ].map((tag) => (
                   <span key={tag} className="inline-flex items-center gap-1.5 rounded-full border border-healing-green/25 bg-healing-green/[0.07] px-2.5 py-1 text-[11px] font-semibold text-medical-blue">
                     <span className="w-1.5 h-1.5 rounded-full bg-healing-green flex-shrink-0" />
