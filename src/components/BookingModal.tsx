@@ -8,15 +8,29 @@ interface BookingModalProps {
     onClose: () => void;
 }
 
+// Bookable slots at 10-minute intervals across the clinic's consulting hours
+// (12:00 PM to 3:00 PM and 6:30 PM to 8:30 PM, Mon to Sat).
+const buildSlots = (startMin: number, endMin: number, step: number): string[] => {
+    const out: string[] = [];
+    for (let t = startMin; t < endMin; t += step) {
+        const h24 = Math.floor(t / 60);
+        const m = t % 60;
+        const period = h24 >= 12 ? 'PM' : 'AM';
+        const h12 = h24 % 12 === 0 ? 12 : h24 % 12;
+        out.push(`${h12}:${String(m).padStart(2, '0')} ${period}`);
+    }
+    return out;
+};
+
 const timeSlots = [
-    '12:00 PM', '12:30 PM', '1:00 PM', '1:30 PM', '2:00 PM', '2:30 PM',
-    '6:30 PM', '7:00 PM', '7:30 PM', '8:00 PM', '8:30 PM'
+    ...buildSlots(12 * 60, 15 * 60, 10),            // 12:00 PM to 3:00 PM
+    ...buildSlots(18 * 60 + 30, 20 * 60 + 30, 10),  // 6:30 PM to 8:30 PM
 ];
 
 const consultationTypes = [
-    { id: 'in-person', label: 'In-Person Visit', duration: '30 min', description: 'Full consultation' },
-    { id: 'follow-up', label: 'Follow-up Consultation', duration: '15 min', description: 'Progress review' },
-    { id: 'emergency', label: 'Emergency Consultation', duration: '45 min', description: 'Priority care' },
+    { id: 'in-person', label: 'In-Person Visit', duration: '10 min', description: 'Full consultation' },
+    { id: 'follow-up', label: 'Follow-up Consultation', duration: '10 min', description: 'Progress review' },
+    { id: 'emergency', label: 'Emergency Consultation', duration: '10 min', description: 'Priority care' },
 ];
 
 export default function BookingModal({ isOpen, onClose }: BookingModalProps) {

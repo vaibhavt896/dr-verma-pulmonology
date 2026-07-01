@@ -98,7 +98,7 @@ export default function Clinic() {
             {/* Google Map Embed */}
             <div className="clinic-image rounded-3xl overflow-hidden shadow-lg border border-gray-200 h-64">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3571.5588!2d80.3319!3d26.4499!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x399c47f0b5d1e7b5%3A0x2e5cff0b5d1e7b5!2sAshok%20Nagar%2C%20Kanpur!5e0!3m2!1sen!2sin!4v1234567890"
+                src="https://maps.google.com/maps?q=26.472912,80.316266&z=16&output=embed"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
@@ -126,7 +126,7 @@ export default function Clinic() {
                 Uttar Pradesh, India
               </p>
               <a
-                href="https://maps.google.com/?q=26.4499,80.3319"
+                href="https://www.google.com/maps/dir/?api=1&destination=26.472912,80.316266"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center text-healing-green font-semibold hover:underline"

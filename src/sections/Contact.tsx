@@ -20,7 +20,7 @@ const contactInfo = [
     icon: MapPin,
     title: 'Location',
     content: 'Ashok Nagar, Kanpur',
-    link: 'https://maps.google.com/?q=26.4499,80.3319',
+    link: 'https://maps.google.com/?q=26.472912,80.316266',
     color: 'var(--care-coral)',
     external: true,
   },
