@@ -87,23 +87,26 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
         });
     };
 
-    // Compose the appointment details as a WhatsApp message for the clinic.
+    // Compose the appointment details as a clean, formatted WhatsApp message
+    // for the doctor (WhatsApp renders *bold*/_italic_ client-side).
     const buildWhatsAppMessage = () => {
         const typeLabel = consultationTypes.find(t => t.id === selectedType)?.label ?? 'Consultation';
         const lines = [
-            '*New Appointment Request*',
-            'Patel Chest & Allergy Clinic',
+            '*Dr. A.K. Verma*',
+            '_Consultant Chest Physician_',
             '',
-            `Name: ${formData.name.trim()}`,
-            `Phone: ${formData.phone.trim()}`,
-            `Date: ${selectedDate ? formatDate(selectedDate) : ''}`,
-            `Time: ${selectedTime}`,
-            `Consultation: ${typeLabel}`,
+            '*New Appointment Booking*',
+            '',
+            `*Patient:* ${formData.name.trim()}`,
+            `*Phone:* ${formData.phone.trim()}`,
+            `*Date:* ${selectedDate ? formatDate(selectedDate) : ''}`,
+            `*Time:* ${selectedTime}`,
+            `*Consultation:* ${typeLabel}`,
         ];
         if (formData.symptoms.trim()) {
-            lines.push(`Symptoms: ${formData.symptoms.trim()}`);
+            lines.push(`*Symptoms:* ${formData.symptoms.trim()}`);
         }
-        lines.push('', 'Please confirm my appointment. Thank you.');
+        lines.push('', 'Kindly confirm this appointment at your convenience.');
         return lines.join('\n');
     };
 

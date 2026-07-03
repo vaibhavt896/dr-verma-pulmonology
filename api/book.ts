@@ -59,17 +59,21 @@ export default async function handler(req: Req, res: Res) {
         return;
     }
 
-    // Short, professional, to-the-point message for the doctor.
+    // Clean, formatted booking slip for the doctor (WhatsApp renders *bold*/_italic_).
     const message = [
-        'New Appointment Request',
-        'Patel Chest & Allergy Clinic',
+        '*Dr. A.K. Verma*',
+        '_Consultant Chest Physician_',
         '',
-        `Patient: ${name}`,
-        `Phone: ${phone}`,
-        `Date: ${date}`,
-        `Time: ${time}`,
-        `Type: ${body.type?.trim() || 'Consultation'}`,
-        `Symptoms: ${body.symptoms?.trim() || 'Not specified'}`,
+        '*New Appointment Booking*',
+        '',
+        `*Patient:* ${name}`,
+        `*Phone:* ${phone}`,
+        `*Date:* ${date}`,
+        `*Time:* ${time}`,
+        `*Consultation:* ${body.type?.trim() || 'General Consultation'}`,
+        `*Symptoms:* ${body.symptoms?.trim() || 'Not specified'}`,
+        '',
+        'Booked via the website.',
     ].join('\n');
 
     const url =
