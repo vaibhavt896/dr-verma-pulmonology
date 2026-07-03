@@ -56,7 +56,7 @@ export default function Footer({ onNavigate }: FooterProps) {
               </div>
             </div>
             <p className="text-white/70 leading-relaxed mb-6">
-              Patel Chest &amp; Allergy Clinic: a Superspeciality Center for Chest, Allergy &amp; Sleep Disorder in Kanpur. Consultant Chest Physician &amp; Interventional Pulmonologist. MBBS, MD (KGMU), DM (Pulmonary, Critical Care &amp; Sleep Medicine). 15+ years experience. 4.9★ Google rating from 479+ patient reviews.
+              Patel Chest &amp; Allergy Clinic: a Superspeciality Center for Chest, Allergy &amp; Sleep Disorder in Kanpur. Consultant Chest Physician &amp; Interventional Pulmonologist. MBBS, MD (KGMU), DM (Pulmonary, Critical Care &amp; Sleep Medicine). 11+ years experience. 4.9★ Google rating from 479+ patient reviews.
             </p>
 
             {/* Rating Badge */}

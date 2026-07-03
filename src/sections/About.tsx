@@ -112,7 +112,7 @@ export default function About() {
             {/* 3 Key Stats - single row with dividers */}
             <div className="flex items-center divide-x divide-slate-200 mb-8">
               <div className="pr-4 sm:pr-6">
-                <div className="text-2xl sm:text-3xl lg:text-4xl font-bold text-healing-green counter">15+</div>
+                <div className="text-2xl sm:text-3xl lg:text-4xl font-bold text-healing-green counter">11+</div>
                 <div className="text-xs sm:text-sm text-slate-600 mt-0.5">Years Experience</div>
               </div>
               <div className="px-4 sm:px-6">

@@ -197,7 +197,7 @@ export default function Hero({ onBookAppointment }: HeroProps) {
 
             {/* Paragraph */}
             <p className="hero-fade text-[15px] lg:text-lg text-slate-600 mb-4 lg:mb-4 leading-relaxed max-w-lg">
-              <span className="font-semibold text-medical-blue">Expert pulmonary, allergy, sleep &amp; critical care</span> for adults and children, with accurate diagnosis and a personalized treatment plan at our Ashok Nagar clinic.
+              <span className="font-semibold text-medical-blue">Expert Pulmonary, Critical Care, Sleep, and Allergy</span> care for adults and children, with accurate diagnosis and a personalized treatment plan at our Ashok Nagar clinic.
             </p>
 
             {/* Specialised-care chips: the doctor's key conditions & procedures, clearly visible up top */}
@@ -301,7 +301,7 @@ export default function Hero({ onBookAppointment }: HeroProps) {
                 </span>
                 <div className="flex flex-col">
                   <span className="counter font-bold text-medical-blue text-lg sm:text-2xl leading-none">
-                    <span data-count="15">15</span>+
+                    <span data-count="11">11</span>+
                   </span>
                   <span className="text-[11px] sm:text-xs text-slate-500 mt-1">Years of Experience</span>
                 </div>
@@ -345,7 +345,7 @@ export default function Hero({ onBookAppointment }: HeroProps) {
               </div>
               <div className="flex flex-col items-center text-center px-1">
                 <Users className="w-5 h-5 text-healing-green mb-2" />
-                <span className="counter font-bold text-medical-blue text-xl leading-none"><span data-count="15">15</span>+</span>
+                <span className="counter font-bold text-medical-blue text-xl leading-none"><span data-count="11">11</span>+</span>
                 <span className="text-[11px] text-slate-500 mt-1 leading-tight">Years of Experience</span>
               </div>
               <div className="flex flex-col items-center text-center px-1">

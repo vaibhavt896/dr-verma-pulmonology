@@ -11,7 +11,7 @@ const stats = [
   { value: '4.9 / 5', label: 'Average Google rating' },
   { value: '479+', label: 'Patient reviews' },
   { value: '10,000+', label: 'Patients treated' },
-  { value: '15+', label: 'Years of experience' },
+  { value: '11+', label: 'Years of experience' },
 ];
 
 export default function Testimonials() {
