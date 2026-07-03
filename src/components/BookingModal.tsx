@@ -33,6 +33,9 @@ const consultationTypes = [
     { id: 'emergency', label: 'Emergency Consultation', duration: '10 min', description: 'Priority care' },
 ];
 
+// Clinic WhatsApp number (international format, no '+'), matching the rest of the site.
+const CLINIC_WHATSAPP = '919454097191';
+
 export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
     const [step, setStep] = useState(1);
     const [selectedType, setSelectedType] = useState('');
@@ -47,6 +50,7 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
     });
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
+    const [autoSent, setAutoSent] = useState(false);
 
     if (!isOpen) return null;
 
@@ -74,14 +78,6 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
         }
     };
 
-    const handleSubmit = async () => {
-        setIsSubmitting(true);
-        // Simulate API call
-        await new Promise(resolve => setTimeout(resolve, 2000));
-        setIsSubmitting(false);
-        setIsSuccess(true);
-    };
-
     const formatDate = (date: Date) => {
         return date.toLocaleDateString('en-IN', {
             weekday: 'long',
@@ -89,6 +85,65 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
             month: 'long',
             year: 'numeric',
         });
+    };
+
+    // Compose the appointment details as a WhatsApp message for the clinic.
+    const buildWhatsAppMessage = () => {
+        const typeLabel = consultationTypes.find(t => t.id === selectedType)?.label ?? 'Consultation';
+        const lines = [
+            '*New Appointment Request*',
+            'Patel Chest & Allergy Clinic',
+            '',
+            `Name: ${formData.name.trim()}`,
+            `Phone: ${formData.phone.trim()}`,
+            `Date: ${selectedDate ? formatDate(selectedDate) : ''}`,
+            `Time: ${selectedTime}`,
+            `Consultation: ${typeLabel}`,
+        ];
+        if (formData.symptoms.trim()) {
+            lines.push(`Symptoms: ${formData.symptoms.trim()}`);
+        }
+        lines.push('', 'Please confirm my appointment. Thank you.');
+        return lines.join('\n');
+    };
+
+    // Open WhatsApp addressed to the clinic with the pre-filled appointment details.
+    // Called directly from the click handler so the browser treats it as a user
+    // gesture and does not block the new tab.
+    const openWhatsApp = () => {
+        const url = `https://wa.me/${CLINIC_WHATSAPP}?text=${encodeURIComponent(buildWhatsAppMessage())}`;
+        window.open(url, '_blank', 'noopener,noreferrer');
+    };
+
+    const handleSubmit = async () => {
+        setIsSubmitting(true);
+
+        const typeLabel = consultationTypes.find(t => t.id === selectedType)?.label ?? 'Consultation';
+        let sent = false;
+        try {
+            // Send the appointment straight to the clinic's WhatsApp via the
+            // serverless function (CallMeBot). No manual step for the patient.
+            const res = await fetch('/api/book', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    name: formData.name.trim(),
+                    phone: formData.phone.trim(),
+                    date: selectedDate ? formatDate(selectedDate) : '',
+                    time: selectedTime,
+                    type: typeLabel,
+                    symptoms: formData.symptoms.trim(),
+                }),
+            });
+            const data = await res.json().catch(() => null);
+            sent = res.ok && data?.ok === true;
+        } catch {
+            sent = false;
+        }
+
+        setAutoSent(sent);
+        setIsSubmitting(false);
+        setIsSuccess(true);
     };
 
     const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
@@ -143,21 +198,39 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
                             <div className="w-20 h-20 bg-healing-green/10 rounded-full flex items-center justify-center mx-auto mb-6">
                                 <CheckCircle className="w-10 h-10 text-healing-green" />
                             </div>
-                            <h3 className="text-2xl font-bold text-medical-blue mb-2">Appointment Confirmed!</h3>
+                            <h3 className="text-2xl font-bold text-medical-blue mb-2">
+                                {autoSent ? 'Appointment Request Sent!' : 'Almost There!'}
+                            </h3>
                             <p className="text-slate-600 mb-6">
-                                Your appointment has been scheduled for<br />
+                                Your request for<br />
                                 <strong>{selectedDate && formatDate(selectedDate)}</strong> at <strong>{selectedTime}</strong>
                             </p>
                             <div className="bg-soft-grey rounded-2xl p-6 max-w-sm mx-auto">
-                                <p className="text-sm text-slate-600 mb-4">
-                                    A confirmation has been sent to your phone. Please arrive 10 minutes early.
-                                </p>
+                                {autoSent ? (
+                                    <p className="text-sm text-slate-600">
+                                        Your details have been sent to Patel Chest &amp; Allergy Clinic on WhatsApp.
+                                        The clinic will contact you shortly to confirm. Please arrive 10 minutes early.
+                                    </p>
+                                ) : (
+                                    <>
+                                        <p className="text-sm text-slate-600 mb-4">
+                                            Tap below to send your appointment details to the clinic on WhatsApp and confirm your booking.
+                                        </p>
+                                        <button
+                                            onClick={openWhatsApp}
+                                            className="inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#20BA5C] text-white font-semibold px-5 py-2.5 rounded-full transition-colors"
+                                        >
+                                            <MessageSquare className="w-4 h-4" />
+                                            Send on WhatsApp
+                                        </button>
+                                    </>
+                                )}
                                 <a
                                     href="tel:+919454097191"
-                                    className="inline-flex items-center gap-2 text-healing-green font-semibold"
+                                    className="mt-4 inline-flex items-center gap-2 text-healing-green font-semibold w-full justify-center"
                                 >
                                     <Phone className="w-4 h-4" />
-                                    +91-9454097191
+                                    Or call +91-9454097191
                                 </a>
                             </div>
                             <Button
