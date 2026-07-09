@@ -3,6 +3,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Navigation from '../sections/Navigation';
 import Hero from '../sections/Hero';
+import AcademicExcellence from '../sections/AcademicExcellence';
 import ProblemAwareness from '../sections/ProblemAwareness';
 import SymptomChecker from '../sections/SymptomChecker';
 import About from '../sections/About';
@@ -64,6 +65,10 @@ export default function Home() {
             <main>
                 <section id="home">
                     <Hero onBookAppointment={() => setIsBookingOpen(true)} />
+                </section>
+
+                <section id="academic-excellence">
+                    <AcademicExcellence />
                 </section>
 
                 <section id="problem">
