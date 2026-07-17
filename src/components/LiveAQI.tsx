@@ -11,6 +11,17 @@ interface AQIData {
     status: 'loading' | 'success' | 'error';
 }
 
+// The station can lag behind real time (CPCB feeds to WAQI sometimes stall
+// for days), so a bare clock time would pass off an old reading as today's.
+// Include the date whenever the reading is not from today.
+const formatReadingTime = (s?: string) => {
+    const reading = s ? new Date(s) : new Date();
+    if (isNaN(reading.getTime())) return new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
+    const timePart = reading.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
+    if (reading.toDateString() === new Date().toDateString()) return timePart;
+    return `${reading.toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })}, ${timePart}`;
+};
+
 // Cinematic AQI Definitions with "Atmosphere" colors
 const getAQILevel = (aqi: number) => {
     if (aqi <= 50) return {
@@ -74,39 +85,73 @@ export default function LiveAQI() {
     const [isRefreshing, setIsRefreshing] = useState(false);
     const smokeRef = useRef<HTMLDivElement>(null);
 
-    const fetchAQI = async () => {
+    // Queried by station UID (@13727 = FTI Kidwai Nagar, Kanpur) rather than
+    // raw geo-coordinates: WAQI's nearest-station lookup for this city's lat/lng
+    // reliably returns "can not connect", while the station UID is stable.
+    const fetchAQI = async (): Promise<boolean> => {
         setIsRefreshing(true);
         try {
-            // Simulate API call for demo if token fails, or use real one
             const response = await fetch(
-                'https://api.waqi.info/feed/geo:26.458;80.350/?token=6008235d80ef7200e13c90e350b6d058501f8e87'
+                'https://api.waqi.info/feed/@13727/?token=6008235d80ef7200e13c90e350b6d058501f8e87'
             );
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
             const data = await response.json();
 
-            if (data.status === 'ok' && data.data) {
+            // WAQI can return HTTP 200 with a top-level status "ok" while the
+            // station lookup itself failed nested inside data.data (e.g.
+            // {"status":"ok","data":{"status":"error","msg":"Unknown ID"}}).
+            // A numeric aqi is the only reliable signal of a real reading.
+            const isValidReading = data.status === 'ok' && data.data && data.data.status !== 'error'
+                && (typeof data.data.aqi === 'number' || (typeof data.data.aqi === 'string' && data.data.aqi !== '-' && !isNaN(parseInt(data.data.aqi))));
+
+            if (isValidReading) {
                 const { aqi, iaqi, time } = data.data;
                 setAqiData({
-                    aqi: typeof aqi === 'number' ? aqi : parseInt(aqi) || 0,
+                    aqi: typeof aqi === 'number' ? aqi : parseInt(aqi),
                     pm25: iaqi?.pm25?.v || 0,
                     pm10: iaqi?.pm10?.v || 0,
-                    lastUpdated: time?.s ? new Date(time.s).toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' }) : new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' }),
+                    lastUpdated: formatReadingTime(time?.s),
                     station: 'Kanpur',
                     status: 'success'
                 });
-            } else {
-                setAqiData(prev => ({ ...prev, status: 'error' }));
+                setIsRefreshing(false);
+                return true;
             }
-        } catch (error) {
+            throw new Error('Invalid API response');
+        } catch {
             setAqiData(prev => ({ ...prev, status: 'error' }));
+            setIsRefreshing(false);
+            return false;
         }
-        setIsRefreshing(false);
     };
 
     useEffect(() => {
-        fetchAQI();
+        let cancelled = false;
+        let retryTimeout: ReturnType<typeof setTimeout>;
+
+        const attempt = async () => {
+            const success = await fetchAQI();
+            // `attempt` is async, so cleanup (e.g. React StrictMode's dev-mode
+            // double-invoke) can run before this resolves. Without this guard
+            // a cleaned-up effect would still schedule a retryTimeout that
+            // nothing clears, leaking a permanent retry loop.
+            if (cancelled) return;
+            if (!success) {
+                // Retry sooner on failure instead of waiting for the full 5-minute cycle.
+                retryTimeout = setTimeout(attempt, 30 * 1000);
+            }
+        };
+        attempt();
+
         const interval = setInterval(fetchAQI, 5 * 60 * 1000);
-        return () => clearInterval(interval);
+        return () => {
+            cancelled = true;
+            clearInterval(interval);
+            clearTimeout(retryTimeout);
+        };
     }, []);
+
+    const neverLoaded = aqiData.status === 'error' && aqiData.lastUpdated === '';
 
     const aqiLevel = getAQILevel(aqiData.aqi);
 
@@ -144,7 +189,7 @@ export default function LiveAQI() {
                         {/* Live Indicator */}
                         <div className="px-3 py-1 rounded-full bg-slate-50 border border-slate-200">
                             <span className="text-[10px] font-bold uppercase tracking-wide text-medical-blue/70">
-                                {aqiData.status === 'loading' ? 'Syncing...' : 'Live'}
+                                {aqiData.status === 'loading' ? 'Syncing...' : aqiData.status === 'error' ? 'Retrying...' : 'Live'}
                             </span>
                         </div>
                     </div>
@@ -155,19 +200,19 @@ export default function LiveAQI() {
                             {/* Main Number - sized to never clip its card */}
                             <h2
                                 className="text-7xl lg:text-8xl font-bold tracking-tighter tabular-nums leading-none transition-colors duration-700"
-                                style={{ color: aqiLevel.color }}
+                                style={{ color: neverLoaded ? '#94A3B8' : aqiLevel.color }}
                             >
-                                {aqiData.status === 'loading' ? '--' : aqiData.aqi}
+                                {aqiData.status === 'loading' || neverLoaded ? '--' : aqiData.aqi}
                             </h2>
                             <span className="block mt-2 text-xs font-bold uppercase tracking-[0.3em] text-slate-400 text-center">AQI</span>
                         </div>
 
                         <div className="mt-4 space-y-1">
-                            <p className={`text-2xl font-bold transition-colors duration-700 ${aqiLevel.textColor}`}>
-                                {aqiLevel.label}
+                            <p className={`text-2xl font-bold transition-colors duration-700 ${neverLoaded ? 'text-slate-500' : aqiLevel.textColor}`}>
+                                {neverLoaded ? 'Unable to Load' : aqiLevel.label}
                             </p>
                             <p className="text-sm text-slate-600 max-w-[240px] mx-auto">
-                                {aqiLevel.description}
+                                {neverLoaded ? 'Retrying automatically...' : aqiLevel.description}
                             </p>
                         </div>
                     </div>
@@ -201,8 +246,15 @@ export default function LiveAQI() {
                                 <span className="font-semibold">Last Update</span>
                                 <RefreshCw className={`w-3 h-3 ${isRefreshing ? 'animate-spin' : ''}`} />
                             </div>
-                            <div className="text-lg font-bold text-medical-blue">
-                                {aqiData.lastUpdated || '--:--'}
+                            <div className="font-bold text-medical-blue">
+                                {aqiData.lastUpdated.includes(',') && (
+                                    <span className="block text-[10px] font-semibold text-slate-500 uppercase tracking-wide">
+                                        {aqiData.lastUpdated.split(', ')[0]}
+                                    </span>
+                                )}
+                                <span className="text-lg leading-tight">
+                                    {aqiData.lastUpdated ? (aqiData.lastUpdated.split(', ').pop()) : '--:--'}
+                                </span>
                             </div>
                             <a
                                 href="https://aqicn.org/city/india/uttar-pradesh/kanpur/"
